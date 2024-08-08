@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidenav from "./components/Sidenav";
 import Searchbar from "./components/partials/Searchbar";
-import Carousel from "./components/Caraousel";
+import Home from "./components/Home";
 
 const App = () => {
-    // text-[#C147E9]
+    const [isSidenavOpen, setIsSidenavOpen] = useState(false)
     return (
-        <div className="w-full min-h-screen bg-zinc-900 text-white flex san-public">
-            <Sidenav />
-            <div className="w-full">
-                <Searchbar />
-                <Carousel />
-            </div>
+        <div className={`w-full bg-[#0F0617] text-white san-public relative`}>
+            { isSidenavOpen && <div onClick={()=>setIsSidenavOpen(false)} className="w-full absolute right-0 top-0 h-full bg-black opacity-70 z-[110]"></div>}
+            <Sidenav isSidenavOpen={isSidenavOpen} setIsSidenavOpen={setIsSidenavOpen} />
+            <Home />
         </div>
     );
 };
