@@ -4,6 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+    @apply w-[5px] bg-zinc-800
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-zinc-800 rounded-lg
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-[#C147E9] rounded-lg cursor-pointer hover:bg-[#cc76e8]
+    
+}
+
 .lobster {
     font-family: "Lobster", sans-serif;
 }
