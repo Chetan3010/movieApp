@@ -1,11 +1,40 @@
-import React from 'react'
+import React from "react";
+import DropdownMenu from "./DropdownMenu";
 
-const HorizontalCards = ({data}) => {
-  return (
-    <div className='w-full px-2 bg-zinc-600 mt-2'>
+const HorizontalCards = ({ title, items, filter = false }) => {
 
-    </div>
-  )
-}
+    const handleSelect = (option) => {
+        console.log("Selected:", option);
+    };
 
-export default HorizontalCards
+    return (
+        <div className="w-full px-2 mt-2">
+            <div className="flex items-end justify-between px-2 md:px-10">
+                <h1 className="text-xl">{title}</h1>
+                {filter && (
+                    <DropdownMenu
+                        title="Filter"
+                        options={filter}
+                        onSelect={handleSelect}
+                    />
+                )}
+            </div>
+            <div className="w-full flex gap-2 md:gap-3 py-2 md:py-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {items.length > 0 &&
+                    items.map(
+                        (item, index) =>
+                            item?.poster_path && (
+                                <img
+                                    key={index}
+                                    className={`${index===0 ? "md:ml-10" : index===items.length-1 ? "md:mr-10" : ""} w-[6.5rem] md:w-56 h-36 md:h-80 flex-shrink-0 object-center object-cover rounded-md overflow-hidden bg-zinc-500`}
+                                    src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
+                                    alt={item.id}
+                                />
+                            )
+                    )}
+            </div>
+        </div>
+    );
+};
+
+export default HorizontalCards;

@@ -116,7 +116,7 @@ const Caraousel = () => {
                 <div className="flex w-full">
                     <div
                         key={previousIndex}
-                        className={`relative w-[15%] flex-none px-1 sm:px-2 box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
+                        className={`relative w-[10%] flex-none px-1 sm:px-2 box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
                         onClick={handlePrevClick}
                     >
                         <img
@@ -128,7 +128,7 @@ const Caraousel = () => {
                     </div>
                     <div
                         key={currentIndex}
-                        className={`w-full md:w-[70%] flex-none px-2 box-border relative cursor-pointer`}
+                        className={`w-full md:w-[80%] flex-none px-2 box-border relative cursor-pointer`}
                     >
                         <img
                             src={`https://image.tmdb.org/t/p/original/${trendingData[currentIndex]?.backdrop_path}`}
@@ -189,7 +189,7 @@ const Caraousel = () => {
                     </div>
                     <div
                         key={nextIndex}
-                        className={`relative w-[15%] flex-none px-1 sm:px-2 box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
+                        className={`relative w-[10%] flex-none px-1 sm:px-2 box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
                         onClick={handleNextClick}
                     >
                         <img
@@ -201,7 +201,7 @@ const Caraousel = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full flex justify-center mt-2">
+            <div className="w-full flex justify-center mt-2 md:mt-4">
                 {trendingData.map((_, index) => (
                     <div
                         key={index}
