@@ -41,3 +41,7 @@ export const defaultConst = {
         "Well, that’s it! You’ve reached the bottom. Achievement unlocked!",
     ]
 }
+
+export const env = {
+    TMDB_AUTH: import.meta.env.VITE_TMDB_AUTH    
+}
