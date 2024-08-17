@@ -22,9 +22,9 @@ export const apiEndpoints = {
         multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, options: {}, dataPath: 'data.results', returnNew: true })
     },
     others: {
-        proxyServerLocal: "http://localhost:3000",
-        // proxyServer: "https://proxy-server-brown.vercel.app",
-        proxyServer: "https://proxyserver-u5de.onrender.com"
+        // proxyServerLocal: "http://localhost:3000",
+        proxyServer: "https://proxy-server-brown.vercel.app",
+        // proxyServer: "https://proxyserver-u5de.onrender.com"
     },
 };
 
