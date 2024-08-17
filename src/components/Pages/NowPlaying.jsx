@@ -47,7 +47,6 @@ const NowPlaying = () => {
             className={`w-full min-h-screen bg-[#0F0617] text-white san-public relative`}
         >
             <Topnav />
-            <div className="fixed w-10 h-10 top-10 right-10 z-50 rounded-full bg-gray-700 text-white flex justify-center items-center">{moviePage}</div>
             <div className="w-full mt-2 md:mt-5 flex flex-col items-center justify-center">
                 <h1 className="text-3xl md:text-5xl font-semibold mb-5">
                     {selectionType === "tv"

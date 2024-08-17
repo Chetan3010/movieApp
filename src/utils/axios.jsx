@@ -1,8 +1,8 @@
 import axios from "axios";
-import { env } from "./constants";
+import { apiEndpoints, env } from "./constants";
 
 const instance = axios.create({
-    baseURL: "https://api.themoviedb.org/3/",
+    baseURL: apiEndpoints.others.proxyServer || apiEndpoints.others.proxyServerLocal,
     headers: {
         Accept: "application/json",
         Authorization: env.TMDB_AUTH

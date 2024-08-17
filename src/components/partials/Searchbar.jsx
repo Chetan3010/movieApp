@@ -1,41 +1,46 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "../../utils/axios";
 import { BsSearch } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import loader from "/loader.svg";
+import { useFetch } from "../../hooks/useFetch";
+import { apiEndpoints } from "../../utils/constants";
 
 const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
     const [query, setQuery] = useState("");
-    const [searches, setSearches] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const debounceTimeout = useRef(null);
+    const {
+        data: searches,
+        setData: setSearches,
+        isPending: isLoading,
+        totalPages: movieTotalPages,
+    } = useFetch(apiEndpoints.search.multi({ query }));
 
-    const getSearches = async () => {
-        try {
-            const { data } = await axios.get(`/search/multi?query=${query}`);
-            setSearches(data.results);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    // const getSearches = async () => {
+    //     try {
+    //         const { data } = await axios.get(`/search/multi?query=${query}`);
+    //         setSearches(data.results);
+    //     } catch (error) {
+    //         console.error(error);
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // };
 
-    useEffect(() => {
-        if (debounceTimeout.current) {
-            clearTimeout(debounceTimeout.current);
-        }
-        debounceTimeout.current = setTimeout(() => {
-            if (query) {
-                getSearches();
-            }
-        }, 1000);
+    // useEffect(() => {
+    //     if (debounceTimeout.current) {
+    //         clearTimeout(debounceTimeout.current);
+    //     }
+    //     debounceTimeout.current = setTimeout(() => {
+    //         if (query) {
+    //             getSearches();
+    //         }
+    //     }, 1000);
 
-        return () => {
-            clearTimeout(debounceTimeout.current);
-        };
-    }, [query]);
+    //     return () => {
+    //         clearTimeout(debounceTimeout.current);
+    //     };
+    // }, [query]);
 
     return (
         <div
@@ -45,13 +50,15 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
         >
             <div className="w-full md:w-[70%] relative bg-transparent border-[1px] border-zinc-600 px-4 flex items-center rounded mb-4 md:mb-0 md:rounded-full">
                 <BsSearch className="cursor-pointer" />
-                <form className="w-full" onSubmit={(e)=>{
-                    e.preventDefault()
-                    console.log("enter");
-                }}>
+                <form
+                    className="w-full"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                    }}
+                >
                     <input
                         onChange={(e) => {
-                            setIsLoading(true);
+                            // setIsLoading(true);
                             setQuery(e.target.value);
                         }}
                         className="w-full bg-transparent outline-none px-3 py-3"

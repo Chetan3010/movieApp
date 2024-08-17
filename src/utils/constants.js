@@ -2,28 +2,36 @@ import { getMyRegion, getMyTimezone } from "./helper";
 
 const region = getMyRegion()
 const timezone = getMyTimezone()
+const base_url = "https://api.themoviedb.org/3/"
 
 export const apiEndpoints = {
     movie: {
-        movieGenre: { url: `/genre/movie/list`, options: {}, dataPath: 'data.genres' },
-        popularMovie: ({ page = 1 }) => ({ url: `/movie/popular?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
-        nowPlaying: ({ page = 1 }) => ({ url: `/movie/now_playing?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' })
+        movieGenre: { url: `${base_url}/genre/movie/list`, options: {}, dataPath: 'data.genres' },
+        popularMovie: ({ page = 1 }) => ({ url: `${base_url}/movie/popular?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
+        nowPlaying: ({ page = 1 }) => ({ url: `${base_url}/movie/now_playing?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' })
     },
     tv: {
-        tvGenre: { url: `/genre/tv/list`, options: {}, dataPath: 'data.genres' },
-        popularTv: ({ page = 1 }) => ({ url: `/tv/popular?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
-        airingToday: ({ page = 1 }) => ({ url: `/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, options: {}, dataPath: 'data.results' })
+        tvGenre: { url: `${base_url}/genre/tv/list`, options: {}, dataPath: 'data.genres' },
+        popularTv: ({ page = 1 }) => ({ url: `${base_url}/tv/popular?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
+        airingToday: ({ page = 1 }) => ({ url: `${base_url}/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, options: {}, dataPath: 'data.results' })
     },
     trending: {
-        TrendingAll: ({ type, time_window, page = 1 }) => ({ url: `/trending/${type}/${time_window}?language=en-US&page=${page}`, options: {}, dataPath: 'data.results' }),
+        TrendingAll: ({ type, time_window, page = 1 }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US&page=${page}`, options: {}, dataPath: 'data.results' }),
     },
-    others: {},
+    search: {
+        multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, options: {}, dataPath: 'data.results', returnNew: true })
+    },
+    others: {
+        proxyServerLocal: "http://localhost:3000",
+        proxyServer: "https://proxy-server-brown.vercel.app",
+        // proxyServer: "https://proxyserver-u5de.onrender.com"
+    },
 };
 
 export const defaultConst = {
     // imgPlaceholder: `https://placehold.co/500x750/6b7280/374151?text=no+poster&font=source-sans-pro`
     imgPlaceholder: `/imagePlaceholder.svg`,
-    endOfScrollPhrases : [
+    endOfScrollPhrases: [
         "You’ve reached the end. Time to take a break!",
         "That's all folks! You've seen everything. Impressive, huh?",
         "End of the line! You've officially scrolled through it all.",
@@ -43,5 +51,5 @@ export const defaultConst = {
 }
 
 export const env = {
-    TMDB_AUTH: import.meta.env.VITE_TMDB_AUTH    
+    TMDB_AUTH: import.meta.env.VITE_TMDB_AUTH
 }
