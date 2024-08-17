@@ -14,7 +14,10 @@ export const useFetch = ({ url, options = {}, dataPath = "", returnNew=false }) 
         setError(null);
 
         try {
-            const response = await axios.post('/proxy', { url }, options);
+            const response = await axios.get('/proxy', {
+                params: { url }, // Pass the API URL as a query parameter to the proxy
+                ...options
+            });
             const extractedData = dataPath
                 ? get(response, dataPath)
                 : response.data;
