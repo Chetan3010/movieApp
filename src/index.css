@@ -26,3 +26,11 @@
 .san-public {
     font-family: "Public Sans", sans-serif;
 }
+
+.active {
+    @apply text-[#C147E9] bg-[#29143a96]
+}
+
+.activePopularType {
+    @apply text-[#0F0617] bg-[#C147E9] bg-gray-600
+}
