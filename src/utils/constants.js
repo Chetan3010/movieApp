@@ -2,7 +2,7 @@ import { getMyRegion, getMyTimezone } from "./helper";
 
 const region = getMyRegion()
 const timezone = getMyTimezone()
-const base_url = "https://api.themoviedb.org/3/"
+const base_url = "https://api.themoviedb.org/3"
 
 export const apiEndpoints = {
     movie: {
@@ -22,9 +22,9 @@ export const apiEndpoints = {
         multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, options: {}, dataPath: 'data.results', returnNew: true })
     },
     others: {
-        // proxyServerLocal: "http://localhost:3000",
-        proxyServer: "https://proxy-server-brown.vercel.app",
-        // proxyServer: "https://proxyserver-u5de.onrender.com"
+        // proxyServer: "http://localhost:3000",
+        // proxyServer: "https://proxy-server-three-chi.vercel.app",
+        proxyServer: "https://proxyserver-u5de.onrender.com"
     },
 };
 
@@ -48,8 +48,4 @@ export const defaultConst = {
         "You’ve scrolled through it all! Time to switch to a new hobby?",
         "Well, that’s it! You’ve reached the bottom. Achievement unlocked!",
     ]
-}
-
-export const env = {
-    TMDB_AUTH: import.meta.env.VITE_TMDB_AUTH
 }

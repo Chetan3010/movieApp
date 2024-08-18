@@ -1,11 +1,10 @@
 import axios from "axios";
-import { apiEndpoints, env } from "./constants";
+import { apiEndpoints } from "./constants";
 
 const instance = axios.create({
-    baseURL: apiEndpoints.others.proxyServer || apiEndpoints.others.proxyServerLocal,
+    baseURL: apiEndpoints.others.proxyServer,
     headers: {
         Accept: "application/json",
-        Authorization: env.TMDB_AUTH
     }
 })
 
