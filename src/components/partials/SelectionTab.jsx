@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
-const SelectionTab = ({ options, selectedOption, onSelect }) => {
+const SelectionTab = ({ lsKey, options, selectedOption, onSelect }) => {
+    const [value, setValue] = useLocalStorage({ key: lsKey, defaultValue:selectedOption });
+
+    useEffect(()=> {
+        if(value) onSelect(value);
+    },[])
+
+    useEffect(()=>{
+        setValue(selectedOption)
+    }, [selectedOption])
+
     const length = options.length;
     return (
         <>

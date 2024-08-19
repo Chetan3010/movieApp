@@ -30,17 +30,17 @@ const Card = forwardRef(
         return (
             <div className="rounded-xl overflow-hidden relative" ref={ref}>
                 <div className="relative">
-                    <LazyLoad placeholder={defaultConst.imgPlaceholder}>
-                        <img
-                            className="object-cover w-full h-[150%] rounded-xl"
-                            src={
-                                poster_path
-                                    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-                                    : defaultConst.imgPlaceholder
-                            }
-                            alt={original_title || original_name}
-                        />
-                    </LazyLoad>
+                    <img
+                        className="object-cover w-full h-auto rounded-xl bg-zinc-600"
+                        src={
+                            poster_path
+                                ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                                : defaultConst.imgPlaceholder
+                        }
+                        width={500}
+                        height={750}
+                        alt={original_title || original_name}
+                    />
                     <div className="absolute top-full right-5 -translate-y-[50%] bg-zinc-950 rounded-full p-1">
                         <Gauge
                             className="w-[36px] h-[36px] md:w-[45px] md:h-[45px]"

@@ -5,6 +5,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NowPlaying from "./components/Pages/NowPlaying.jsx";
 import About from "./components/Pages/About.jsx";
+import Explore from "./components/Pages/Explore.jsx";
 
 const Routes = createBrowserRouter([
     {
@@ -15,7 +16,10 @@ const Routes = createBrowserRouter([
         path: "/now_playing",
         element: <NowPlaying />,
     },
-    { path: "/about", element: <About /> },
+    {
+        path: "/about",
+        element: <About />,
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

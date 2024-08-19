@@ -30,7 +30,7 @@ export const apiEndpoints = {
 
 export const defaultConst = {
     // imgPlaceholder: `https://placehold.co/500x750/6b7280/374151?text=no+poster&font=source-sans-pro`
-    imgPlaceholder: `/imagePlaceholder.svg`,
+    imgPlaceholder: `/DefaultImage.png`,
     endOfScrollPhrases: [
         "You’ve reached the end. Time to take a break!",
         "That's all folks! You've seen everything. Impressive, huh?",

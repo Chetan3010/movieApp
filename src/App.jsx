@@ -55,7 +55,7 @@ const App = () => {
     return (
         
         <div
-            className={`w-full min-h-screen bg-[#0F0617] text-white san-public relative`}
+            className={`main`}
         >
             <Topnav />
             <Caraousel
@@ -69,6 +69,7 @@ const App = () => {
                     What's Popular
                 </h1>
                 <SelectionTab
+                    lsKey="homeTab"
                     options={[
                         { name: "Movies", value: "movie" },
                         { name: "TV Shows", value: "tv" },
@@ -77,7 +78,7 @@ const App = () => {
                     onSelect={(option) => setPopularType(option)}
                 />
             </div>
-            <div className="px-4 md:px-14 mt-5 md:mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-12">
+            <div className="cardDrawer">
                 <Cards
                     items={
                         popularType === "tv"

@@ -44,7 +44,7 @@ const NowPlaying = () => {
 
     return (
         <div
-            className={`w-full min-h-screen bg-[#0F0617] text-white san-public relative`}
+            className={`main`}
         >
             <Topnav />
             <div className="w-full mt-2 md:mt-5 flex flex-col items-center justify-center">
@@ -54,6 +54,7 @@ const NowPlaying = () => {
                         : "Now playing in theatres"}
                 </h1>
                 <SelectionTab
+                    lsKey={"npTab"}
                     options={[
                         { name: "Movies", value: "movie" },
                         { name: "TV Shows", value: "tv" },
@@ -62,7 +63,7 @@ const NowPlaying = () => {
                     onSelect={(option) => setSelectionType(option)}
                 />
             </div>
-            <div className="px-4 md:px-14 mt-5 md:mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-12">
+            <div className="cardDrawer">
                 {selectionType === "tv" ? (
                     <Cards
                         items={tv}

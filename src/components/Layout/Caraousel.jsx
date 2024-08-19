@@ -18,7 +18,7 @@ const Caraousel = ({ trendingData, genres }) => {
     useEffect(() => {
         const startInterval = () => {
             clearInterval(intervalRef.current);
-            intervalRef.current = setInterval(updateIndices, 500000000);
+            intervalRef.current = setInterval(updateIndices, 5000);
         };
 
         startInterval();
