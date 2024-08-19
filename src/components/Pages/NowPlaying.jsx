@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Topnav from "../Layout/Topnav";
-import { useFetch } from "../../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import { apiEndpoints } from "../../utils/constants";
 import Cards from "../partials/Cards";
 import SelectionTab from "../partials/SelectionTab";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+import useRegion from "../../hooks/useRegion";
 
 const NowPlaying = () => {
     const [moviePage, setMoviePage] = useState(1);
     const [tvPage, setTvPage] = useState(1);
+    const {region, timezone} = useRegion()
 
     const {
         data: movies,
@@ -16,14 +18,15 @@ const NowPlaying = () => {
         isPending: isPendingMovie,
         error: movieError,
         totalPages: movieTotalPages,
-    } = useFetch(apiEndpoints.movie.nowPlaying({ page: moviePage }));
+    } = useFetch(apiEndpoints.movie.nowPlaying({ page: moviePage, region }));
+
     const {
         data: tv,
         setData: setTv,
         isPending: isPendingTv,
         error: tvError,
         totalPages: tvTotalPages,
-    } = useFetch(apiEndpoints.tv.airingToday({ page: tvPage }));
+    } = useFetch(apiEndpoints.tv.airingToday({ page: tvPage, timezone }));
 
     const [selectionType, setSelectionType] = useState("movie");
 

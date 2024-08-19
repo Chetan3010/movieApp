@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Topnav from "./components/Layout/Topnav";
 import Caraousel from "./components/Layout/Caraousel";
 import SelectionTab from "./components/partials/SelectionTab";
 import Cards from "./components/partials/Cards";
-import { useFetch } from "./hooks/useFetch";
 import { apiEndpoints } from "./utils/constants";
-import { getEndOfScrollPhrase } from "./utils/helper";
+import { MovieGenreContext, TvGenreContext } from "./Contexts/Contexts";
+import useFetch from "./hooks/useFetch";
+import useRegion from "./hooks/useRegion";
 
 const App = () => {
+    const { region } = useRegion();
     const {
         data: trendingData,
         setData: setTredingData,
@@ -18,25 +20,11 @@ const App = () => {
     );
 
     const {
-        data: movieGenres,
-        setData: setMovieGenres,
-        isPending: movieGenresIsPending,
-        error: movieGenresError,
-    } = useFetch(apiEndpoints.movie.movieGenre);
-
-    const {
-        data: tvGenres,
-        setData: setTvGenres,
-        isPending: tvGenresIsPending,
-        error: tvGenresError,
-    } = useFetch(apiEndpoints.tv.tvGenre);
-
-    const {
         data: popularMovieCards,
         setData: setPopularMovieCards,
         isPending: popularMovieIsPending,
         error: popularMovieError,
-    } = useFetch(apiEndpoints.movie.popularMovie({}));
+    } = useFetch(apiEndpoints.movie.popularMovie({ region }));
 
     const {
         data: popularTVCards,
@@ -44,6 +32,9 @@ const App = () => {
         isPending: popularTvIsPending,
         error: popularTvError,
     } = useFetch(apiEndpoints.tv.popularTv({}));
+
+    const { data: movieGenres } = useContext(MovieGenreContext);
+    const { data: tvGenres } = useContext(TvGenreContext);
 
     const [genres, setGenres] = useState([...movieGenres, ...tvGenres]);
     const [popularType, setPopularType] = useState("movie");
@@ -53,10 +44,7 @@ const App = () => {
     }, [movieGenres, tvGenres]);
 
     return (
-        
-        <div
-            className={`main`}
-        >
+        <div className={`main`}>
             <Topnav />
             <Caraousel
                 trendingData={trendingData}

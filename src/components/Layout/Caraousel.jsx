@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaCalendar } from "react-icons/fa";
 import { FaCircleDot } from "react-icons/fa6";
 import { MdTheaterComedy } from "react-icons/md";
+import { getGenreNames } from "../../utils/helper";
 
 const Caraousel = ({ trendingData, genres }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,15 +16,10 @@ const Caraousel = ({ trendingData, genres }) => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % trendingData.length);
     }, [trendingData.length]);
 
-    useEffect(() => {
-        const startInterval = () => {
-            clearInterval(intervalRef.current);
-            intervalRef.current = setInterval(updateIndices, 5000);
-        };
-
-        startInterval();
-        return () => clearInterval(intervalRef.current);
-    }, [updateIndices, trendingData.length]);
+    const previousIndex =
+        currentIndex === 0 ? trendingData.length - 1 : currentIndex - 1;
+    const nextIndex =
+        currentIndex === trendingData.length - 1 ? 0 : currentIndex + 1;
 
     const handleManualChange = (newIndex) => {
         setCurrentIndex(newIndex);
@@ -44,23 +40,12 @@ const Caraousel = ({ trendingData, genres }) => {
         handleManualChange((currentIndex + 1) % trendingData.length);
     };
 
-    const getGenreNames = (genreIds) => {
-        return genreIds
-            .map((id) => genres.find((genre) => genre.id === id)?.name)
-            .join("/");
-    };
-
-    const previousIndex =
-        currentIndex === 0 ? trendingData.length - 1 : currentIndex - 1;
-    const nextIndex =
-        currentIndex === trendingData.length - 1 ? 0 : currentIndex + 1;
-
     const handleTouchStart = (e) => {
         touchStartXRef.current = e.touches[0].clientX;
     };
 
     const handleTouchMove = (e) => {
-        // *made command because getting console error because passive event call and after doing this does find any errors
+        // *made command because getting console error because passive event call and after doing this does not find any errors
         // e.preventDefault();
     };
 
@@ -74,6 +59,16 @@ const Caraousel = ({ trendingData, genres }) => {
             handlePrevClick(); // Left to right swipe
         }
     };
+
+    useEffect(() => {
+        const startInterval = () => {
+            clearInterval(intervalRef.current);
+            intervalRef.current = setInterval(updateIndices, 5000);
+        };
+
+        startInterval();
+        return () => clearInterval(intervalRef.current);
+    }, [updateIndices, trendingData.length]);
 
     return (
         <div
@@ -101,7 +96,8 @@ const Caraousel = ({ trendingData, genres }) => {
                             <div
                                 key={currentIndex}
                                 style={{
-                                    background: 'background: linear-gradient(58deg, #010000 40%, rgb(0 0 0 / 0%) 70%)'
+                                    background:
+                                        "background: linear-gradient(58deg, #010000 40%, rgb(0 0 0 / 0%) 70%)",
                                 }}
                                 className={`w-full md:w-[80%] flex-none box-border relative cursor-pointer`}
                             >
@@ -110,8 +106,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                     alt={`Slide ${currentIndex}`}
                                     className="current object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-70 border border-zinc-500"
                                 />
-                                <div 
-                                className="absolute left-4 bottom-2 ">
+                                <div className="absolute left-4 bottom-2 ">
                                     <h1 className="text-[1.5rem] sm:text-[2rem] font-bold">
                                         {trendingData[currentIndex]?.title ||
                                             trendingData[currentIndex]?.name ||
@@ -155,7 +150,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                             ?.genre_ids && (
                                             <p className="flex items-center gap-1 sm:gap-2 text-[0.80rem]">
                                                 <MdTheaterComedy className="text-yellow-500" />
-                                                {getGenreNames([
+                                                {getGenreNames(genres, [
                                                     ...trendingData[
                                                         currentIndex
                                                     ].genre_ids,
@@ -188,12 +183,19 @@ const Caraousel = ({ trendingData, genres }) => {
                             <div className="w-full md:w-[80%] h-[18rem] sm:h-[28rem] flex-none box-border relative cursor-pointer bg-gray-600 rounded-md animate-pulse">
                                 <div className="absolute left-4 bottom-2">
                                     <h1 className="bg-gray-500 h-12 rounded w-72 mb-2 animate-pulse"></h1>
-                                    <p className="h-4 rounded w-[98%] sm:w-2/3 mb-2 bg-gray-500 animate-pulse"></p>
-                                    <p className="h-4 rounded w-[98%] sm:w-2/3 mb-1 bg-gray-500 animate-pulse"></p>
+                                    {["", ""].map((_, index) => (
+                                        <p
+                                            key={index}
+                                            className="h-4 rounded w-[98%] sm:w-2/3 mb-1 bg-gray-500 animate-pulse"
+                                        ></p>
+                                    ))}
                                     <div className="mb-1 sm:mb-2">
-                                        <p className="flex items-center gap-1 sm:gap-2 bg-gray-500 w-32 rounded mb-1 h-4 animate-pulse"></p>
-                                        <p className="flex items-center gap-1 sm:gap-2 bg-gray-500 w-32 rounded mb-1 h-4 animate-pulse"></p>
-                                        <p className="flex items-center gap-1 sm:gap-2 bg-gray-500 w-32 rounded mb-1 h-4 animate-pulse"></p>
+                                        {["", "", ""].map((_, index) => (
+                                            <p
+                                                key={index}
+                                                className="flex items-center gap-1 sm:gap-2 bg-gray-500 w-32 rounded mb-1 h-4 animate-pulse"
+                                            ></p>
+                                        ))}
                                     </div>
                                     <div className="px-2 py-1 h-8 w-24 rounded-md bg-gray-500 animate-pulse"></div>
                                 </div>

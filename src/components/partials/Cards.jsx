@@ -16,6 +16,8 @@ const Cards = ({
         <CardSkeleton key={index} />
     ));
 
+    const getOnlineStatus = () => !navigator.onLine && "No internet!"
+
     return (
         <>
             {items.length > 0 ? (
@@ -29,9 +31,9 @@ const Cards = ({
                         return <Card {...item} key={index} />;
                     })}
                     {isInfiniteScroll && isPending && !isDone && skeletonCards}
-                    {isInfiniteScroll && (
+                    {isInfiniteScroll && (error ?? getOnlineStatus()) && (
                         <h1 className="italic text-sm text-gray-300 text-center col-span-full my-5">
-                            {error || (!navigator.onLine && "No internet!")}
+                            {error || getOnlineStatus()}
                         </h1>
                     )}
                     {isDone && (

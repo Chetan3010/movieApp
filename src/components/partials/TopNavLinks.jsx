@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { BsFire } from "react-icons/bs";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosPeople } from "react-icons/io";
 import { MdEmail } from "react-icons/md";

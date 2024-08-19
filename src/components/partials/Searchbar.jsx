@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import loader from "/loader.svg";
-import { useFetch } from "../../hooks/useFetch";
 import { apiEndpoints } from "../../utils/constants";
+import useFetch from "../../hooks/useFetch";
 
 const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
     const [query, setQuery] = useState("");
@@ -16,32 +16,6 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
         totalPages: movieTotalPages,
     } = useFetch(apiEndpoints.search.multi({ query }));
 
-    // const getSearches = async () => {
-    //     try {
-    //         const { data } = await axios.get(`/search/multi?query=${query}`);
-    //         setSearches(data.results);
-    //     } catch (error) {
-    //         console.error(error);
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (debounceTimeout.current) {
-    //         clearTimeout(debounceTimeout.current);
-    //     }
-    //     debounceTimeout.current = setTimeout(() => {
-    //         if (query) {
-    //             getSearches();
-    //         }
-    //     }, 1000);
-
-    //     return () => {
-    //         clearTimeout(debounceTimeout.current);
-    //     };
-    // }, [query]);
-
     return (
         <div
             className={`h-fit w-full md:w-[70%] justify-center mt-2 ${
@@ -51,7 +25,7 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
             <div className="w-full md:w-[70%] relative bg-transparent border-[1px] border-zinc-600 px-4 flex items-center rounded mb-4 md:mb-0 md:rounded-full">
                 <BsSearch className="cursor-pointer" />
                 <form
-                    className="w-full"
+                    className="w-full "
                     onSubmit={(e) => {
                         e.preventDefault();
                     }}
@@ -66,6 +40,7 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
                         type="text"
                         value={query}
                         name="query"
+                        autoComplete={"off"}
                     />
                 </form>
                 <RxCross1

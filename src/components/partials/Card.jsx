@@ -1,7 +1,6 @@
 import { Gauge } from "@suyalcinkaya/gauge";
 import React, { forwardRef } from "react";
 import { defaultConst } from "../../utils/constants";
-import LazyLoad from "react-lazyload";
 
 const Card = forwardRef(
     (

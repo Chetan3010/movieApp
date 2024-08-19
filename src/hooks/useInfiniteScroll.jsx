@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 
-export const useInfiniteScroll = ({
+const useInfiniteScroll = ({
     isPending,
     page,
     setPage,
@@ -33,3 +33,5 @@ export const useInfiniteScroll = ({
 
     return { lastItemRef, isDone };
 };
+
+export default useInfiniteScroll

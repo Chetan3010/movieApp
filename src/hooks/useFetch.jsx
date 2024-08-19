@@ -2,7 +2,12 @@ import axios from "../utils/axios";
 import { get } from "lodash";
 import { useState, useEffect, useCallback } from "react";
 
-export const useFetch = ({ url, options = {}, dataPath = "", returnNew=false }) => {
+const useFetch = ({
+    url,
+    options = {},
+    dataPath = "",
+    returnNew = false,
+}) => {
     const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState(null);
@@ -14,21 +19,21 @@ export const useFetch = ({ url, options = {}, dataPath = "", returnNew=false }) 
         setError(null);
 
         try {
-            const response = await axios.get('/proxy', {
+            const response = await axios.get("/proxy", {
                 params: { url },
-                ...options
+                ...options,
             });
-            
+
             const extractedData = dataPath
                 ? get(response, dataPath)
                 : response.data;
 
             setData((prev) => {
-                if(returnNew) return extractedData
-                const uniqueData = extractedData.filter(
+                if (returnNew) return extractedData;
+                const uniqueData = extractedData.length > 0 ? extractedData.filter(
                     (newItem) =>
                         !prev.some((prevItem) => prevItem.id === newItem.id)
-                );
+                ) : []
                 return [...prev, ...uniqueData];
             });
 
@@ -53,3 +58,5 @@ export const useFetch = ({ url, options = {}, dataPath = "", returnNew=false }) 
 
     return { data, isPending, error, setData, totalResults, totalPages };
 };
+
+export default useFetch

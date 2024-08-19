@@ -1,19 +1,16 @@
 import { getMyRegion, getMyTimezone } from "./helper";
-
-const region = getMyRegion()
-const timezone = getMyTimezone()
 const base_url = "https://api.themoviedb.org/3"
 
 export const apiEndpoints = {
     movie: {
         movieGenre: { url: `${base_url}/genre/movie/list`, options: {}, dataPath: 'data.genres' },
-        popularMovie: ({ page = 1 }) => ({ url: `${base_url}/movie/popular?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
-        nowPlaying: ({ page = 1 }) => ({ url: `${base_url}/movie/now_playing?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' })
+        popularMovie: ({ page = 1, region }) => ({ url: `${base_url}/movie/popular?language=en-US&region=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
+        nowPlaying: ({ page = 1, region }) => ({ url: `${base_url}/movie/now_playing?language=en-US&page=${page}&region=${region}`, options: {}, dataPath: 'data.results' })
     },
     tv: {
         tvGenre: { url: `${base_url}/genre/tv/list`, options: {}, dataPath: 'data.genres' },
-        popularTv: ({ page = 1 }) => ({ url: `${base_url}/tv/popular?language=en-US&getMyRegion()=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
-        airingToday: ({ page = 1 }) => ({ url: `${base_url}/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, options: {}, dataPath: 'data.results' })
+        popularTv: ({ page = 1 }) => ({ url: `${base_url}/tv/popular?language=en-US&page=${page}`, options: {}, dataPath: 'data.results' }),
+        airingToday: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, options: {}, dataPath: 'data.results' })
     },
     trending: {
         TrendingAll: ({ type, time_window, page = 1 }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US&page=${page}`, options: {}, dataPath: 'data.results' }),
