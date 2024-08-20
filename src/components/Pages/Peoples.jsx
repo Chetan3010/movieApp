@@ -2,7 +2,10 @@ import React from 'react'
 
 const Peoples = () => {
   return (
-    <div>Peoples</div>
+    <section className='main'>
+        <Topnav />
+        
+    </section>
   )
 }
 

@@ -1,15 +1,13 @@
-import React from 'react'
-import Topnav from '../Layout/Topnav'
+import React from "react";
+import Topnav from "../Layout/Topnav";
 
 const About = () => {
-  return (
-    <div
-            className={`main`}
-        >
+    return (
+        <section className={`main`}>
             <Topnav />
             about
-        </div>
-  )
-}
+        </section>
+    );
+};
 
-export default About
+export default About;

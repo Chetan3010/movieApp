@@ -1,6 +1,7 @@
 import { Gauge } from "@suyalcinkaya/gauge";
 import React, { forwardRef } from "react";
 import { defaultConst } from "../../utils/constants";
+import { getGenreNames } from "../../utils/helper";
 
 const Card = forwardRef(
     (
@@ -11,6 +12,8 @@ const Card = forwardRef(
             first_air_date,
             vote_average,
             poster_path,
+            title, 
+            name,
         },
         ref
     ) => {
@@ -55,10 +58,10 @@ const Card = forwardRef(
                     </div>
                 </div>
                 <div className="pt-6">
-                    <h3 className="text-[16px] md:text-xl mb-1 md:mb-2">
-                        {original_title || original_name}
+                    <h3 className="text-[16px] md:text-xl">
+                        {title || name || original_title || original_name}
                     </h3>
-                    <h6 className="font-light text-sm md:text-base">
+                    <h6 className="font-extralight text-sm md:text-base">
                         {new Date(
                             release_date || first_air_date
                         ).toLocaleDateString("en-US", {

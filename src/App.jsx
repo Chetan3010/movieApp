@@ -7,41 +7,43 @@ import { apiEndpoints } from "./utils/constants";
 import { MovieGenreContext, TvGenreContext } from "./Contexts/Contexts";
 import useFetch from "./hooks/useFetch";
 import useRegion from "./hooks/useRegion";
+import CardsDrawer from "./components/Layout/CardsDrawer";
+import HorizontalCards from "./components/partials/HorizontalCards";
 
 const App = () => {
     const { region } = useRegion();
-    const {
-        data: trendingData,
-        setData: setTredingData,
-        isPending: trendingIsPending,
-        error: trendingError,
-    } = useFetch(
-        apiEndpoints.trending.TrendingAll({ type: "all", time_window: "week" })
+    const { data: trendingData, setData: setTredingData } = useFetch(
+        apiEndpoints.trending.trending({ type: "all", time_window: "day" })
     );
 
-    const {
-        data: popularMovieCards,
-        setData: setPopularMovieCards,
-        isPending: popularMovieIsPending,
-        error: popularMovieError,
-    } = useFetch(apiEndpoints.movie.popularMovie({ region }));
+    // const movies = useFetch(apiEndpoints.movie.popularMovie({ region }));
+    // const tv = useFetch(apiEndpoints.tv.popularTv({}));
 
-    const {
-        data: popularTVCards,
-        setData: setPopularTVCards,
-        isPending: popularTvIsPending,
-        error: popularTvError,
-    } = useFetch(apiEndpoints.tv.popularTv({}));
+    const movies = useFetch(
+        apiEndpoints.trending.trending({ type: "movie", time_window: "week" })
+    );
+    const tv = useFetch(
+        apiEndpoints.trending.trending({ type: "tv", time_window: "week" })
+    );
 
     const { data: movieGenres } = useContext(MovieGenreContext);
     const { data: tvGenres } = useContext(TvGenreContext);
 
-    const [genres, setGenres] = useState([...movieGenres, ...tvGenres]);
-    const [popularType, setPopularType] = useState("movie");
+    const options = [
+        { name: "Movies", value: "movie" },
+        { name: "Tv Shows", value: "tv" },
+    ];
 
-    useEffect(() => {
-        setGenres([...movieGenres, ...tvGenres]);
-    }, [movieGenres, tvGenres]);
+    const cardData = {
+        movie: {
+            ...movies,
+            title: "Trending now",
+        },
+        tv: {
+            ...tv,
+            title: "Trending now",
+        },
+    };
 
     return (
         <div className={`main`}>
@@ -49,10 +51,14 @@ const App = () => {
             <Caraousel
                 trendingData={trendingData}
                 setTredingData={setTredingData}
-                genres={genres}
-                setGenres={setGenres}
+                genres={[...movieGenres, ...tvGenres]}
             />
-            <div className="w-full mt-5 md:mt-10 flex flex-col items-center justify-center">
+            <CardsDrawer
+                options={options}
+                cardData={cardData}
+                lsKey={"indexTab"}
+            />
+            {/* <div className="w-full mt-5 md:mt-10 flex flex-col items-center justify-center">
                 <h1 className="text-3xl md:text-5xl font-semibold mb-5">
                     What's Popular
                 </h1>
@@ -79,7 +85,7 @@ const App = () => {
                             : popularMovieIsPending
                     }
                 />
-            </div>
+            </div> */}
         </div>
     );
 };
