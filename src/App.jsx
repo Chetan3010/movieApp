@@ -8,15 +8,23 @@ import { MovieGenreContext, TvGenreContext } from "./Contexts/Contexts";
 import useFetch from "./hooks/useFetch";
 import useRegion from "./hooks/useRegion";
 import CardsDrawer from "./components/Layout/CardsDrawer";
+import HorizontalCards from "./components/partials/HorizontalCards";
 
 const App = () => {
     const { region } = useRegion();
     const { data: trendingData, setData: setTredingData } = useFetch(
-        apiEndpoints.trending.TrendingAll({ type: "all", time_window: "week" })
+        apiEndpoints.trending.trending({ type: "all", time_window: "day" })
     );
 
-    const movies = useFetch(apiEndpoints.movie.popularMovie({ region }));
-    const tv = useFetch(apiEndpoints.tv.popularTv({}));
+    // const movies = useFetch(apiEndpoints.movie.popularMovie({ region }));
+    // const tv = useFetch(apiEndpoints.tv.popularTv({}));
+
+    const movies = useFetch(
+        apiEndpoints.trending.trending({ type: "movie", time_window: "week" })
+    );
+    const tv = useFetch(
+        apiEndpoints.trending.trending({ type: "tv", time_window: "week" })
+    );
 
     const { data: movieGenres } = useContext(MovieGenreContext);
     const { data: tvGenres } = useContext(TvGenreContext);
@@ -29,11 +37,11 @@ const App = () => {
     const cardData = {
         movie: {
             ...movies,
-            title: "What's Popular",
+            title: "Trending now",
         },
         tv: {
             ...tv,
-            title: "What's Popular",
+            title: "Trending now",
         },
     };
 

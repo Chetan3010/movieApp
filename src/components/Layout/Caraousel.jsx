@@ -72,7 +72,7 @@ const Caraousel = ({ trendingData, genres }) => {
 
     return (
         <div
-            className="relative w-full pt-2 selection:bg-none"
+            className="relative w-full pt-2 selection:bg-none mb-5 md:mb-10"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}

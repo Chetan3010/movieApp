@@ -60,7 +60,7 @@ const Explore = () => {
         <section className="main box-border">
             <Topnav />
             <div className="px-5 md:px-12">
-                <div className="w-full flex flex-col md:flex-row mt-5 border border-zinc-700 rounded-lg overflow-hidden">
+                <div className="w-full flex flex-col md:flex-row mt-5 border border-zinc-700 bg-zinc-900 rounded-lg overflow-hidden">
                     <div className="explore w-full md:w-[70%] overflow-hidden relative">
                         <img
                             className="w-full h-48 md:h-full object-center object-cover hover:scale-110 transition-all duration-300 ease-in-out"

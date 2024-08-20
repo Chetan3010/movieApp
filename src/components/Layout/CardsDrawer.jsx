@@ -19,8 +19,8 @@ const CardsDrawer = ({
 
     return (
         <>
-            <div className="w-full mt-5 md:mt-10 flex flex-col items-center justify-center">
-                <h1 className="text-3xl md:text-5xl font-semibold mb-5">
+            <div className="w-full mt-5 flex flex-col items-center justify-center">
+                <h1 className="text-3xl md:text-5xl font-semibold mb-2 mdLmb-5">
                     {title}
                 </h1>
                 <SelectionTab
@@ -31,34 +31,14 @@ const CardsDrawer = ({
                 />
             </div>
             <div className="cardDrawer">
-            <Cards
-                            items={items}
-                            isPending={isPending}
-                            isInfiniteScroll={isInfiniteScroll}
-                            lastItemRef={ref}
-                            error={error}
-                            isDone={isDone}
-                        />
-                {/* {isInfiniteScroll ? (
-                    <>
-                        <Cards
-                            items={items}
-                            isPending={isPending}
-                            isInfiniteScroll={isInfiniteScroll}
-                            lastItemRef={ref}
-                            error={error}
-                            isDone={isDone}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <Cards
-                            items={items}
-                            isPending={isPending}
-                            isInfiniteScroll={isInfiniteScroll}
-                        />
-                    </>
-                )} */}
+                <Cards
+                    items={items}
+                    isPending={isPending}
+                    isInfiniteScroll={isInfiniteScroll}
+                    lastItemRef={ref}
+                    error={error}
+                    isDone={isDone}
+                />
             </div>
         </>
     );

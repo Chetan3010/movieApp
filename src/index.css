@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,6 +12,10 @@
 
 .san-public {
     font-family: "Public Sans", sans-serif;
+}
+
+.archivo {
+    font-family: "Archivo Black", sans-serif;;
 }
 
 /* WebKit Scrollbar (Chrome, Safari, Edge) */
@@ -63,4 +68,13 @@
 
 .linearG {
     background: linear-gradient(160deg, #6c1357, #731493, rgb(143, 64, 180), #731493, #6c1357);
+}
+
+.trending {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    line-height: normal;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 12rem;
 }
