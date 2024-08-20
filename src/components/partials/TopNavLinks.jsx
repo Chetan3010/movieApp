@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { BsFillTvFill } from "react-icons/bs";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosPeople } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdTravelExplore } from "react-icons/md";
 import {
     PiMonitorPlayFill,
     PiShootingStarFill,
@@ -22,21 +23,21 @@ const TopNavLinks = () => {
                     title: "Now Playing",
                     icon: <PiMonitorPlayFill />,
                     // icon: <BsFire />,
-                    url: "/now_playing",
+                    url: "/now-playing",
                 },
                 {
                     title: "Explore",
-                    icon: <PiTelevisionSimpleDuotone />,
+                    icon: <MdTravelExplore />,
                     url: "/explore",
                 },
                 {
                     title: "Movies",
-                    icon: <PiShootingStarFill />,
+                    icon: <RiMovie2Fill />,
                     url: "/movie",
                 },
                 {
                     title: "TV Shows",
-                    icon: <RiMovie2Fill />,
+                    icon: <BsFillTvFill />,
                     url: "/tv",
                 },
                 {

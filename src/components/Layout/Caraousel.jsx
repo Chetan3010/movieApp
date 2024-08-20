@@ -88,7 +88,7 @@ const Caraousel = ({ trendingData, genres }) => {
                             >
                                 <img
                                     src={`https://image.tmdb.org/t/p/original/${trendingData[previousIndex]?.backdrop_path}`}
-                                    alt={`Slide ${previousIndex}`}
+                                    alt={`Slide`}
                                     className="prev object-cover object-right w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border-[1px] border-zinc-500"
                                 />
                                 <GrPrevious className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10 font-bold text-xl sm:text-3xl" />
@@ -103,7 +103,7 @@ const Caraousel = ({ trendingData, genres }) => {
                             >
                                 <img
                                     src={`https://image.tmdb.org/t/p/original/${trendingData[currentIndex]?.backdrop_path}`}
-                                    alt={`Slide ${currentIndex}`}
+                                    alt={`Slide`}
                                     className="current object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-70 border border-zinc-500"
                                 />
                                 <div className="absolute left-4 bottom-2 ">
@@ -170,7 +170,7 @@ const Caraousel = ({ trendingData, genres }) => {
                             >
                                 <img
                                     src={`https://image.tmdb.org/t/p/original/${trendingData[nextIndex]?.backdrop_path}`}
-                                    alt={`Slide ${nextIndex}`}
+                                    alt={`Slide`}
                                     className="next object-cover object-left w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border border-zinc-500"
                                 />
                                 <GrNext className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] font-bold text-xl sm:text-3xl" />
@@ -211,7 +211,7 @@ const Caraousel = ({ trendingData, genres }) => {
                         key={index}
                         className={`h-1 w-1 rounded-full mx-[2px] transition-all duration-500 ease-in ${
                             currentIndex === index
-                                ? "bg-purple-400 w-3"
+                                ? "bg-[#C147E9] w-3"
                                 : "bg-gray-400"
                         }`}
                     />

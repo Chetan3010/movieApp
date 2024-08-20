@@ -17,7 +17,7 @@ const Routes = createBrowserRouter([
         element: <App />,
     },
     {
-        path: "/now_playing",
+        path: "/now-playing",
         element: <NowPlaying />,
     },
     {

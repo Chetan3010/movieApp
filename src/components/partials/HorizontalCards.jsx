@@ -19,7 +19,7 @@ const HorizontalCards = ({ title, items, filter = false }) => {
                     />
                 )}
             </div>
-            <div className="w-full flex gap-2 md:gap-3 py-2 md:py-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="w-full flex gap-2 md:gap-3 py-2 md:py-4 overflow-y-auto ">
                 {items?.length > 0 ?
                     items.map(
                         (item, index) =>

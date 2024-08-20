@@ -11,6 +11,8 @@ const Card = forwardRef(
             first_air_date,
             vote_average,
             poster_path,
+            title, 
+            name,
         },
         ref
     ) => {
@@ -56,7 +58,7 @@ const Card = forwardRef(
                 </div>
                 <div className="pt-6">
                     <h3 className="text-[16px] md:text-xl mb-1 md:mb-2">
-                        {original_title || original_name}
+                        {title || name || original_title || original_name}
                     </h3>
                     <h6 className="font-light text-sm md:text-base">
                         {new Date(

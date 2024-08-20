@@ -20,7 +20,7 @@ const Cards = ({
 
     return (
         <>
-            {items.length > 0 ? (
+            {items ? (
                 <>
                     {items.map((item, index) => {
                         if (isInfiniteScroll && index === items.length - 1) {
@@ -42,9 +42,7 @@ const Cards = ({
                         </h1>
                     )}
                 </>
-            ) : (
-                <>{skeletonCards}</>
-            )}
+            ) : skeletonCards}
         </>
     );
 };
