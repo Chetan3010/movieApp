@@ -20,7 +20,7 @@ const CardsDrawer = ({
     return (
         <>
             <div className="w-full mt-5 flex flex-col items-center justify-center">
-                <h1 className="text-3xl md:text-5xl font-semibold mb-2 mdLmb-5">
+                <h1 className="text-3xl md:text-5xl font-semibold mb-2 md:mb-5">
                     {title}
                 </h1>
                 <SelectionTab

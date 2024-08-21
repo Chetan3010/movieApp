@@ -1,7 +1,6 @@
 import { Gauge } from "@suyalcinkaya/gauge";
 import React, { forwardRef } from "react";
 import { defaultConst } from "../../utils/constants";
-import { getGenreNames } from "../../utils/helper";
 
 const Card = forwardRef(
     (

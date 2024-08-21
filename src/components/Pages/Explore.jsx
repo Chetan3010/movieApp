@@ -8,8 +8,6 @@ import useRegion from "../../hooks/useRegion";
 import { apiEndpoints } from "../../utils/constants";
 import useFetch from "../../hooks/useFetch";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import SelectionTab from "../partials/SelectionTab";
-import Cards from "../partials/Cards";
 import CardsDrawer from "../Layout/CardsDrawer";
 
 const Explore = () => {

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Topnav from "../Layout/Topnav";
 import useFetch from "../../hooks/useFetch";
 import { apiEndpoints } from "../../utils/constants";
-import Cards from "../partials/Cards";
-import SelectionTab from "../partials/SelectionTab";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useRegion from "../../hooks/useRegion";
 import CardsDrawer from "../Layout/CardsDrawer";

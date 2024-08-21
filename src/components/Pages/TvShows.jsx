@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Topnav from '../Layout/Topnav'
 import useFetch from '../../hooks/useFetch'
-import useRegion from '../../hooks/useRegion'
 import { apiEndpoints } from '../../utils/constants'
 import CardsDrawer from '../Layout/CardsDrawer'
 import useInfiniteScroll from '../../hooks/useInfiniteScroll'

@@ -1,6 +1,5 @@
 import React from "react";
 import DropdownMenu from "./DropdownMenu";
-import Cards from "./Cards";
 import Card from "./Card";
 
 const HorizontalCards = ({ title, items, filter = false }) => {
