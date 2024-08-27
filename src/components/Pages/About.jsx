@@ -1,9 +1,11 @@
 import React from "react";
-import Topnav from "../Layout/Topnav";
+import Topnav from "../layout/Topnav";
+import { ScrollRestoration } from "react-router-dom";
 
 const About = () => {
     return (
         <section className={`main`}>
+            <ScrollRestoration />
             <Topnav />
             about
         </section>

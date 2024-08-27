@@ -1,23 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import Topnav from "./components/Layout/Topnav";
-import Caraousel from "./components/Layout/Caraousel";
-import SelectionTab from "./components/partials/SelectionTab";
-import Cards from "./components/partials/Cards";
+import React, { useContext } from "react";
+import Topnav from "./components/layout/Topnav";
+import Caraousel from "./components/layout/Caraousel";
 import { apiEndpoints } from "./utils/constants";
 import { MovieGenreContext, TvGenreContext } from "./Contexts/Contexts";
 import useFetch from "./hooks/useFetch";
 import useRegion from "./hooks/useRegion";
-import CardsDrawer from "./components/Layout/CardsDrawer";
-import HorizontalCards from "./components/partials/HorizontalCards";
+import CardsDrawer from "./components/layout/CardsDrawer";
+import { ScrollRestoration } from "react-router-dom";
 
 const App = () => {
-    const { region } = useRegion();
     const { data: trendingData, setData: setTredingData } = useFetch(
         apiEndpoints.trending.trending({ type: "all", time_window: "day" })
     );
-
-    // const movies = useFetch(apiEndpoints.movie.popularMovie({ region }));
-    // const tv = useFetch(apiEndpoints.tv.popularTv({}));
 
     const movies = useFetch(
         apiEndpoints.trending.trending({ type: "movie", time_window: "week" })
@@ -38,15 +32,18 @@ const App = () => {
         movie: {
             ...movies,
             title: "Trending now",
+            route: 'movie'
         },
         tv: {
             ...tv,
             title: "Trending now",
+            route: 'tv'
         },
     };
 
     return (
         <div className={`main`}>
+            <ScrollRestoration />
             <Topnav />
             <Caraousel
                 trendingData={trendingData}

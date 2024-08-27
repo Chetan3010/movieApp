@@ -14,6 +14,7 @@ const CardsDrawer = ({
     const items = cardData[selectedType].data;
     const isPending = cardData[selectedType].isPending;
     const error = cardData[selectedType].error;
+    const route = cardData[selectedType].route;
     const ref = cardData[selectedType].lastItemRef ?? null;
     const isDone = cardData[selectedType].isDone ?? false;
 
@@ -38,6 +39,7 @@ const CardsDrawer = ({
                     lastItemRef={ref}
                     error={error}
                     isDone={isDone}
+                    route={route}
                 />
             </div>
         </>

@@ -63,7 +63,7 @@ const Caraousel = ({ trendingData, genres }) => {
     useEffect(() => {
         const startInterval = () => {
             clearInterval(intervalRef.current);
-            intervalRef.current = setInterval(updateIndices, 5000);
+            intervalRef.current = setInterval(updateIndices, 500000000);
         };
 
         startInterval();
@@ -95,11 +95,7 @@ const Caraousel = ({ trendingData, genres }) => {
                             </div>
                             <div
                                 key={currentIndex}
-                                style={{
-                                    background:
-                                        "background: linear-gradient(58deg, #010000 40%, rgb(0 0 0 / 0%) 70%)",
-                                }}
-                                className={`w-full md:w-[80%] flex-none box-border relative cursor-pointer`}
+                                className={`now w-full md:w-[80%] flex-none box-border relative cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
                             >
                                 <img
                                     src={`https://image.tmdb.org/t/p/original/${trendingData[currentIndex]?.backdrop_path}`}
@@ -158,7 +154,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                             </p>
                                         )}
                                     </div>
-                                    <button className="px-2 py-1 bg-[#c147e9] text-white text-lg font-semibold rounded-md">
+                                    <button className="px-2 py-1 bg-[#c147e9] w-b text-white text-lg font-semibold rounded-md">
                                         Watch Trailer
                                     </button>
                                 </div>

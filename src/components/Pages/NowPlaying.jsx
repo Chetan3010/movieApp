@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Topnav from "../Layout/Topnav";
+import Topnav from "../layout/Topnav";
 import useFetch from "../../hooks/useFetch";
 import { apiEndpoints } from "../../utils/constants";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useRegion from "../../hooks/useRegion";
-import CardsDrawer from "../Layout/CardsDrawer";
+import CardsDrawer from "../layout/CardsDrawer";
+import { ScrollRestoration } from "react-router-dom";
 
 const NowPlaying = () => {
     const [moviePage, setMoviePage] = useState(1);
@@ -37,19 +38,22 @@ const NowPlaying = () => {
         movie: {
             ...movie,
             ...movieRef,
-            title: "Now playing in theaters"
+            title: "Now playing in theaters",
+            route: 'movie'
         },
         tv: {
             ...tv,
             ...tvRef,
-            title: "Airing Today's Tv shows"
+            title: "Airing Today's Tv shows",
+            route: 'tv'
         },
     }
 
     return (
         <section
             className={`main`}
-        >
+        >   
+            <ScrollRestoration />
             <Topnav />
             <CardsDrawer
                 options={options}

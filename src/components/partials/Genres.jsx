@@ -17,7 +17,7 @@ const Genres = ({ genres, title }) => {
                           <Link
                               to={""}
                               key={i}
-                              className="w-36 h-20 md:w-56 md:h-28 px-5 flex-shrink-0 rounded-lg flex justify-center items-center text-xl md:text-2xl text-center secondary font-semibold text-wrap linearG"
+                              className="w-36 h-20 md:w-56 md:h-28 px-5 flex-shrink-0 rounded-lg flex justify-center items-center text-xl md:text-2xl text-center text-neutral-200 font-semibold text-wrap linearG"
                           >
                               {genre.name}
                           </Link>

@@ -74,7 +74,7 @@ const Searchbar = ({  isDisable = false }) => {
                     }}
                 />
                 {(query || searches.length > 0) && toggleSearch && (
-                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-zinc-200 bg-zinc-900 border border-zinc-700">
+                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-200 bg-neutral-900 border border-zinc-700">
                         {isLoading ? (
                             <div className="w-full flex justify-center p-1">
                                 <img
@@ -87,7 +87,7 @@ const Searchbar = ({  isDisable = false }) => {
                             searches.map((item) => (
                                 <Link
                                     key={item.id}
-                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] p-2 border-b"
+                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] duration-100 transition-all ease-linear p-2 border-b"
                                     to={""}
                                 >
                                     <h4>

@@ -8,6 +8,7 @@ const Cards = ({
     isPending,
     count = 10,
     error = false,
+    route,
     isInfiniteScroll = false,
     lastItemRef = null,
     isDone = false,
@@ -17,18 +18,18 @@ const Cards = ({
     ));
 
     const getOnlineStatus = () => !navigator.onLine && "No internet!"
-
+    
     return (
         <>
-            {items ? (
+            {items.length > 0 ? (
                 <>
                     {items.map((item, index) => {
                         if (isInfiniteScroll && index === items.length - 1) {
                             return (
-                                <Card ref={lastItemRef} {...item} key={index} />
+                                <Card ref={lastItemRef} {...item} route={route} key={index} />
                             );
                         }
-                        return <Card {...item} key={index} />;
+                        return <Card {...item} route={route} key={index} />;
                     })}
                     {isInfiniteScroll && isPending && !isDone && skeletonCards}
                     {isInfiniteScroll && (error ?? getOnlineStatus()) && (

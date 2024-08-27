@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import useFetch from "../../hooks/useFetch";
-import { apiEndpoints } from "../../utils/constants";
-import Topnav from "../Layout/Topnav";
-import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import PeopleCards from "../partials/PeopleCards";
-import { isPending } from "@reduxjs/toolkit";
+import useFetch from "../../../hooks/useFetch";
+import { apiEndpoints } from "../../../utils/constants";
+import Topnav from "../../layout/Topnav";
+import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
+import PeopleCards from "../../partials/PeopleCards";
+import { ScrollRestoration } from "react-router-dom";
 
 const Peoples = () => {
     const [page, setPage] = useState(1);
@@ -21,6 +21,7 @@ const Peoples = () => {
 
     return (
         <section className="main">
+            <ScrollRestoration />
             <Topnav />
             <div className="w-full">
                 <PeopleCards

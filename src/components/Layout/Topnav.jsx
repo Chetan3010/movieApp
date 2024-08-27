@@ -37,7 +37,7 @@ const Topnav = () => {
             {isSidenavOpen && (
                 <div className="w-full absolute right-0 top-0 h-full bg-black opacity-70 z-[110]"></div>
             )}
-            <section className="w-full border-zinc-500 relative selection:bg-none">
+            <section className="w-full border-zinc-500 relative selection:bg-none bg-[#0F0617]">
                 <Header toggleSidebar={toggleSidebar} />
                 <div
                     ref={sidenavRef}
@@ -55,7 +55,7 @@ const Topnav = () => {
                         <Searchbar isDisable={true} />
                         <NavLink
                             to="/"
-                            className={`flex gap-3 items-center py-4 text-zinc-200 hover:bg-[#29143a96] hover:text-[#C147E9] pl-5 rounded-md`}
+                            className={`flex gap-3 items-center py-4 text-neutral-200 hover:bg-[#29143a96] hover:text-[#C147E9] pl-5 rounded-md`}
                         >
                             Home
                         </NavLink>

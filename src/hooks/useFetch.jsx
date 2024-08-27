@@ -5,8 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 const useFetch = ({
     url,
     options = {},
-    dataPath = "",
-    returnNew = false,
+    dataPath = "data.results",
+    returnRaw = false,
 }) => {
     const [data, setData] = useState([]);
     const [isPending, setIsPending] = useState(false);
@@ -29,7 +29,7 @@ const useFetch = ({
                 : response.data;
 
             setData((prev) => {
-                if (returnNew) return extractedData;
+                if (returnRaw) return extractedData;
                 const uniqueData = extractedData.length > 0 ? extractedData.filter(
                     (newItem) =>
                         !prev.some((prevItem) => prevItem.id === newItem.id)
