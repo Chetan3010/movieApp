@@ -33,7 +33,7 @@ const Card = forwardRef(
         };
         
         return (
-            <Link to={`/${media_type || route}/${id}-${(original_name||original_title).split(" ").join("_")}`}>
+            <Link to={`/${media_type || route}/${id}-${(name||title).split(" ").join("_")}`}>
                 <div className="rounded-xl overflow-hidden relative" ref={ref}>
                     <div className="relative">
                         <img

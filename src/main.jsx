@@ -2,16 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import { RouterProvider, ScrollRestoration, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NowPlaying from "./components/pages/NowPlaying.jsx";
 import About from "./components/pages/About.jsx";
 import Explore from "./components/pages/Explore.jsx";
 import { MovieGenreProvider, TvGenreProvider } from "./Contexts/Contexts.jsx";
 import TvShows from "./components/pages/tv/TvShows.jsx";
 import Peoples from "./components/pages/people/Peoples.jsx";
-import MovieInfo from "./components/pages/movie/MovieInfo.jsx";
 import Movies from "./components/pages/movie/Movies.jsx";
-import { ScrollToTop } from "./utils/helper.jsx";
+import MovieInfo from "./components/pages/movie/MovieInfo.jsx";
+import TvInfo from "./components/pages/tv/TvInfo.jsx";
+import TvSeason from "./components/pages/tv/TvSeason.jsx";
+import TvEpisode from "./components/pages/tv/TvEpisode.jsx";
 
 const Routes = createBrowserRouter([
     {
@@ -37,6 +39,18 @@ const Routes = createBrowserRouter([
     {
         path: "/tv",
         element: <TvShows />,
+    },
+    {
+        path: "/tv/:id",
+        element: <TvInfo />,
+    },
+    {
+        path: '/tv/:id/season/:sid',
+        element: <TvSeason />
+    },
+    {
+        path: '/tv/:id/season/:sid/episode/:eid',
+        element: <TvEpisode />
     },
     {
         path: "/people",

@@ -1,82 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, ScrollRestoration, useParams } from "react-router-dom";
-import Topnav from "../../layout/Topnav";
 import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
-import { formatDate, formatRuntime } from "../../../utils/helper";
-import MovieInfoTab from "../../partials/MovieInfoTab";
-import Collection from "../../partials/Collection";
-import Recommendations from "../../partials/Recommendations";
+import Topnav from "../../layout/Topnav";
 import InfoPoster from "../../layout/InfoPoster";
+import { formatDate } from "../../../utils/helper";
+import useRegion from "../../../hooks/useRegion";
 import Facts from "../../partials/Facts";
+import TvInfoTab from "../../partials/TvInfoTab";
+import Recommendations from "../../partials/Recommendations";
 
-const MovieInfo = () => {
+const TvInfo = () => {
     const para = useParams();
     const id = para.id.split("-")[0];
 
     const [reviewPage, setReviewPage] = useState(1);
     const [rcmdPage, setRcmdPage] = useState(1);
 
-    const { data: info } = useFetch(apiEndpoints.movie.details({ id }));
+    const { data: info } = useFetch(apiEndpoints.tv.details({ id }));
 
     const {
         data: reviews,
         isPending: reviewsLoading,
         totalPages: reviewsTotalPages,
         error: reviewError,
-    } = useFetch(apiEndpoints.movie.reviews({ id, page: reviewPage }));
+    } = useFetch(apiEndpoints.tv.reviews({ id, page: reviewPage }));
 
     const {
         data: recommendations,
         isPending: rcmdLoading,
         totalPages: rcmdTotalPages,
         error: rcmdError,
-    } = useFetch(apiEndpoints.movie.recommendations({ id, page: rcmdPage }));
+    } = useFetch(apiEndpoints.tv.recommendations({ id, page: rcmdPage }));
 
     const {
         backdrop_path,
-        belongs_to_collection, // -> object
-        budget,
+        created_by, // array of objects
+        first_air_date,
         genres,
         homepage,
+        next_episode_to_air,
+        name,
+        networks,
+        number_of_episodes,
+        number_of_seasons,
         original_language,
-        original_title,
+        original_name,
         overview,
         poster_path,
-        release_date,
-        revenue,
-        runtime,
-        spoken_languages, // array.object
+        seasons, // array of objects
+        spoken_languages,
         status,
         tagline,
-        title,
+        type,
         vote_average,
-        images, // poster, logos, backdrops -> array
-        videos, // results -> array
-        credits, // cast crew
+        images,
+        credits,
         external_ids,
+        content_ratings,
     } = info;
 
-    const directors =
-        credits?.crew
-            ?.filter((credit) => credit?.job === "Director")
-            .slice(0, 2) ?? [];
-    const writer =
-        credits?.crew
-            ?.filter((credit) => credit?.job === "Writer")
-            .slice(0, 3) ?? [];
-    const characters =
-        credits?.crew
-            ?.filter((credit) => credit?.job === "Characters")
-            .slice(0, 2) ?? [];
-
-    const crewData = [...directors, ...writer, ...characters];
+    const { region } = useRegion();
 
     const rating = vote_average
         ? vote_average % 1 === 0
             ? vote_average.toFixed(0)
             : vote_average.toFixed(1)
         : "NR";
+
+    const content_rating =
+        content_ratings?.results?.filter(
+            (item) => item.iso_3166_1 === region
+        )[0]?.rating ?? "NR";
 
     const facts = [
         {
@@ -91,19 +86,19 @@ const MovieInfo = () => {
             link: null,
         },
         {
-            title: "Budget",
-            value: budget ? `$${Intl.NumberFormat().format(budget)}` : "-",
-            link: null,
+            title: "Network",
+            value: networks ? networks[0]?.name : "-",
+            link: networks ? `/network/${networks[0]?.id}` : null,
         },
         {
-            title: "Revenue",
-            value: revenue ? `$${Intl.NumberFormat().format(revenue)}` : "-",
+            title: "Type",
+            value: type ?? "-",
             link: null,
         },
     ];
 
     return (
-        <section className="w-full text-white san-public relative">
+        <section className="main">
             <ScrollRestoration />
             <Topnav />
             {info && reviews && recommendations && (
@@ -111,40 +106,42 @@ const MovieInfo = () => {
                     {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                     <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
                         <InfoPoster
-                            title={title || original_title}
+                            title={name || original_name}
                             poster_path={poster_path}
                             external_ids={external_ids}
                             homepage={homepage}
                         />
+
                         <div className="right">
                             {/* Title */}
                             <h1 className="text-3xl md:text-4xl font-semibold md:font-bold">
-                                {title || original_title}{" "}
-                                {/* {release_date &&
+                                {name || original_name}{" "}
+                                {first_air_date &&
                                     `(${formatDate({
-                                        date: release_date,
+                                        date: first_air_date,
                                         year: true,
-                                    })})`} */}
+                                    })})`}
                             </h1>
-                            
-                            {/* date, genres, runtime */}
-                            <div className="my-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap md:gap-3 text-lg md:text-xl md:font-medium">
-                                <h3 className="flex md:block items-center gap-2">
-                                    <i className="w-2 h-2 bg-[#c147e9] rounded-full md:hidden"></i>
-                                    {release_date
-                                        ? formatDate({
-                                              date: release_date,
-                                              year: true,
-                                              month: true,
-                                              day: true,
-                                          })
-                                        : "TBA"}
-                                </h3>
 
+                            {/* date, genres, runtime */}
+                            <div className="my-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap gap-1 md:gap-3 text-lg md:text-xl md:font-medium">
+                                {/* Content rating */}
+                                {content_rating ? (
+                                    <h3 className="flex items-center gap-2">
+                                        <i className="w-2 h-2 bg-[#c147e9] rounded-full md:hidden"></i>
+                                        <span className="bg-gray-500 px-2 text-base rounded text-white">
+                                            {content_rating}
+                                        </span>
+                                    </h3>
+                                ) : (
+                                    <></>
+                                )}
+
+                                {/* Genres */}
                                 {genres?.length > 0 ? (
                                     <>
                                         <div className="flex gap-2 items-center">
-                                            <i className="w-2 h-2 bg-[#c147e9] rounded-full "></i>
+                                            <i className="w-2 h-2 bg-[#c147e9] rounded-full"></i>
                                             {genres.map((item, index) => (
                                                 <Link
                                                     to={""}
@@ -160,11 +157,22 @@ const MovieInfo = () => {
                                     <></>
                                 )}
 
-                                {runtime ? (
-                                    <div className="flex items-center gap-2">
-                                        <i className="w-2 h-2 bg-[#c147e9] rounded-full"></i>
-                                        <h3>{formatRuntime(runtime)}</h3>
-                                    </div>
+                                {/* Seasons */}
+                                {number_of_seasons ? (
+                                    <h3 className="flex items-center gap-2 text-base md:text-lg">
+                                        <i className="w-2 h-2 bg-[#c147e9] rounded-full whitespace-nowrap"></i>
+                                        {number_of_seasons} Seasons
+                                    </h3>
+                                ) : (
+                                    <></>
+                                )}
+
+                                {/* Episodes */}
+                                {number_of_episodes ? (
+                                    <h3 className="flex items-center gap-2 text-base md:text-lg">
+                                        <i className="w-2 h-2 bg-[#c147e9] rounded-full whitespace-nowrap"></i>
+                                        {number_of_episodes} Episodes
+                                    </h3>
                                 ) : (
                                     <></>
                                 )}
@@ -195,21 +203,22 @@ const MovieInfo = () => {
                             )}
 
                             {/* crew data */}
-                            <div className="crew py-5 flex flex-wrap gap-5 text-lg md:text-xl">
-                                {crewData.map((item, index) => (
-                                    <div key={index}>
-                                        <h3 className="">{item.job}</h3>
-                                        <h3 className="font-semibold tracking-wide md:font-bold underline hover:text-[#c147e9] cursor-pointer">
-                                            {item.name || item.original_name}
-                                        </h3>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Collection */}
-                            {belongs_to_collection && (
-                                <Collection {...belongs_to_collection} />
+                            {created_by?.length > 0 ? (
+                                <div className="crew py-5 grid grid-cols-2 sm:grid-3 md:grid-cols-4 lg:grid-cols-5 gap-5 text-lg md:text-xl">
+                                    {created_by?.map((item, index) => (
+                                        <div key={index}>
+                                            <h3 className="">Creator</h3>
+                                            <h3 className="font-semibold tracking-wide md:font-bold underline hover:text-[#c147e9] cursor-pointer">
+                                                {item.name ||
+                                                    item.original_name}
+                                            </h3>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <></>
                             )}
+
                         </div>
                     </div>
 
@@ -223,8 +232,9 @@ const MovieInfo = () => {
                     {/* Selection Tab */}
                     <div className="selectiontab my-5 mt-10">
                         <div className="w-full flex flex-col items-center">
-                            <MovieInfoTab
+                            <TvInfoTab
                                 cast={credits?.cast}
+                                seasons={seasons}
                                 backdrops={images?.backdrops}
                                 posters={images?.posters}
                                 reviewsData={{
@@ -235,7 +245,7 @@ const MovieInfo = () => {
                                     reviewsLoading,
                                     reviewsTotalPages,
                                 }}
-                                title={title || original_title}
+                                title={name || original_name}
                             />
                         </div>
                     </div>
@@ -258,4 +268,4 @@ const MovieInfo = () => {
     );
 };
 
-export default MovieInfo;
+export default TvInfo;

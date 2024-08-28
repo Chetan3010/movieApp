@@ -1,22 +1,36 @@
 import React, { Fragment, useEffect, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { FaImage, FaPeopleGroup } from "react-icons/fa6";
-import { MdPhotoAlbum, MdRateReview } from "react-icons/md";
-import Cast from "./Cast";
 import ReviewCard from "./ReviewCard";
 import SkeletonReview from "./SkeletonReview";
+import Cast from "./Cast";
+import { formatDate } from "../../utils/helper";
 import Download from "./Download";
+import { defaultConst } from "../../utils/constants";
 import Casts from "../svg/Casts";
-import Reviews from "../svg/Reviews";
 import Backdrops from "../svg/Backdrops";
 import Posters from "../svg/Posters";
+import Reviews from "../svg/Reviews";
+import Seasons from "../svg/Seasons";
+import { Link } from "react-router-dom";
 
-const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
+const TvInfoTab = ({
+    title,
+    cast,
+    seasons,
+    reviewsData,
+    backdrops,
+    posters,
+}) => {
     const options = [
         {
             name: "Cast",
             value: "cast",
             icon: (color) => <Casts color={color} />,
+        },
+        {
+            name: "Seasons",
+            value: "season",
+            icon: (color) => <Seasons color={color} />,
         },
         {
             name: "Reviews",
@@ -47,7 +61,7 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
     const [selectedType, setSelectedType] = useState("cast");
 
     const [value, setValue] = useLocalStorage({
-        key: "movieInfoTab",
+        key: "tvInfoTab",
         defaultValue: selectedType,
     });
 
@@ -71,22 +85,24 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
         });
     };
 
+    const today = new Date();
+
     return (
         <>
-            <div className="border-2 w-[90%] md:w-fit select-none p-[2px] bg-neutral-200 rounded-xl">
+            <div className="border-2 w-[90%] sm:w-[70%] md:w-fit select-none p-[2px] bg-neutral-200 rounded-xl">
                 <ul className="flex justify-between gap-1 relative w-full text-black">
                     {options.map((item, index) => (
                         <li
                             key={item.name}
                             onClick={() => setSelectedType(item.value)}
                             style={{ width: `${Math.floor(100 / length)}%` }}
-                            className={`relative z-10 text-sm md:text-xl truncate font-normal md:font-semibold cursor-pointer rounded-xl py-2 md:px-10 flex flex-col justify-center items-center ${
+                            className={`relative z-10 text-xs md:text-xl truncate font-normal md:font-semibold cursor-pointer rounded-xl py-2 md:px-10 flex flex-col gap-1 justify-center items-center ${
                                 selectedType === item.value ? "text-white" : ""
                             }`}
                         >
                             {item.icon(
                                 selectedType === item.value ? "#fff" : "#000"
-                            )}  
+                            )}
                             {item.name}
                         </li>
                     ))}
@@ -127,6 +143,67 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
                             To be added later.
                         </p>
                     ))}
+
+                {/* Seasons */}
+                {selectedType === "season" &&
+                    (seasons?.length > 0 ? (
+                        <div>
+                            <div className="mt-5 flex flex-col gap-5 items-center w-full">
+                                {seasons?.map((item, index) => (
+                                    <Link
+                                        to={`season/${item.season_number}`}
+                                        key={index}
+                                        className="flex border border-neutral-200 w-full md:w-[80%] h-40 md:h-44 rounded-xl overflow-hidden"
+                                    >
+                                        <div className="w-40 md:w-36 h-full">
+                                            <img
+                                                className="object-center object-cover bg-neutral-500"
+                                                src={
+                                                    item.poster_path
+                                                        ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                                                        : defaultConst.imgPlaceholder
+                                                }
+                                                alt=""
+                                                width={500}
+                                                height={750}
+                                            />
+                                        </div>
+                                        <div className="bg-neutral-200 text-neutral-900 flex flex-col items-start justify-center w-full p-3 md:p-5">
+                                            <h1 className="text-xl md:text-3xl leading-6 font-semibold">
+                                                {item.name}{" "}
+                                                {today <
+                                                    new Date(item.air_date) &&
+                                                today !==
+                                                    new Date(item.air_date)
+                                                    ? " (Upcoming)"
+                                                    : ""}
+                                            </h1>
+                                            <h1 className="flex gap-1 md:gap-2 items-center text-sm md:text-xl font-medium md:mt-1">
+                                                {item.air_date
+                                                    ? formatDate({
+                                                          date: item.air_date,
+                                                          year: true,
+                                                          month: true,
+                                                          day: true,
+                                                      })
+                                                    : "NA"}
+                                                <i className="w-2 h-2 rounded-full bg-[#c147e9]"></i>
+                                                {item.episode_count} Episodes
+                                            </h1>
+                                            <p className="font-light leading-tight line-clamp-4 md:line-clamp-3 text-sm mt-1 md:mt-2">
+                                                {item.overview}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="text-3xl text-center text-neutral-300 italic">
+                            No info yet.
+                        </p>
+                    ))}
+
                 {/* Reviews */}
                 {selectedType === "review" &&
                     (reviews?.length > 0 ? (
@@ -163,6 +240,7 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
                             No reviews yet.
                         </p>
                     ))}
+
                 {/* Backdrops */}
                 {selectedType === "backdrop" &&
                     (backdrops?.length > 0 ? (
@@ -209,6 +287,7 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
                             No pictures yet.
                         </p>
                     ))}
+
                 {/* Poster */}
                 {selectedType === "poster" &&
                     (posters?.length > 0 ? (
@@ -260,4 +339,4 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
     );
 };
 
-export default MovieInfoTab;
+export default TvInfoTab;

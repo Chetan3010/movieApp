@@ -32,7 +32,7 @@ const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
     };
 
     return (
-        <div className="left flex flex-col gap-5 w-72">
+        <div className="flex flex-col gap-5 w-72">
             <img
                 src={
                     poster_path

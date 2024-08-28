@@ -22,7 +22,7 @@ const SelectionTab = ({ lsKey, options, selectedOption, onSelect }) => {
                             key={item.name}
                             onClick={() => onSelect(item.value)}
                             style={{ width: `${Math.floor(100 / length)}%` }}
-                            className={`relative z-10 text-lg md:text-2xl truncate font-semibold cursor-pointer rounded-xl py-2 md:px-[8vw] flex justify-center items-center ${
+                            className={`relative z-10 text-lg md:text-xl truncate font-semibold cursor-pointer rounded-xl py-3 md:px-[8vw] flex justify-center items-center ${
                                 selectedOption === item.value
                                     ? "text-neutral-200"
                                     : ""

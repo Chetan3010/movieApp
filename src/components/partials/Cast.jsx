@@ -18,7 +18,7 @@ const Cast = ({ cast }) => {
                     />
                     <h3 className="text-lg mt-2 text-center">{item.character}</h3>
                     <h3 className="text-lg text-center font-light text-gray-300">
-                        {item.original_name}
+                        {item.name || item.original_name}
                     </h3>
                 </div>
             ))}

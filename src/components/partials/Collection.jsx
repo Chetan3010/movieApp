@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Collection = ({ backdrop_path, name}) => {
     return (
-        <div className="bg-neutral-300 p-1 w-full md:w-[36rem] rounded-xl group">
+        <div className="bg-neutral-300 p-1 w-full md:w-[36rem] mt-5 rounded-xl group">
             <Link>
                 <div className="flex">
                     <div className="relative w-[45%] md:w-80 rounded-xl overflow-hidden">

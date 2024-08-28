@@ -19,7 +19,11 @@ export const apiEndpoints = {
         popular: ({ page = 1 }) => ({ url: `${base_url}/tv/popular?language=en-US&page=${page}`, }),
         airingToday: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, }),
         onTheAir: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/on_the_air?language=en-US&timezone=${timezone}&page=${page}`, }),
-        topRated: ({ page = 1 }) => ({ url: `${base_url}/tv/top_rated?language=en-US&page=${page}`, })
+        topRated: ({ page = 1 }) => ({ url: `${base_url}/tv/top_rated?language=en-US&page=${page}`, }),
+        details: ({ id }) => ({ url: `${base_url}/tv/${id}?language=en-US&append_to_response=images,videos,credits,external_ids,content_ratings&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        season: ({ id, sid }) => ({ url: `${base_url}/tv/${id}/season/${sid}?language=en-US&append_to_response=images,videos,credits&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        reviews: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/reviews?language=en-US&page=${page}` }),
+        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/recommendations?language=en-US&page=${page}` })
     },
     trending: {
         trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, }),

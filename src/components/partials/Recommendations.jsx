@@ -3,7 +3,7 @@ import SkeletonRcmd from "./SkeletonRcmd";
 
 const Recommendations = ({ data }) => {
     const {
-        recommandations,
+        recommendations,
         rcmdLoading,
         rcmdError,
         rcmdTotalPages,
@@ -20,10 +20,10 @@ const Recommendations = ({ data }) => {
     return (
         <div className="rcmd px-5 md:px-14">
             <h1 className="text-3xl md:text-[42px] font-bold text-center pb-8">
-                Recommendations
+                More Like This
             </h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 md:gap-8">
-                {recommandations?.map((item, index) => (
+                {recommendations?.map((item, index) => (
                     <div
                         key={index}
                         className="flex flex-col gap-3 justify-start"
@@ -31,10 +31,12 @@ const Recommendations = ({ data }) => {
                         <img
                             src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
                             alt=""
-                            className="object-cover object-center rounded-xl"
+                            className="object-cover object-center rounded-xl bg-neutral-600"
+                            width={500}
+                            height={281}
                         />
                         <h1 className="text-lg md:text-xl font-light text-center">
-                            {item.title}
+                            {item.title || item.original_title || item.name || item.original_name}
                         </h1>
                     </div>
                 ))}
