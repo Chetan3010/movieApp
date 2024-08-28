@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import NowPlaying from "./components/pages/NowPlaying.jsx";
 import About from "./components/pages/About.jsx";
 import Explore from "./components/pages/Explore.jsx";
 import { MovieGenreProvider, TvGenreProvider } from "./Contexts/Contexts.jsx";
@@ -14,6 +13,7 @@ import MovieInfo from "./components/pages/movie/MovieInfo.jsx";
 import TvInfo from "./components/pages/tv/TvInfo.jsx";
 import TvSeason from "./components/pages/tv/TvSeason.jsx";
 import TvEpisode from "./components/pages/tv/TvEpisode.jsx";
+import NowPlaying from "./components/pages/NowPlaying.jsx";
 
 const Routes = createBrowserRouter([
     {
