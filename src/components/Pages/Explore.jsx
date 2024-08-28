@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import Topnav from "../Layout/Topnav";
-import { Link } from "react-router-dom";
+import Topnav from "../layout/Topnav";
+import { Link, ScrollRestoration } from "react-router-dom";
 import Button from "../partials/Button";
 import Genres from "../partials/Genres";
 import { MovieGenreContext, TvGenreContext } from "../../Contexts/Contexts";
@@ -8,9 +8,7 @@ import useRegion from "../../hooks/useRegion";
 import { apiEndpoints } from "../../utils/constants";
 import useFetch from "../../hooks/useFetch";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import SelectionTab from "../partials/SelectionTab";
-import Cards from "../partials/Cards";
-import CardsDrawer from "../Layout/CardsDrawer";
+import CardsDrawer from "../layout/CardsDrawer";
 
 const Explore = () => {
     const { data: movieGenres } = useContext(MovieGenreContext);
@@ -47,17 +45,20 @@ const Explore = () => {
         movie: {
             ...movies,
             ...movieRef,
-            title: "Upcoming Movies"
+            title: "Upcoming Movies",
+            route: 'movie'
         },
         tv: {
             ...tv,
             ...tvRef,
-            title: "On The Air Tv shows"
+            title: "On The Air Tv shows",
+            route: 'tv'
         }
     }
 
     return (
         <section className="main box-border">
+            <ScrollRestoration />
             <Topnav />
             <div className="px-5 md:px-12">
                 <div className="w-full flex flex-col md:flex-row mt-5 border border-zinc-700 bg-zinc-900 rounded-lg overflow-hidden">

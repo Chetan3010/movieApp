@@ -14,13 +14,14 @@ const CardsDrawer = ({
     const items = cardData[selectedType].data;
     const isPending = cardData[selectedType].isPending;
     const error = cardData[selectedType].error;
+    const route = cardData[selectedType].route;
     const ref = cardData[selectedType].lastItemRef ?? null;
     const isDone = cardData[selectedType].isDone ?? false;
 
     return (
         <>
             <div className="w-full mt-5 flex flex-col items-center justify-center">
-                <h1 className="text-3xl md:text-5xl font-semibold mb-2 mdLmb-5">
+                <h1 className="text-3xl md:text-5xl font-semibold mb-2 md:mb-5">
                     {title}
                 </h1>
                 <SelectionTab
@@ -38,6 +39,7 @@ const CardsDrawer = ({
                     lastItemRef={ref}
                     error={error}
                     isDone={isDone}
+                    route={route}
                 />
             </div>
         </>

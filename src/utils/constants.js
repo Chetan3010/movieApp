@@ -1,28 +1,41 @@
-import { getMyRegion, getMyTimezone } from "./helper";
-const base_url = "https://api.themoviedb.org/3"
+export const base_url = "https://api.themoviedb.org/3"
+
+const baseImgOriginal = 'https://image.tmdb.org/t/p/original/'
+const baseImgW500 = 'https://image.tmdb.org/t/p/w500/'
 
 export const apiEndpoints = {
     movie: {
-        movieGenre: { url: `${base_url}/genre/movie/list`, options: {}, dataPath: 'data.genres' },
-        popular: ({ page = 1, region }) => ({ url: `${base_url}/movie/popular?language=en-US&region=${region}&page=${page}`, options: {}, dataPath: 'data.results' }),
-        nowPlaying: ({ page = 1, region }) => ({ url: `${base_url}/movie/now_playing?language=en-US&page=${page}&region=${region}`, options: {}, dataPath: 'data.results' }),
-        upcoming: ({ page = 1, region }) => ({ url: `${base_url}/movie/upcoming?language=en-US&region=${region}&page=${page}`, options:{}, dataPath: 'data.results' }),
-        topRated: ({ page=1, region }) => ({ url: `${base_url}/movie/top_rated?language=en-US&page=${page}&region=${region}`, options:{}, dataPath: 'data.results'})
+        movieGenre: { url: `${base_url}/genre/movie/list`, dataPath: 'data.genres' },
+        popular: ({ page = 1, region }) => ({ url: `${base_url}/movie/popular?language=en-US&region=${region}&page=${page}` }),
+        nowPlaying: ({ page = 1, region }) => ({ url: `${base_url}/movie/now_playing?language=en-US&page=${page}&region=${region}` }),
+        upcoming: ({ page = 1, region }) => ({ url: `${base_url}/movie/upcoming?language=en-US&region=${region}&page=${page}` }),
+        topRated: ({ page = 1, region }) => ({ url: `${base_url}/movie/top_rated?language=en-US&page=${page}&region=${region}` }),
+        details: ({ id }) => ({ url: `${base_url}/movie/${id}?language=en-US&append_to_response=images,videos,credits,external_ids&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        reviews: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/reviews?language=en-US&page=${page}` }),
+        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/recommendations?language=en-US&page=${page}` })
     },
     tv: {
-        tvGenre: { url: `${base_url}/genre/tv/list`, options: {}, dataPath: 'data.genres' },
-        popular: ({ page = 1 }) => ({ url: `${base_url}/tv/popular?language=en-US&page=${page}`, options: {}, dataPath: 'data.results' }),
-        airingToday: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, options: {}, dataPath: 'data.results' }),
-        onTheAir: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/on_the_air?language=en-US&timezone=${timezone}&page=${page}`, options: {}, dataPath: 'data.results' }),
-        topRated: ({ page=1  }) => ({ url: `${base_url}/tv/top_rated?language=en-US&page=${page}`, options:{}, dataPath: 'data.results'})
+        tvGenre: { url: `${base_url}/genre/tv/list`, dataPath: 'data.genres' },
+        popular: ({ page = 1 }) => ({ url: `${base_url}/tv/popular?language=en-US&page=${page}`, }),
+        airingToday: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/airing_today?language=en-US&page=${page}&timezone=${timezone}`, }),
+        onTheAir: ({ page = 1, timezone }) => ({ url: `${base_url}/tv/on_the_air?language=en-US&timezone=${timezone}&page=${page}`, }),
+        topRated: ({ page = 1 }) => ({ url: `${base_url}/tv/top_rated?language=en-US&page=${page}`, }),
+        details: ({ id }) => ({ url: `${base_url}/tv/${id}?language=en-US&append_to_response=images,videos,credits,external_ids,content_ratings&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        season: ({ id, sid }) => ({ url: `${base_url}/tv/${id}/season/${sid}?language=en-US&append_to_response=images,videos,credits&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        reviews: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/reviews?language=en-US&page=${page}` }),
+        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/recommendations?language=en-US&page=${page}` })
     },
     trending: {
-        trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, options: {}, dataPath: 'data.results' }),
+        trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, }),
+    },
+    people: {
+        pupular: ({ page = 1 }) => ({ url: `${base_url}/person/popular?language=en-US&page=${page}`, })
     },
     search: {
-        multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, options: {}, dataPath: 'data.results', returnNew: true })
+        multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, returnRaw: true })
     },
     others: {
+
         // proxyServer: "http://localhost:3000",
         // proxyServer: "https://proxy-server-three-chi.vercel.app",
         proxyServer: "https://proxyserver-u5de.onrender.com"

@@ -2,13 +2,14 @@ import React from "react";
 import Card from "./Card";
 import CardSkeleton from "./CardSkeleton";
 import { getEndOfScrollPhrase } from "../../utils/helper";
+import PeopleCard from "./PeopleCard";
 
-const Cards = ({
+const PeopleCards = ({
     items,
+    title=null,
     isPending,
-    count = 10,
+    count = 5,
     error = false,
-    route,
     isInfiniteScroll = false,
     lastItemRef = null,
     isDone = false,
@@ -17,19 +18,25 @@ const Cards = ({
         <CardSkeleton key={index} />
     ));
 
-    const getOnlineStatus = () => !navigator.onLine && "No internet!"
-    
+    const getOnlineStatus = () => !navigator.onLine && "No internet!";
+
     return (
         <>
-            {items.length > 0 ? (
+        {title!==null && <h1 className="text-center text-3xl md:text-5xl pt-2 md:pt-5">{title}</h1>}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-12 mt-4 md:mt-8 px-4 md:px-12">
+            {items ? (
                 <>
                     {items.map((item, index) => {
                         if (isInfiniteScroll && index === items.length - 1) {
                             return (
-                                <Card ref={lastItemRef} {...item} route={route} key={index} />
+                                <PeopleCard
+                                    ref={lastItemRef}
+                                    {...item}
+                                    key={index}
+                                />
                             );
                         }
-                        return <Card {...item} route={route} key={index} />;
+                        return <PeopleCard {...item} key={index} />;
                     })}
                     {isInfiniteScroll && isPending && !isDone && skeletonCards}
                     {isInfiniteScroll && (error ?? getOnlineStatus()) && (
@@ -43,9 +50,12 @@ const Cards = ({
                         </h1>
                     )}
                 </>
-            ) : skeletonCards}
+            ) : (
+                skeletonCards
+            )}
+        </div>
         </>
     );
 };
 
-export default Cards;
+export default PeopleCards;

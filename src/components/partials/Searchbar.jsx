@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
@@ -6,15 +6,30 @@ import loader from "/loader.svg";
 import { apiEndpoints } from "../../utils/constants";
 import useFetch from "../../hooks/useFetch";
 
-const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
+const Searchbar = ({  isDisable = false }) => {
     const [query, setQuery] = useState("");
-    const debounceTimeout = useRef(null);
+    const [toggleSearch, setToggleSearch] = useState(false)
+    const searchRef = useRef(null); // Create a ref for the search container
+
     const {
         data: searches,
         setData: setSearches,
         isPending: isLoading,
-        totalPages: movieTotalPages,
     } = useFetch(apiEndpoints.search.multi({ query }));
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchRef.current && !searchRef.current.contains(event.target)) {
+                event.stopPropagation();
+                setToggleSearch(false); // Close the search bar when clicking outside
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [searchRef, setToggleSearch]);
 
     return (
         <div
@@ -22,25 +37,29 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
                 isDisable ? "flex md:hidden" : "hidden md:flex"
             }`}
         >
-            <div className="w-full md:w-[70%] relative bg-transparent border-[1px] border-zinc-600 px-4 flex items-center rounded mb-4 md:mb-0 md:rounded-full">
+            <div
+                ref={searchRef} // Attach the ref to the container
+                className="w-full md:w-[70%] relative bg-transparent border-[1px] border-zinc-600 px-4 flex items-center rounded mb-4 md:mb-0 md:rounded-full"
+            >
                 <BsSearch className="cursor-pointer" />
                 <form
-                    className="w-full "
+                    className="w-full"
                     onSubmit={(e) => {
                         e.preventDefault();
                     }}
                 >
                     <input
                         onChange={(e) => {
-                            // setIsLoading(true);
                             setQuery(e.target.value);
+                            setToggleSearch(true)
                         }}
+                        onClick={()=> setToggleSearch(true)}
                         className="w-full bg-transparent outline-none px-3 py-3"
                         placeholder="What are you looking for?"
                         type="text"
                         value={query}
                         name="query"
-                        autoComplete={"off"}
+                        autoComplete="off"
                     />
                 </form>
                 <RxCross1
@@ -54,8 +73,8 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
                         setToggleSearch(false);
                     }}
                 />
-                {query && (
-                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-zinc-200 bg-zinc-900 border border-zinc-700">
+                {(query || searches.length > 0) && toggleSearch && (
+                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-200 bg-neutral-900 border border-zinc-700">
                         {isLoading ? (
                             <div className="w-full flex justify-center p-1">
                                 <img
@@ -64,12 +83,11 @@ const Searchbar = ({ toggleSearch, setToggleSearch, isDisable = false }) => {
                                     alt="loader"
                                 />
                             </div>
-                        ) : // <p className="font-thin italic">Searching...</p>
-                        searches.length > 0 && query.length > 0 ? (
+                        ) : searches.length > 0 && query.length > 0 ? (
                             searches.map((item) => (
                                 <Link
                                     key={item.id}
-                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] p-2 border-b"
+                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] duration-100 transition-all ease-linear p-2 border-b"
                                     to={""}
                                 >
                                     <h4>

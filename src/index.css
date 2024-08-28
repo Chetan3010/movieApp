@@ -14,27 +14,36 @@
     font-family: "Public Sans", sans-serif;
 }
 
+strong {
+    font-weight: bold;
+}
+
 .archivo {
-    font-family: "Archivo Black", sans-serif;;
+    font-family: "Archivo Black", sans-serif;
+    ;
 }
 
 /* WebKit Scrollbar (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
     width: 5px;
     height: 4px;
-    background-color: #27272a; /* bg-zinc-800 */
+    background-color: #27272a;
+    /* bg-zinc-800 */
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background-color: #27272a; /* bg-zinc-800 */
-    border-radius: 0.5rem; /* rounded-lg */
+    background-color: #27272a;
+    /* bg-zinc-800 */
+    border-radius: 0.5rem;
+    /* rounded-lg */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background-color: #C147E9;
-    border-radius: 0.5rem; /* rounded-lg */
+    border-radius: 0.5rem;
+    /* rounded-lg */
     cursor: pointer;
 }
 
@@ -77,4 +86,28 @@
     left: 0;
     bottom: 0;
     font-size: 12rem;
+}
+
+.RecommendationsGrid {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(20px, 3vw, 32px);
+}
+
+.RecommendedWrapper {
+    width: 100%;
+    align-self: flex-start;
+}
+
+.white-black {
+    @apply bg-neutral-200 text-black
+}
+
+.puple-white {
+    @apply bg-[#c147e9] text-white
+}
+
+.w-b:hover {
+    @apply bg-[#bf2ef0] transition-all duration-150 ease-in
 }

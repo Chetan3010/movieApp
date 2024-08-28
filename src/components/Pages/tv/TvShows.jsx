@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
-import Topnav from '../Layout/Topnav'
-import useFetch from '../../hooks/useFetch'
-import useRegion from '../../hooks/useRegion'
-import { apiEndpoints } from '../../utils/constants'
-import CardsDrawer from '../Layout/CardsDrawer'
-import useInfiniteScroll from '../../hooks/useInfiniteScroll'
+import Topnav from '../../layout/Topnav'
+import useFetch from '../../../hooks/useFetch'
+import { apiEndpoints } from '../../../utils/constants'
+import CardsDrawer from '../../layout/CardsDrawer'
+import useInfiniteScroll from '../../../hooks/useInfiniteScroll'
 
-const Movies = () => {
-    const region = useRegion()
+const TvShows = () => {
     const [topRatedPage, setTRPage] = useState(1)
     const [popularPage, setPPPage] = useState(1)
-    // toprated, popular
-    const topRated = useFetch(apiEndpoints.movie.topRated({ region, page: topRatedPage }));
-    const popular = useFetch(apiEndpoints.movie.popular({ region, page: popularPage }));
+    const topRated = useFetch(apiEndpoints.tv.topRated({ page: topRatedPage }));
+    const popular = useFetch(apiEndpoints.tv.popular({ page: popularPage }));
 
     const topRatedRef = useInfiniteScroll({
         isPending: topRated.isPending,
@@ -32,12 +29,14 @@ const Movies = () => {
         topRated: {
             ...topRated,
             ...topRatedRef,
-            title: 'Top Rated Movies'
+            title: 'Top Rated TV Shows',
+            route: 'tv'
         }, 
         popular: {
             ...popular,
             ...popularRef,
-            title: 'Popular Movies'
+            title: 'Popular TV Shows',
+            route: 'tv'
         }
     }
 
@@ -51,9 +50,9 @@ const Movies = () => {
         <Topnav />
         <div className='sort'>
         </div>
-        <CardsDrawer lsKey={"moviesTab"} cardData={cardData} options={options} isInfiniteScroll={true} />
+        <CardsDrawer lsKey={"tvTab"} cardData={cardData} options={options} isInfiniteScroll={true} />
     </section>
   )
 }
 
-export default Movies
+export default TvShows

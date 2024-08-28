@@ -2,13 +2,14 @@ import axios from "axios";
 import { defaultConst } from "./constants";
 import Seprator from "../components/partials/Seprator";
 import { Fragment } from "react";
+import { useLocation } from "react-router-dom";
 
 export const getMyRegion = async (req) => {
     const { data } = await axios.get(`https://api.ipify.org?format=json`);
     const response = await axios.get(
         `https://ipwho.is/${data.ip}?fields=country_code`
     );
-    return await response.data.country_code || "IN";
+    return (await response.data.country_code) || "IN";
 };
 
 export const getMyTimezone = async (req) => {
@@ -16,7 +17,7 @@ export const getMyTimezone = async (req) => {
     const response = await axios.get(
         `https://ipwho.is/${data.ip}?fields=timezone`
     );
-    return await response.data.timezone.abbr || "IST";
+    return (await response.data.timezone.abbr) || "IST";
 };
 
 export const getEndOfScrollPhrase = () => {
@@ -46,4 +47,38 @@ export const getGenreNames = (genres, genreIds) => {
             })}
         </span>
     );
+};
+
+export const formatRuntime = (runtime) => {
+    const hours = Math.floor(runtime / 60);
+    const minutes = runtime % 60;
+
+    if (hours > 0 && minutes > 0) {
+        return `${hours}h ${minutes}m`;
+    } else if (hours > 0) {
+        return `${hours}h`;
+    } else {
+        return `${minutes}m`;
+    }
+};
+
+export const formatDate = ({
+    date,
+    year = false,
+    month = false,
+    day = false,
+}) => {
+    return new Date(date).toLocaleDateString("en-US", {
+        year: year ? "numeric" : undefined,
+        month: month ? "short" : undefined,
+        day: day ? "numeric" : undefined,
+    });
+};
+
+export const getFileName = ({ title, file }) => {
+    const clean_name =
+        title.split(" ").join("-") +"_"+
+        Math.random().toString(36).substring(2, 15) +
+        `.${file.split(".")[1]}`;
+    return clean_name
 };
