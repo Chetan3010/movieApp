@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Link, ScrollRestoration, useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
-import Topnav from "../../layout/Topnav";
-import InfoPoster from "../../layout/InfoPoster";
-import { formatDate } from "../../../utils/helper";
+import Topnav from "../../partials/topnav/Topnav";
+import InfoPoster from "../../partials/infoPages/InfoPoster";
+import { formatDate, getRating } from "../../../utils/helper";
 import useRegion from "../../../hooks/useRegion";
-import Facts from "../../partials/Facts";
-import TvInfoTab from "../../partials/TvInfoTab";
-import Recommendations from "../../partials/Recommendations";
+import Facts from "../../partials/infoPages/Facts";
+import TvInfoTab from "../../partials/infoPages/tv/TvInfoTab";
+import Recommendations from "../../partials/infoPages/Recommendations";
+import Loader from "../../partials/global/Loader";
+import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 
 const TvInfo = () => {
     const para = useParams();
@@ -17,7 +19,7 @@ const TvInfo = () => {
     const [reviewPage, setReviewPage] = useState(1);
     const [rcmdPage, setRcmdPage] = useState(1);
 
-    const { data: info } = useFetch(apiEndpoints.tv.details({ id }));
+    const { data: info, isPending } = useFetch(apiEndpoints.tv.details({ id }));
 
     const {
         data: reviews,
@@ -62,11 +64,7 @@ const TvInfo = () => {
 
     const { region } = useRegion();
 
-    const rating = vote_average
-        ? vote_average % 1 === 0
-            ? vote_average.toFixed(0)
-            : vote_average.toFixed(1)
-        : "NR";
+    const rating = getRating(vote_average);
 
     const content_rating =
         content_ratings?.results?.filter(
@@ -99,9 +97,8 @@ const TvInfo = () => {
 
     return (
         <section className="main">
-            <ScrollRestoration />
             <Topnav />
-            {info && reviews && recommendations && (
+            {!isPending ? (
                 <div className="w-full relative bg-[#0F0617] py-5">
                     {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                     <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
@@ -114,7 +111,7 @@ const TvInfo = () => {
 
                         <div className="right">
                             {/* Title */}
-                            <h1 className="text-3xl md:text-4xl font-semibold md:font-bold">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold md:font-bold">
                                 {name || original_name}{" "}
                                 {first_air_date &&
                                     `(${formatDate({
@@ -218,15 +215,12 @@ const TvInfo = () => {
                             ) : (
                                 <></>
                             )}
-
                         </div>
                     </div>
 
                     {/* Facts */}
                     <div className="facts w-full flex items-center justify-center mt-10 md:mt-20 ">
-                        <Facts
-                            facts={facts}
-                        />
+                        <Facts facts={facts} />
                     </div>
 
                     {/* Selection Tab */}
@@ -262,6 +256,10 @@ const TvInfo = () => {
                             }}
                         />
                     )}
+                </div>
+            ) : (
+                <div className="w-full h-[80vh] flex justify-center items-center">
+                    <Loader classname={"w-16 h-16"} />
                 </div>
             )}
         </section>

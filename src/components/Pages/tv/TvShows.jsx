@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import Topnav from '../../layout/Topnav'
-import useFetch from '../../../hooks/useFetch'
-import { apiEndpoints } from '../../../utils/constants'
-import CardsDrawer from '../../layout/CardsDrawer'
-import useInfiniteScroll from '../../../hooks/useInfiniteScroll'
+import React, { useState } from "react";
+import Topnav from "../../partials/topnav/Topnav";
+import useFetch from "../../../hooks/useFetch";
+import { apiEndpoints } from "../../../utils/constants";
+import CardsDrawer from "../../partials/global/CardsDrawer";
+import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
+import { ScrollRestoration } from "react-router-dom";
 
 const TvShows = () => {
-    const [topRatedPage, setTRPage] = useState(1)
-    const [popularPage, setPPPage] = useState(1)
+    const [topRatedPage, setTRPage] = useState(1);
+    const [popularPage, setPPPage] = useState(1);
     const topRated = useFetch(apiEndpoints.tv.topRated({ page: topRatedPage }));
     const popular = useFetch(apiEndpoints.tv.popular({ page: popularPage }));
 
@@ -15,44 +16,48 @@ const TvShows = () => {
         isPending: topRated.isPending,
         page: topRatedPage,
         setPage: setTRPage,
-        totalPages: topRated.totalPages
-    })
+        totalPages: topRated.totalPages,
+    });
 
     const popularRef = useInfiniteScroll({
         isPending: popular.isPending,
         page: popularPage,
         setPage: setPPPage,
-        totalPages: popular.totalPages
-    })
+        totalPages: popular.totalPages,
+    });
 
     const cardData = {
         topRated: {
             ...topRated,
             ...topRatedRef,
-            title: 'Top Rated TV Shows',
-            route: 'tv'
-        }, 
+            title: "Top Rated TV Shows",
+            route: "tv",
+        },
         popular: {
             ...popular,
             ...popularRef,
-            title: 'Popular TV Shows',
-            route: 'tv'
-        }
-    }
+            title: "Popular TV Shows",
+            route: "tv",
+        },
+    };
 
     const options = [
-        { name: 'Top Rated', value: 'topRated'},
-        { name: 'Popular', value: 'popular'}
-    ]
+        { name: "Top Rated", value: "topRated" },
+        { name: "Popular", value: "popular" },
+    ];
 
-  return (
-    <section className='main'>
-        <Topnav />
-        <div className='sort'>
-        </div>
-        <CardsDrawer lsKey={"tvTab"} cardData={cardData} options={options} isInfiniteScroll={true} />
-    </section>
-  )
-}
+    return (
+        <section className="main">
+            <Topnav />
+            <div className="sort"></div>
+            <CardsDrawer
+                lsKey={"tvTab"}
+                cardData={cardData}
+                options={options}
+                isInfiniteScroll={true}
+            />
+        </section>
+    );
+};
 
-export default TvShows
+export default TvShows;

@@ -12,7 +12,7 @@ export const apiEndpoints = {
         topRated: ({ page = 1, region }) => ({ url: `${base_url}/movie/top_rated?language=en-US&page=${page}&region=${region}` }),
         details: ({ id }) => ({ url: `${base_url}/movie/${id}?language=en-US&append_to_response=images,videos,credits,external_ids&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
         reviews: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/reviews?language=en-US&page=${page}` }),
-        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/recommendations?language=en-US&page=${page}` })
+        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/recommendations?language=en-US&page=${page}` }),
     },
     tv: {
         tvGenre: { url: `${base_url}/genre/tv/list`, dataPath: 'data.genres' },
@@ -22,8 +22,21 @@ export const apiEndpoints = {
         topRated: ({ page = 1 }) => ({ url: `${base_url}/tv/top_rated?language=en-US&page=${page}`, }),
         details: ({ id }) => ({ url: `${base_url}/tv/${id}?language=en-US&append_to_response=images,videos,credits,external_ids,content_ratings&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
         season: ({ id, sid }) => ({ url: `${base_url}/tv/${id}/season/${sid}?language=en-US&append_to_response=images,videos,credits&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        episode: ({ id, sid, eid }) => ({ url: `${base_url}/tv/${id}/season/${sid}/episode/${eid}?language=en-US&append_to_response=images,videos,credits&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
+        aggregateCredits: ({ id, sid }) => ({ url: `${base_url}/tv/${id}/season/${sid}/aggregate_credits?language=en-US`, dataPath: 'data.cast', returnRaw: true }),
         reviews: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/reviews?language=en-US&page=${page}` }),
-        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/recommendations?language=en-US&page=${page}` })
+        recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/recommendations?language=en-US&page=${page}` }),
+    },
+    watchProvider: {
+        regions: { url: `${base_url}/watch/providers/regions?language=en-US` },
+        tvWatchProvider: ({ region }) => ({ url: `${base_url}/watch/providers/tv?language=en-US&watch_region=${region}`, returnRaw: true }),
+        movieWatchProvider: ({ region }) => ({ url: `${base_url}/watch/providers/movie?language=en-US&watch_region=${region}`, returnRaw: true }),
+        watchProviderMovies: ({ region, page, pid, sortBy = "popularity.desc" }) =>
+            ({ url: `${base_url}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}`, dataPath: 'data.results' }),
+        watchProviderTv: ({ region, page, pid, sortBy = "popularity.desc" }) =>
+            ({ url: `${base_url}/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}`, dataPath: 'data.results' }),
+
+
     },
     trending: {
         trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, }),
@@ -35,7 +48,6 @@ export const apiEndpoints = {
         multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, returnRaw: true })
     },
     others: {
-
         // proxyServer: "http://localhost:3000",
         // proxyServer: "https://proxy-server-three-chi.vercel.app",
         proxyServer: "https://proxyserver-u5de.onrender.com"
@@ -45,6 +57,7 @@ export const apiEndpoints = {
 export const defaultConst = {
     // imgPlaceholder: `https://placehold.co/500x750/6b7280/374151?text=no+poster&font=source-sans-pro`
     imgPlaceholder: `/DefaultImage.png`,
+    wideImgPlaceholder: '/DefaultImageWide.png',
     endOfScrollPhrases: [
         "You’ve reached the end. Time to take a break!",
         "That's all folks! You've seen everything. Impressive, huh?",

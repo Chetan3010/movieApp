@@ -1,5 +1,5 @@
 import React from "react";
-import SkeletonRcmd from "./SkeletonRcmd";
+import SkeletonRcmd from "../skeleton/SkeletonRcmd";
 
 const Recommendations = ({ data }) => {
     const {
@@ -22,7 +22,7 @@ const Recommendations = ({ data }) => {
             <h1 className="text-3xl md:text-[42px] font-bold text-center pb-8">
                 More Like This
             </h1>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 md:gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-8">
                 {recommendations?.map((item, index) => (
                     <div
                         key={index}

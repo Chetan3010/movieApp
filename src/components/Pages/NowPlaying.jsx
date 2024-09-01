@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import Topnav from "../layout/Topnav";
+import Topnav from "../../components/partials/topnav/Topnav";
 import useFetch from "../../hooks/useFetch";
 import { apiEndpoints } from "../../utils/constants";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useRegion from "../../hooks/useRegion";
-import CardsDrawer from "../layout/CardsDrawer";
+import CardsDrawer from "../partials/global/CardsDrawer";
 import { ScrollRestoration } from "react-router-dom";
 
 const NowPlaying = () => {
     const [moviePage, setMoviePage] = useState(1);
     const [tvPage, setTvPage] = useState(1);
     const {region, timezone} = useRegion()
+    
     const movie = useFetch(apiEndpoints.movie.nowPlaying({ page: moviePage, region }));
     const tv = useFetch(apiEndpoints.tv.airingToday({ page: tvPage, timezone }));
 
@@ -53,7 +54,6 @@ const NowPlaying = () => {
         <section
             className={`main`}
         >   
-            <ScrollRestoration />
             <Topnav />
             <CardsDrawer
                 options={options}

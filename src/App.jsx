@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
-import Topnav from "./components/layout/Topnav";
-import Caraousel from "./components/layout/Caraousel";
+import Topnav from "./components/partials/topnav/Topnav";
+import Caraousel from "./components/partials/global/Caraousel";
 import { apiEndpoints } from "./utils/constants";
 import { MovieGenreContext, TvGenreContext } from "./Contexts/Contexts";
 import useFetch from "./hooks/useFetch";
-import useRegion from "./hooks/useRegion";
-import CardsDrawer from "./components/layout/CardsDrawer";
-import { ScrollRestoration } from "react-router-dom";
+import CardsDrawer from "./components/partials/global/CardsDrawer";
 
 const App = () => {
     const { data: trendingData, setData: setTredingData } = useFetch(
@@ -32,18 +30,17 @@ const App = () => {
         movie: {
             ...movies,
             title: "Trending now",
-            route: 'movie'
+            route: "movie",
         },
         tv: {
             ...tv,
             title: "Trending now",
-            route: 'tv'
+            route: "tv",
         },
     };
 
     return (
         <div className={`main`}>
-            <ScrollRestoration />
             <Topnav />
             <Caraousel
                 trendingData={trendingData}
@@ -55,34 +52,6 @@ const App = () => {
                 cardData={cardData}
                 lsKey={"indexTab"}
             />
-            {/* <div className="w-full mt-5 md:mt-10 flex flex-col items-center justify-center">
-                <h1 className="text-3xl md:text-5xl font-semibold mb-5">
-                    What's Popular
-                </h1>
-                <SelectionTab
-                    lsKey="homeTab"
-                    options={[
-                        { name: "Movies", value: "movie" },
-                        { name: "TV Shows", value: "tv" },
-                    ]}
-                    selectedOption={popularType}
-                    onSelect={(option) => setPopularType(option)}
-                />
-            </div>
-            <div className="cardDrawer">
-                <Cards
-                    items={
-                        popularType === "tv"
-                            ? popularTVCards
-                            : popularMovieCards
-                    }
-                    isPending={
-                        popularType === "tv"
-                            ? popularTvIsPending
-                            : popularMovieIsPending
-                    }
-                />
-            </div> */}
         </div>
     );
 };

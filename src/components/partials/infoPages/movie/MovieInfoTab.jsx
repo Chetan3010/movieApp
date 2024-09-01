@@ -1,15 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import { FaImage, FaPeopleGroup } from "react-icons/fa6";
-import { MdPhotoAlbum, MdRateReview } from "react-icons/md";
-import Cast from "./Cast";
-import ReviewCard from "./ReviewCard";
-import SkeletonReview from "./SkeletonReview";
-import Download from "./Download";
-import Casts from "../svg/Casts";
-import Reviews from "../svg/Reviews";
-import Backdrops from "../svg/Backdrops";
-import Posters from "../svg/Posters";
+import useLocalStorage from "../../../../hooks/useLocalStorage";
+import Cast from "../Cast";
+import ReviewCard from "../ReviewCard";
+import SkeletonReview from "../../skeleton/SkeletonReview";
+import Casts from "../../../svg/Casts";
+import Reviews from "../../../svg/Reviews";
+import BackdropsSvg from "../../../svg/Backdrops";
+import PostersSvg from "../../../svg/Posters";
+import Backdrops from "../Backdrops";
+import Posters from "../Posters";
 
 const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
     const options = [
@@ -26,12 +25,12 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
         {
             name: "Pictures",
             value: "backdrop",
-            icon: (color) => <Backdrops color={color} />,
+            icon: (color) => <BackdropsSvg color={color} />,
         },
         {
             name: "Posters",
             value: "poster",
-            icon: (color) => <Posters color={color} />,
+            icon: (color) => <PostersSvg color={color} />,
         },
     ];
 
@@ -51,7 +50,6 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
         defaultValue: selectedType,
     });
 
-    const [castPage, setCastPage] = useState(21);
     const [backdropPage, setBackdropPage] = useState(10);
     const [posterPage, setPosterPage] = useState(16);
 
@@ -103,23 +101,14 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
                     ></li>
                 </ul>
             </div>
+
             <div className="w-full px-5 md:px-14 py-5 md:py-12">
                 {/* Cast */}
                 {selectedType === "cast" &&
                     (cast?.length > 0 ? (
                         <>
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-5 justify-items-center">
-                                <Cast cast={cast?.slice(0, castPage)} />
-                                {cast?.length > castPage && (
-                                    <button
-                                        onClick={() =>
-                                            setCastPage((prev) => prev + 21)
-                                        }
-                                        className="col-span-full select-none m-5 px-4 py-1 bg-[#c147e9] rounded-md text-[#0f0617] text-xl hover:bg-[#d564fb]"
-                                    >
-                                        Load more
-                                    </button>
-                                )}
+                            <Cast cast={cast} />
                             </div>
                         </>
                     ) : (
@@ -167,42 +156,9 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
                 {selectedType === "backdrop" &&
                     (backdrops?.length > 0 ? (
                         <div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                {backdrops
-                                    ?.slice(0, backdropPage)
-                                    .map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className="rounded-xl overflow-hidden relative shadow-md shadow-neutral-900"
-                                        >
-                                            <img
-                                                width={1280}
-                                                height={720}
-                                                className="object-cover object-center bg-zinc-600"
-                                                src={`https://image.tmdb.org/t/p/w1280${item.file_path}`}
-                                                alt=""
-                                            />
-                                            {item.file_path && (
-                                                <Download
-                                                    title={title}
-                                                    file_path={item.file_path}
-                                                />
-                                            )}
-                                        </div>
-                                    ))}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-items-center">
+                                <Backdrops title={title} backdrops={backdrops} />
                             </div>
-                            {backdrops?.length > backdropPage && (
-                                <div className="flex justify-center my-5">
-                                    <button
-                                        onClick={() =>
-                                            setBackdropPage((prev) => prev + 10)
-                                        }
-                                        className="select-none m-5 px-4 py-1 bg-[#c147e9] rounded-md text-[#0f0617] text-xl hover:bg-[#d564fb]"
-                                    >
-                                        Load more
-                                    </button>
-                                </div>
-                            )}
                         </div>
                     ) : (
                         <p className="text-3xl text-center text-neutral-300 italic">
@@ -213,42 +169,9 @@ const MovieInfoTab = ({ title, cast, reviewsData, backdrops, posters }) => {
                 {selectedType === "poster" &&
                     (posters?.length > 0 ? (
                         <div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                                {posters
-                                    ?.slice(0, posterPage)
-                                    .map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className="rounded-xl overflow-hidden relative shadow-md shadow-neutral-900"
-                                        >
-                                            <img
-                                                width={500}
-                                                height={750}
-                                                className="object-cover object-center bg-zinc-600"
-                                                src={`https://image.tmdb.org/t/p/w500${item.file_path}`}
-                                                alt=""
-                                            />
-                                            {item.file_path && (
-                                                <Download
-                                                    title={title}
-                                                    file_path={item.file_path}
-                                                />
-                                            )}
-                                        </div>
-                                    ))}
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
+                                <Posters title={title} posters={posters} />
                             </div>
-                            {posters?.length > posterPage && (
-                                <div className="flex justify-center my-5">
-                                    <button
-                                        onClick={() =>
-                                            setPosterPage((prev) => prev + 12)
-                                        }
-                                        className="select-none m-5 px-4 py-1 bg-[#c147e9] rounded-md text-[#0f0617] text-xl hover:bg-[#d564fb]"
-                                    >
-                                        Load more
-                                    </button>
-                                </div>
-                            )}
                         </div>
                     ) : (
                         <p className="text-3xl text-center text-neutral-300 italic">

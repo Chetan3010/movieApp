@@ -30,10 +30,15 @@ const useFetch = ({
 
             setData((prev) => {
                 if (returnRaw) return extractedData;
-                const uniqueData = extractedData.length > 0 ? extractedData.filter(
-                    (newItem) =>
-                        !prev.some((prevItem) => prevItem.id === newItem.id)
-                ) : []
+                const uniqueData =
+                    extractedData.length > 0
+                        ? extractedData.filter(
+                              (newItem) =>
+                                  !prev.some(
+                                      (prevItem) => prevItem.id === newItem.id
+                                  )
+                          )
+                        : [];
                 return [...prev, ...uniqueData];
             });
 
@@ -59,4 +64,4 @@ const useFetch = ({
     return { data, isPending, error, setData, totalResults, totalPages };
 };
 
-export default useFetch
+export default useFetch;

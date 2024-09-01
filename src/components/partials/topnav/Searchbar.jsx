@@ -3,12 +3,13 @@ import { BsSearch } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import loader from "/loader.svg";
-import { apiEndpoints } from "../../utils/constants";
-import useFetch from "../../hooks/useFetch";
+import { apiEndpoints } from "../../../utils/constants";
+import useFetch from "../../../hooks/useFetch";
+import Loader from "../global/Loader";
 
-const Searchbar = ({  isDisable = false }) => {
+const Searchbar = ({ isDisable = false }) => {
     const [query, setQuery] = useState("");
-    const [toggleSearch, setToggleSearch] = useState(false)
+    const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
 
     const {
@@ -19,7 +20,10 @@ const Searchbar = ({  isDisable = false }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
+            if (
+                searchRef.current &&
+                !searchRef.current.contains(event.target)
+            ) {
                 event.stopPropagation();
                 setToggleSearch(false); // Close the search bar when clicking outside
             }
@@ -51,9 +55,9 @@ const Searchbar = ({  isDisable = false }) => {
                     <input
                         onChange={(e) => {
                             setQuery(e.target.value);
-                            setToggleSearch(true)
+                            setToggleSearch(true);
                         }}
-                        onClick={()=> setToggleSearch(true)}
+                        onClick={() => setToggleSearch(true)}
                         className="w-full bg-transparent outline-none px-3 py-3"
                         placeholder="What are you looking for?"
                         type="text"
@@ -73,21 +77,17 @@ const Searchbar = ({  isDisable = false }) => {
                         setToggleSearch(false);
                     }}
                 />
-                {(query || searches.length > 0) && toggleSearch && (
+                {(query || searches?.length > 0) && toggleSearch && (
                     <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-200 bg-neutral-900 border border-zinc-700">
                         {isLoading ? (
-                            <div className="w-full flex justify-center p-1">
-                                <img
-                                    className="w-4 h-4 md:w-8 md:h-8"
-                                    src={loader}
-                                    alt="loader"
-                                />
+                            <div className="w-full flex justify-center items-center p-1">
+                                <Loader classname={'w-8 h-8'} />
                             </div>
                         ) : searches.length > 0 && query.length > 0 ? (
                             searches.map((item) => (
                                 <Link
                                     key={item.id}
-                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] duration-100 transition-all ease-linear p-2 border-b"
+                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] p-2 border-b"
                                     to={""}
                                 >
                                     <h4>
@@ -116,7 +116,7 @@ const Searchbar = ({  isDisable = false }) => {
                                 </Link>
                             ))
                         ) : (
-                            <p className="font-thin italic">
+                            <p className="font-thin italic px-2">
                                 No results found.
                             </p>
                         )}

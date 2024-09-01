@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
-import Topnav from "../../layout/Topnav";
+import Topnav from "../../partials/topnav/Topnav";
 import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
-import PeopleCards from "../../partials/PeopleCards";
+import PeopleCards from "../../partials/infoPages/people/PeopleCards";
 import { ScrollRestoration } from "react-router-dom";
 
 const Peoples = () => {
@@ -21,7 +21,6 @@ const Peoples = () => {
 
     return (
         <section className="main">
-            <ScrollRestoration />
             <Topnav />
             <div className="w-full">
                 <PeopleCards
