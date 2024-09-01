@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import Searchbar from "../partials/Searchbar";
+import Searchbar from "../../partials/topnav/Searchbar";
 import { NavLink } from "react-router-dom";
-import Header from "../partials/Header";
-import TopNavHeader from "../partials/TopNavHeader";
-import TopNavLinks from "../partials/TopNavLinks";
+import Header from "../../partials/topnav/Header";
+import TopNavHeader from "../../partials/topnav/TopNavHeader";
+import TopNavLinks from "../../partials/topnav/TopNavLinks";
 
 const Topnav = () => {
     const [isSidenavOpen, setIsSidenavOpen] = useState(false);
@@ -37,7 +37,7 @@ const Topnav = () => {
             {isSidenavOpen && (
                 <div className="w-full absolute right-0 top-0 h-full bg-black opacity-70 z-[110]"></div>
             )}
-            <section className="w-full border-zinc-500 relative selection:bg-none bg-[#0F0617]">
+            <section className="w-full border-zinc-500 pt-2 md:pt-0 relative selection:bg-none bg-[#0F0617]">
                 <Header toggleSidebar={toggleSidebar} />
                 <div
                     ref={sidenavRef}

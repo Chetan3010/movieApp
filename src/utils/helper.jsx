@@ -1,8 +1,7 @@
 import axios from "axios";
 import { defaultConst } from "./constants";
-import Seprator from "../components/partials/Seprator";
+import Seprator from "../components/partials/global/Seprator";
 import { Fragment } from "react";
-import { useLocation } from "react-router-dom";
 
 export const getMyRegion = async (req) => {
     const { data } = await axios.get(`https://api.ipify.org?format=json`);
@@ -77,8 +76,18 @@ export const formatDate = ({
 
 export const getFileName = ({ title, file }) => {
     const clean_name =
-        title.split(" ").join("-") +"_"+
+        title.split(" ").join("-") +
+        "_" +
         Math.random().toString(36).substring(2, 15) +
         `.${file.split(".")[1]}`;
-    return clean_name
+    return clean_name;
+};
+
+export const getRating = (vote_average) => {
+    const rating = vote_average
+        ? vote_average % 1 === 0
+            ? vote_average.toFixed(0)
+            : vote_average.toFixed(1)
+        : "NR";
+    return rating;
 };

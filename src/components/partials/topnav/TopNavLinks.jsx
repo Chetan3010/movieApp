@@ -3,11 +3,7 @@ import { BsFillTvFill } from "react-icons/bs";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosPeople } from "react-icons/io";
 import { MdEmail, MdTravelExplore } from "react-icons/md";
-import {
-    PiMonitorPlayFill,
-    PiShootingStarFill,
-    PiTelevisionSimpleDuotone,
-} from "react-icons/pi";
+import { PiMonitorPlayFill } from "react-icons/pi";
 import { RiMovie2Fill } from "react-icons/ri";
 import { NavLink, useMatches } from "react-router-dom";
 
@@ -43,7 +39,7 @@ const TopNavLinks = () => {
                 {
                     title: "Peoples",
                     icon: <IoIosPeople />,
-                    url: "/people",
+                    url: "/person",
                 },
             ],
         },

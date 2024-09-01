@@ -1,6 +1,5 @@
-import { Gauge } from "@suyalcinkaya/gauge";
 import React, { forwardRef } from "react";
-import { defaultConst } from "../../utils/constants";
+import { defaultConst } from "../../../../utils/constants";
 
 const PeopleCard = forwardRef(
     (

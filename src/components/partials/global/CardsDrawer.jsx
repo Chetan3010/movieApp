@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SelectionTab from "../partials/SelectionTab";
-import Cards from "../partials/Cards";
+import SelectionTab from "../global/SelectionTab";
+import Cards from "../global/Cards";
 
 const CardsDrawer = ({
     options,

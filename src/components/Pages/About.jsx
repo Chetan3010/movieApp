@@ -1,5 +1,5 @@
 import React from "react";
-import Topnav from "../layout/Topnav";
+import Topnav from "../partials/topnav/Topnav";
 import { ScrollRestoration } from "react-router-dom";
 
 const About = () => {

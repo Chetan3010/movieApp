@@ -1,7 +1,8 @@
 import { Gauge } from "@suyalcinkaya/gauge";
 import React, { forwardRef } from "react";
-import { defaultConst } from "../../utils/constants";
+import { defaultConst } from "../../../utils/constants";
 import { Link } from "react-router-dom";
+import { getRating } from "../../../utils/helper";
 
 const Card = forwardRef(
     (
@@ -20,11 +21,8 @@ const Card = forwardRef(
         },
         ref
     ) => {
-        const rating = vote_average
-            ? vote_average % 1 === 0
-                ? vote_average.toFixed(0)
-                : vote_average.toFixed(1)
-            : "NR";
+        
+        const rating = getRating(vote_average)
 
         const getColor = (rating) => {
             if (rating > 7) return "#22C55E";

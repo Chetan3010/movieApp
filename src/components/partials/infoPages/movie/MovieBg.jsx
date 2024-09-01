@@ -1,6 +1,5 @@
 import { extractColorsFromSrc } from 'extract-colors';
 import React, { useEffect, useState } from 'react';
-import { apiEndpoints, defaultConst } from '../../utils/constants';
 
 const MovieBg = ({ imageUrl }) => {
   const [palette, setPalette] = useState([]);

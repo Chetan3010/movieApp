@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaCalendar } from "react-icons/fa";
 import { FaCircleDot } from "react-icons/fa6";
 import { MdTheaterComedy } from "react-icons/md";
-import { getGenreNames } from "../../utils/helper";
+import { getGenreNames } from "../../../utils/helper";
 
 const Caraousel = ({ trendingData, genres }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,6 +21,10 @@ const Caraousel = ({ trendingData, genres }) => {
     const nextIndex =
         currentIndex === trendingData.length - 1 ? 0 : currentIndex + 1;
 
+   /**
+    * The `handleManualChange` function sets a new index, clears any existing interval and delay, and
+    * then restarts the interval after a 5-second delay.
+    */
     const handleManualChange = (newIndex) => {
         setCurrentIndex(newIndex);
         clearInterval(intervalRef.current);
@@ -63,7 +67,7 @@ const Caraousel = ({ trendingData, genres }) => {
     useEffect(() => {
         const startInterval = () => {
             clearInterval(intervalRef.current);
-            intervalRef.current = setInterval(updateIndices, 500000000);
+            intervalRef.current = setInterval(updateIndices, 5000);
         };
 
         startInterval();

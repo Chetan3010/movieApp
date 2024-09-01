@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { CiHeart } from "react-icons/ci";
+import React from "react";
 import { FaShareAlt, FaStarHalfAlt } from "react-icons/fa";
 import { FaInstagram, FaLink, FaRegHeart, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { IoIosMenu } from "react-icons/io";
 import { MdWatchLater } from "react-icons/md";
-import { defaultConst } from "../../utils/constants";
+import { defaultConst } from "../../../utils/constants";
+import Share from "../global/Share";
 
 const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
     const { instagram_id, twitter_id } = external_ids;
+
     const shareData = {
         title,
         text: title,
@@ -96,9 +97,7 @@ const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
                             <FaLink />
                         </i>
                     </a>}
-                    <button onClick={share} className="hover:text-[#c147e9] transition-all duration-100 ease-in text-2xl cursor-pointer">
-                        <FaShareAlt />
-                    </button>
+                    <Share />
                 </div>
             </div>
         </div>

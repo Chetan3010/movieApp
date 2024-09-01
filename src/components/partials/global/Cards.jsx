@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
-import CardSkeleton from "./CardSkeleton";
-import { getEndOfScrollPhrase } from "../../utils/helper";
+import CardSkeleton from "../skeleton/CardSkeleton";
+import { getEndOfScrollPhrase } from "../../../utils/helper";
 
 const Cards = ({
     items,
@@ -21,7 +21,7 @@ const Cards = ({
     
     return (
         <>
-            {items.length > 0 ? (
+            {items?.length > 0 ? (
                 <>
                     {items.map((item, index) => {
                         if (isInfiniteScroll && index === items.length - 1) {

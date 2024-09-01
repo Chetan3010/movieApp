@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Topnav from "../../layout/Topnav";
+import Topnav from "../../partials/topnav/Topnav";
 import useFetch from "../../../hooks/useFetch";
 import useRegion from "../../../hooks/useRegion";
 import { apiEndpoints } from "../../../utils/constants";
-import CardsDrawer from "../../layout/CardsDrawer";
+import CardsDrawer from "../../partials/global/CardsDrawer";
 import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import { ScrollRestoration } from "react-router-dom";
 
@@ -55,7 +55,6 @@ const Movies = () => {
 
     return (
         <section className="main">
-            <ScrollRestoration />
             <Topnav />
             <div className="sort"></div>
             <CardsDrawer

@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
-import Topnav from "../layout/Topnav";
+import Topnav from "../partials/topnav/Topnav";
 import { Link, ScrollRestoration } from "react-router-dom";
-import Button from "../partials/Button";
-import Genres from "../partials/Genres";
+import Button from "../partials/global/Button";
+import Genres from "../partials/global/Genres";
 import { MovieGenreContext, TvGenreContext } from "../../Contexts/Contexts";
 import useRegion from "../../hooks/useRegion";
 import { apiEndpoints } from "../../utils/constants";
 import useFetch from "../../hooks/useFetch";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import CardsDrawer from "../layout/CardsDrawer";
+import CardsDrawer from "../partials/global/CardsDrawer";
 
 const Explore = () => {
     const { data: movieGenres } = useContext(MovieGenreContext);
@@ -58,7 +58,6 @@ const Explore = () => {
 
     return (
         <section className="main box-border">
-            <ScrollRestoration />
             <Topnav />
             <div className="px-5 md:px-12">
                 <div className="w-full flex flex-col md:flex-row mt-5 border border-zinc-700 bg-zinc-900 rounded-lg overflow-hidden">
@@ -78,7 +77,7 @@ const Explore = () => {
                             to see the full list of providers and start enjoying
                             endless entertainment tailored to your preferences.
                         </p>
-                        <Link to={"/watch-provider"}>
+                        <Link to={"/watch-providers"}>
                             <Button title={"Watch Providers"} />
                         </Link>
                     </div>

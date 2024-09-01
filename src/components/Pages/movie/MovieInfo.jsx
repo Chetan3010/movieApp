@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, ScrollRestoration, useParams } from "react-router-dom";
-import Topnav from "../../layout/Topnav";
+import Topnav from "../../partials/topnav/Topnav";
 import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
-import { formatDate, formatRuntime } from "../../../utils/helper";
-import MovieInfoTab from "../../partials/MovieInfoTab";
-import Collection from "../../partials/Collection";
-import Recommendations from "../../partials/Recommendations";
-import InfoPoster from "../../layout/InfoPoster";
-import Facts from "../../partials/Facts";
+import { formatDate, formatRuntime, getRating } from "../../../utils/helper";
+import MovieInfoTab from "../../partials/infoPages/movie/MovieInfoTab";
+import Collection from "../../partials/infoPages/Collection";
+import Recommendations from "../../partials/infoPages/Recommendations";
+import InfoPoster from "../../partials/infoPages/InfoPoster";
+import Facts from "../../partials/infoPages/Facts";
+import Loader from "../../partials/global/Loader";
 
 const MovieInfo = () => {
     const para = useParams();
@@ -17,7 +18,9 @@ const MovieInfo = () => {
     const [reviewPage, setReviewPage] = useState(1);
     const [rcmdPage, setRcmdPage] = useState(1);
 
-    const { data: info } = useFetch(apiEndpoints.movie.details({ id }));
+    const { data: info, isPending } = useFetch(
+        apiEndpoints.movie.details({ id })
+    );
 
     const {
         data: reviews,
@@ -72,11 +75,7 @@ const MovieInfo = () => {
 
     const crewData = [...directors, ...writer, ...characters];
 
-    const rating = vote_average
-        ? vote_average % 1 === 0
-            ? vote_average.toFixed(0)
-            : vote_average.toFixed(1)
-        : "NR";
+    const rating = getRating(vote_average);
 
     const facts = [
         {
@@ -103,10 +102,9 @@ const MovieInfo = () => {
     ];
 
     return (
-        <section className="w-full text-white san-public relative">
-            <ScrollRestoration />
+        <section className="main">
             <Topnav />
-            {info && reviews && recommendations && (
+            {!isPending ? (
                 <div className="w-full relative bg-[#0F0617] py-5">
                     {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                     <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
@@ -126,7 +124,7 @@ const MovieInfo = () => {
                                         year: true,
                                     })})`} */}
                             </h1>
-                            
+
                             {/* date, genres, runtime */}
                             <div className="my-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap md:gap-3 text-lg md:text-xl md:font-medium">
                                 <h3 className="flex md:block items-center gap-2">
@@ -215,9 +213,7 @@ const MovieInfo = () => {
 
                     {/* Facts */}
                     <div className="facts w-full flex items-center justify-center mt-10 md:mt-20 ">
-                        <Facts
-                            facts={facts}
-                        />
+                        <Facts facts={facts} />
                     </div>
 
                     {/* Selection Tab */}
@@ -252,6 +248,10 @@ const MovieInfo = () => {
                             }}
                         />
                     )}
+                </div>
+            ) : (
+                <div className="w-full h-[80vh] flex justify-center items-center">
+                    <Loader classname={"w-16 h-16"} />
                 </div>
             )}
         </section>
