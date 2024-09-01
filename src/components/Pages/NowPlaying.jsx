@@ -5,7 +5,6 @@ import { apiEndpoints } from "../../utils/constants";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useRegion from "../../hooks/useRegion";
 import CardsDrawer from "../partials/global/CardsDrawer";
-import { ScrollRestoration } from "react-router-dom";
 
 const NowPlaying = () => {
     const [moviePage, setMoviePage] = useState(1);

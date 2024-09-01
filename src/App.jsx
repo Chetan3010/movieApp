@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Topnav from "./components/partials/topnav/Topnav";
 import Caraousel from "./components/partials/global/Caraousel";
 import { apiEndpoints } from "./utils/constants";
-import { MovieGenreContext, TvGenreContext } from "./Contexts/Contexts";
+import { MovieGenreContext, TvGenreContext } from "./contexts/Contexts";
 import useFetch from "./hooks/useFetch";
 import CardsDrawer from "./components/partials/global/CardsDrawer";
 

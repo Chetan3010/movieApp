@@ -3,7 +3,7 @@ import Topnav from "../partials/topnav/Topnav";
 import { Link, ScrollRestoration } from "react-router-dom";
 import Button from "../partials/global/Button";
 import Genres from "../partials/global/Genres";
-import { MovieGenreContext, TvGenreContext } from "../../Contexts/Contexts";
+import { MovieGenreContext, TvGenreContext } from "../../contexts/Contexts";
 import useRegion from "../../hooks/useRegion";
 import { apiEndpoints } from "../../utils/constants";
 import useFetch from "../../hooks/useFetch";
