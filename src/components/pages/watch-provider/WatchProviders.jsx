@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Topnav from "../../partials/topnav/Topnav";
 import useRegion from "../../../hooks/useRegion";
 import SelectionTab from "../../partials/global/SelectionTab";
