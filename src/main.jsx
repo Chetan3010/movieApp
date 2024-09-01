@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { MovieGenreProvider, TvGenreProvider } from "./contexts/Contexts.jsx";
 import App from "./App.jsx";
 import Movies from "./components/pages/movie/Movies.jsx";
 import MovieInfo from "./components/pages/movie/MovieInfo.jsx";
@@ -17,6 +16,7 @@ import Explore from "./components/pages/Explore.jsx";
 import MovieProvider from "./components/pages/watch-provider/MovieProvider.jsx";
 import TvProvider from "./components/pages/watch-provider/TvProvider.jsx";
 import NowPlaying from "./components/pages/NowPlaying.jsx";
+import { MovieGenreProvider, TvGenreProvider } from "./contexts/Contexts.jsx";
 
 const Routes = createBrowserRouter([
     {
