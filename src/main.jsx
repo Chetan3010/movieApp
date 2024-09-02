@@ -5,7 +5,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import NowPlaying from "./components/pages/NowPlaying.jsx";
 import Explore from "./components/pages/Explore.jsx";
-import MovieProvider from "./components/pages/watch-provider/movieProvider.jsx";
 import WatchProviders from "./components/pages/watch-provider/WatchProviders.jsx";
 import TvProvider from "./components/pages/watch-provider/TvProvider.jsx";
 import Movies from "./components/pages/movie/Movies.jsx";
@@ -17,6 +16,8 @@ import TvEpisode from "./components/pages/tv/TvEpisode.jsx";
 import Peoples from "./components/pages/people/Peoples.jsx";
 import About from "./components/pages/About.jsx";
 import { MovieGenreProvider, TvGenreProvider } from "./contexts/Contexts.jsx";
+import MovieProvider from "./components/pages/watch-provider/MovieProvider.jsx";
+
 
 const Routes = createBrowserRouter([
     {
