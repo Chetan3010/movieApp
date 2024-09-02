@@ -1,8 +1,5 @@
 export const base_url = "https://api.themoviedb.org/3"
 
-const baseImgOriginal = 'https://image.tmdb.org/t/p/original/'
-const baseImgW500 = 'https://image.tmdb.org/t/p/w500/'
-
 export const apiEndpoints = {
     movie: {
         movieGenre: { url: `${base_url}/genre/movie/list`, dataPath: 'data.genres' },
@@ -13,6 +10,8 @@ export const apiEndpoints = {
         details: ({ id }) => ({ url: `${base_url}/movie/${id}?language=en-US&append_to_response=images,videos,credits,external_ids&include_image_language=en,null`, dataPath: 'data', returnRaw: true }),
         reviews: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/reviews?language=en-US&page=${page}` }),
         recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/movie/${id}/recommendations?language=en-US&page=${page}` }),
+        genreMovieList: ({ genreId, page = 1, sortBy = "popularity.desc" }) =>
+            ({ url: `${base_url}/discover/movie?language=en-US&include_adult=false&page=${page}&with_genres=${genreId}&sort_by=${sortBy}` }),
     },
     tv: {
         tvGenre: { url: `${base_url}/genre/tv/list`, dataPath: 'data.genres' },
@@ -26,17 +25,21 @@ export const apiEndpoints = {
         aggregateCredits: ({ id, sid }) => ({ url: `${base_url}/tv/${id}/season/${sid}/aggregate_credits?language=en-US`, dataPath: 'data.cast', returnRaw: true }),
         reviews: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/reviews?language=en-US&page=${page}` }),
         recommendations: ({ id, page = 1 }) => ({ url: `${base_url}/tv/${id}/recommendations?language=en-US&page=${page}` }),
+        genreTvList: ({ genreId, page = 1, sortBy = "popularity.desc" }) =>
+            ({ url: `${base_url}/discover/tv?language=en-US&include_adult=false&page=${page}&with_genres=${genreId}&sort_by=${sortBy}` }),
     },
     watchProvider: {
         regions: { url: `${base_url}/watch/providers/regions?language=en-US` },
         tvWatchProvider: ({ region }) => ({ url: `${base_url}/watch/providers/tv?language=en-US&watch_region=${region}`, returnRaw: true }),
         movieWatchProvider: ({ region }) => ({ url: `${base_url}/watch/providers/movie?language=en-US&watch_region=${region}`, returnRaw: true }),
         watchProviderMovies: ({ region, page, pid, sortBy = "popularity.desc" }) =>
-            ({ url: `${base_url}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}`, dataPath: 'data.results' }),
+            ({ url: `${base_url}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}` }),
         watchProviderTv: ({ region, page, pid, sortBy = "popularity.desc" }) =>
-            ({ url: `${base_url}/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}`, dataPath: 'data.results' }),
-
-
+            ({ url: `${base_url}/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}` }),
+    },
+    collection: {
+        collectionDetails: ({id}) => ({ url: `${base_url}/collection/${id}?language=en-US`, dataPath: 'data', returnRaw: true}),
+        collectionImages: ({id}) => ({ url: `${base_url}/collection/${id}/images`, dataPath: 'data', returnRaw: true}),
     },
     trending: {
         trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, }),
@@ -58,6 +61,66 @@ export const defaultConst = {
     // imgPlaceholder: `https://placehold.co/500x750/6b7280/374151?text=no+poster&font=source-sans-pro`
     imgPlaceholder: `/DefaultImage.png`,
     wideImgPlaceholder: '/DefaultImageWide.png',
+    movieSortOptions: [
+        {
+            key: "Popularity Descending",
+            value: "popularity.desc",
+        },
+        {
+            key: "Popularity Ascending",
+            value: "popularity.asc",
+        },
+        {
+            key: "Release Date Descending",
+            value: "primary_release_date.desc",
+        },
+        {
+            key: "Release Date Ascending",
+            value: "primary_release_date.asc",
+        },
+        {
+            key: "Rating Descending",
+            value: "vote_average.desc",
+        },
+        {
+            key: "Rating Ascending",
+            value: "vote_average.asc",
+        },
+        {
+            key: "Revenue Descending",
+            value: "revenue.desc",
+        },
+        {
+            key: "Revenue Ascending",
+            value: "revenue.asc",
+        },
+    ],
+    tvSortOptions: [
+        {
+            key: "Popularity Descending",
+            value: "popularity.desc",
+        },
+        {
+            key: "Popularity Ascending",
+            value: "popularity.asc",
+        },
+        {
+            key: "Release Date Descending",
+            value: "first_air_date.desc",
+        },
+        {
+            key: "Release Date Ascending",
+            value: "first_air_date.asc",
+        },
+        {
+            key: "Rating Descending",
+            value: "vote_average.desc",
+        },
+        {
+            key: "Rating Ascending",
+            value: "vote_average.asc",
+        },
+    ],
     endOfScrollPhrases: [
         "You’ve reached the end. Time to take a break!",
         "That's all folks! You've seen everything. Impressive, huh?",

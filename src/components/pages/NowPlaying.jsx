@@ -5,22 +5,26 @@ import { apiEndpoints } from "../../utils/constants";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import useRegion from "../../hooks/useRegion";
 import CardsDrawer from "../partials/global/CardsDrawer";
+import ScrollRestorationCustom from "../partials/global/ScrollRestorationCustom";
 
 const NowPlaying = () => {
     const [moviePage, setMoviePage] = useState(1);
     const [tvPage, setTvPage] = useState(1);
-    const {region, timezone} = useRegion()
-    
-    const movie = useFetch(apiEndpoints.movie.nowPlaying({ page: moviePage, region }));
-    const tv = useFetch(apiEndpoints.tv.airingToday({ page: tvPage, timezone }));
+    const { region, timezone } = useRegion();
 
-    const movieRef =
-        useInfiniteScroll({
-            isPending: movie.isPending,
-            page: moviePage,
-            setPage: setMoviePage,
-            totalPages: movie.totalPages,
-        });
+    const movie = useFetch(
+        apiEndpoints.movie.nowPlaying({ page: moviePage, region })
+    );
+    const tv = useFetch(
+        apiEndpoints.tv.airingToday({ page: tvPage, timezone })
+    );
+
+    const movieRef = useInfiniteScroll({
+        isPending: movie.isPending,
+        page: moviePage,
+        setPage: setMoviePage,
+        totalPages: movie.totalPages,
+    });
 
     const tvRef = useInfiniteScroll({
         isPending: tv.isPending,
@@ -39,28 +43,29 @@ const NowPlaying = () => {
             ...movie,
             ...movieRef,
             title: "Now playing in theaters",
-            route: 'movie'
+            route: "movie",
         },
         tv: {
             ...tv,
             ...tvRef,
             title: "Airing Today's Tv shows",
-            route: 'tv'
+            route: "tv",
         },
-    }
+    };
 
     return (
-        <section
-            className={`main`}
-        >   
-            <Topnav />
-            <CardsDrawer
-                options={options}
-                cardData={cardData}
-                lsKey={"npTab"}
-                isInfiniteScroll={true}
-            />
-        </section>
+        <>
+            <ScrollRestorationCustom />
+            <section className={`main`}>
+                <Topnav />
+                <CardsDrawer
+                    options={options}
+                    cardData={cardData}
+                    lsKey={"npTab"}
+                    isInfiniteScroll={true}
+                />
+            </section>
+        </>
     );
 };
 

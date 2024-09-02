@@ -6,6 +6,7 @@ import { apiEndpoints } from "../../../utils/constants";
 import CardsDrawer from "../../partials/global/CardsDrawer";
 import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import { ScrollRestoration } from "react-router-dom";
+import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 
 const Movies = () => {
     const region = useRegion();
@@ -54,16 +55,19 @@ const Movies = () => {
     ];
 
     return (
-        <section className="main">
-            <Topnav />
-            <div className="sort"></div>
-            <CardsDrawer
-                lsKey={"moviesTab"}
-                cardData={cardData}
-                options={options}
-                isInfiniteScroll={true}
-            />
-        </section>
+        <>
+            <ScrollRestorationCustom />
+            <section className="main">
+                <Topnav />
+                <div className="sort"></div>
+                <CardsDrawer
+                    lsKey={"moviesTab"}
+                    cardData={cardData}
+                    options={options}
+                    isInfiniteScroll={true}
+                />
+            </section>
+        </>
     );
 };
 

@@ -5,6 +5,7 @@ import Topnav from "../../partials/topnav/Topnav";
 import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import PeopleCards from "../../partials/infoPages/people/PeopleCards";
 import { ScrollRestoration } from "react-router-dom";
+import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 
 const Peoples = () => {
     const [page, setPage] = useState(1);
@@ -20,19 +21,22 @@ const Peoples = () => {
     });
 
     return (
-        <section className="main">
-            <Topnav />
-            <div className="w-full">
-                <PeopleCards
-                    title={"Recent popular people's"}
-                    items={data}
-                    isPending={isPending}
-                    isInfiniteScroll={true}
-                    lastItemRef={lastItemRef}
-                    isDone={isDone}
-                />
-            </div>
-        </section>
+        <>
+            <ScrollRestorationCustom />
+            <section className="main">
+                <Topnav />
+                <div className="w-full">
+                    <PeopleCards
+                        title={"Recent popular people's"}
+                        items={data}
+                        isPending={isPending}
+                        isInfiniteScroll={true}
+                        lastItemRef={lastItemRef}
+                        isDone={isDone}
+                    />
+                </div>
+            </section>
+        </>
     );
 };
 

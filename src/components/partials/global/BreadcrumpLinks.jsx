@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Breadcrump from "../../svg/Breadcrump";
 
 const BreadcrumpLinks = ({ links }) => {
     return (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center flex-wrap">
             {links.map((item, index) => (
                 <Fragment key={index}>
-                    <h1 className="text-sm sm:text-base">
+                    <h1 className="text-xs sm:text-base">
                         {item.link ? (
                             <Link
                                 to={item.link}

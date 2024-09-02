@@ -17,6 +17,10 @@ import Peoples from "./components/pages/people/Peoples.jsx";
 import About from "./components/pages/About.jsx";
 import { MovieGenreProvider, TvGenreProvider } from "./contexts/Contexts.jsx";
 import MovieProvider from "./components/pages/watch-provider/MovieProvider.jsx";
+import GenreMovies from "./components/pages/GenreMovies.jsx";
+import GenreTv from "./components/pages/GenreTv.jsx";
+import ScrollRestorationCustom from "./components/partials/global/ScrollRestorationCustom.jsx";
+import Collection from "./components/pages/Collection.jsx";
 
 
 const Routes = createBrowserRouter([
@@ -45,6 +49,14 @@ const Routes = createBrowserRouter([
         element: <TvProvider />
     },
     {
+        path: '/genre/movies/:gid',
+        element: <GenreMovies />
+    },
+    {
+        path: '/genre/tv/:gid',
+        element: <GenreTv />
+    },
+    {
         path: "/movie",
         element: <Movies />,
     },
@@ -71,6 +83,10 @@ const Routes = createBrowserRouter([
     {
         path: "/person",
         element: <Peoples />,
+    },
+    {
+        path: "/collection/:id",
+        element: <Collection />,
     },
     {
         path: "/about",

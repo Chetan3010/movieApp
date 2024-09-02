@@ -35,7 +35,7 @@ const Card = forwardRef(
                 <div className="rounded-xl overflow-hidden relative" ref={ref}>
                     <div className="relative">
                         <img
-                            className="object-cover w-full h-auto rounded-xl bg-zinc-600"
+                            className="object-cover w-full h-full rounded-xl bg-zinc-600"
                             src={
                                 poster_path
                                     ? `https://image.tmdb.org/t/p/w500/${poster_path}`
@@ -60,17 +60,17 @@ const Card = forwardRef(
                         </div>
                     </div>
                     <div className="pt-6">
-                        <h3 className="text-[16px] md:text-xl">
+                        <h3 className="text-[16px] md:text-xl line-clamp-2">
                             {title || name || original_title || original_name}
                         </h3>
                         <h6 className="font-extralight text-sm md:text-base">
-                            {new Date(
+                            {(release_date || first_air_date) ? new Date(
                                 release_date || first_air_date
                             ).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "short",
                                 day: "numeric",
-                            })}
+                            }) : 'TBA'}
                         </h6>
                     </div>
                 </div>

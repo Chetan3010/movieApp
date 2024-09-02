@@ -109,5 +109,5 @@ strong {
 }
 
 .w-b:hover {
-    @apply bg-[#bf2ef0] transition-all duration-150 ease-in
+    @apply bg-[#bf2ef0] transition-all duration-150 ease-in text-white
 }

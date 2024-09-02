@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Genres = ({ genres, title }) => {
+const Genres = ({ genres, title, media_type }) => {
+    
     const skeletonGenre = Array.from({ length: 6 }).map((_, i) => (
         <div
             key={i}
@@ -15,7 +16,7 @@ const Genres = ({ genres, title }) => {
                 {genres.length > 0
                     ? genres.map((genre, i) => (
                           <Link
-                              to={""}
+                              to={`/genre/${media_type}/${genre.id}-${genre.name.split(" ").join("_")}`}
                               key={i}
                               className="w-36 h-20 md:w-56 md:h-28 px-5 flex-shrink-0 rounded-lg flex justify-center items-center text-xl md:text-2xl text-center text-neutral-200 font-semibold text-wrap linearG"
                           >

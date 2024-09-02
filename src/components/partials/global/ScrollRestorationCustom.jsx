@@ -5,9 +5,6 @@ const ScrollRestorationCustom = () => {
     return (
         <ScrollRestoration
             getKey={(location) => {
-                // Debug: Log the current pathname
-                console.log("Current Pathname:", location.pathname);
-
                 // Handle known static paths
                 const staticPaths = [
                     "/",

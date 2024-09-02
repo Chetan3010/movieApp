@@ -31,7 +31,7 @@ const useFetch = ({
             setData((prev) => {
                 if (returnRaw) return extractedData;
                 const uniqueData =
-                    extractedData.length > 0
+                    extractedData?.length > 0
                         ? extractedData.filter(
                               (newItem) =>
                                   !prev.some(
