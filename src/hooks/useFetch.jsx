@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from "../utils/axios";
 import { get } from "lodash";
 import { useState, useEffect, useCallback } from "react";
-import { apiEndpoints } from "../utils/constants";
 
 const useFetch = ({
-    url,
+    endpoint,
     options = {},
+    method = 'GET',
     dataPath = "data.results",
     returnRaw = false,
 }) => {
@@ -20,16 +20,20 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.get(`${apiEndpoints.others.proxyServer}/`, {
-                params: {url},
-                ...options,
-            });
+            // const response = await axios.get("/proxy", {
+            //     params: { url },
+            //     ...options,
+            // });
 
-            const post = await axios.post(`${apiEndpoints.others.proxyServer}/api`, {
-                url,
-                ...options,
-            });
+            const response = await axios({
+                method,
+                url: '/api/proxy',
+                params: {url: endpoint},
+                ...options
+            })
 
+            console.log(response);
+            
             const extractedData = dataPath
                 ? get(response, dataPath)
                 : response.data;
@@ -61,7 +65,7 @@ const useFetch = ({
             setError(err.message);
             setIsPending(false);
         }
-    }, [url]);
+    }, [endpoint]);
 
     useEffect(() => {
         fetchData();
