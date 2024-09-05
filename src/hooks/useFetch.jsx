@@ -62,6 +62,8 @@ const useFetch = ({
 
             setIsPending(false);
         } catch (err) {
+            console.log(err);
+            
             setError(err.message);
             setIsPending(false);
         }
