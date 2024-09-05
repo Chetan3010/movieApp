@@ -251,6 +251,7 @@ const TvInfo = () => {
                         {recommendations?.length > 0 && (
                             <Recommendations
                                 data={{
+                                    route: 'tv',
                                     recommendations,
                                     rcmdLoading,
                                     rcmdError,

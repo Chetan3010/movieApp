@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
-import { Link } from "react-router-dom";
-import loader from "/loader.svg";
+import { Link, useNavigate } from "react-router-dom";
 import { apiEndpoints } from "../../../utils/constants";
 import useFetch from "../../../hooks/useFetch";
 import Loader from "../global/Loader";
@@ -11,6 +10,7 @@ const Searchbar = ({ isDisable = false }) => {
     const [query, setQuery] = useState("");
     const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
+    const navigate = useNavigate()
 
     const {
         data: searches,
@@ -50,6 +50,7 @@ const Searchbar = ({ isDisable = false }) => {
                     className="w-full"
                     onSubmit={(e) => {
                         e.preventDefault();
+                        navigate(`/search/${query}`)
                     }}
                 >
                     <input

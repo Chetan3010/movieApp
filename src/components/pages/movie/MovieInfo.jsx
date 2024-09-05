@@ -240,6 +240,7 @@ const MovieInfo = () => {
                         {recommendations?.length > 0 && (
                             <Recommendations
                                 data={{
+                                    route: 'movie',
                                     recommendations,
                                     rcmdLoading,
                                     rcmdError,

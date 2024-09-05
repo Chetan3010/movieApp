@@ -21,12 +21,18 @@ import GenreMovies from "./components/pages/GenreMovies.jsx";
 import GenreTv from "./components/pages/GenreTv.jsx";
 import ScrollRestorationCustom from "./components/partials/global/ScrollRestorationCustom.jsx";
 import Collection from "./components/pages/Collection.jsx";
+import SearchPage from "./components/pages/SearchPage.jsx";
+import PeopleInfo from "./components/pages/people/PeopleInfo.jsx";
 
 
 const Routes = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+    },
+    {
+        path: "/search/:query",
+        element: <SearchPage />
     },
     {
         path: "/now-playing",
@@ -37,23 +43,23 @@ const Routes = createBrowserRouter([
         element: <Explore />,
     },
     {
-        path: '/watch-providers',
+        path: "/watch-providers",
         element: <WatchProviders />
     },
     {
-        path: '/watch-providers/:pid/movie',
+        path: "/watch-providers/:pid/movie",
         element: <MovieProvider />
     },
     {
-        path: '/watch-providers/:pid/tv',
+        path: "/watch-providers/:pid/tv",
         element: <TvProvider />
     },
     {
-        path: '/genre/movies/:gid',
+        path: "/genre/movies/:gid",
         element: <GenreMovies />
     },
     {
-        path: '/genre/tv/:gid',
+        path: "/genre/tv/:gid",
         element: <GenreTv />
     },
     {
@@ -83,6 +89,10 @@ const Routes = createBrowserRouter([
     {
         path: "/person",
         element: <Peoples />,
+    },
+    {
+        path: "/person/:id",
+        element: <PeopleInfo />,
     },
     {
         path: "/collection/:id",

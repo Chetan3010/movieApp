@@ -1,6 +1,10 @@
 export const base_url = "https://api.themoviedb.org/3"
 
 export const apiEndpoints = {
+    user: {
+        ip: `https://api.ipify.org?format=json`,
+        location: ({ ip }) => `https://ipwho.is/${ip}?fields=country_code,timezone`,
+    },
     movie: {
         movieGenre: { url: `${base_url}/genre/movie/list`, dataPath: 'data.genres' },
         popular: ({ page = 1, region }) => ({ url: `${base_url}/movie/popular?language=en-US&region=${region}&page=${page}` }),
@@ -38,8 +42,8 @@ export const apiEndpoints = {
             ({ url: `${base_url}/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&watch_region=${region}&with_watch_providers=${pid}` }),
     },
     collection: {
-        collectionDetails: ({id}) => ({ url: `${base_url}/collection/${id}?language=en-US`, dataPath: 'data', returnRaw: true}),
-        collectionImages: ({id}) => ({ url: `${base_url}/collection/${id}/images`, dataPath: 'data', returnRaw: true}),
+        collectionDetails: ({ id }) => ({ url: `${base_url}/collection/${id}?language=en-US`, dataPath: 'data', returnRaw: true }),
+        collectionImages: ({ id }) => ({ url: `${base_url}/collection/${id}/images`, dataPath: 'data', returnRaw: true }),
     },
     trending: {
         trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, }),
@@ -48,12 +52,17 @@ export const apiEndpoints = {
         pupular: ({ page = 1 }) => ({ url: `${base_url}/person/popular?language=en-US&page=${page}`, })
     },
     search: {
-        multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, returnRaw: true })
+        multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, returnRaw: true }),
+        movieSearch: ({ query, page = 1 }) => ({ url: `${base_url}/search/movie?language=en-US&query=${query}&page=${page}&include_adult=false`, }),
+        tvSearch: ({ query, page = 1 }) => ({ url: `${base_url}/search/tv?language=en-US&query=${query}&page=${page}&include_adult=false`, }),
+        keywordSearch: ({ query, page = 1 }) => ({ url: `${base_url}/search/keyword?query=${query}&page=${page}`, }),
+        personSearch: ({ query, page = 1 }) => ({ url: `${base_url}/search/person?language=en-US&query=${query}&page=${page}&include_adult=false`, }),
+        collectionSearch: ({ query, page = 1 }) => ({ url: `${base_url}/search/collection?language=en-US&query=${query}&page=${page}&include_adult=false` })
     },
     others: {
         // proxyServer: "http://localhost:3000",
-        // proxyServer: "https://proxy-server-three-chi.vercel.app",
-        proxyServer: "https://proxyserver-u5de.onrender.com"
+        proxyServer: "https://proxy-server-three-chi.vercel.app",
+        // proxyServer: "https://proxyserver-u5de.onrender.com"
     },
 };
 

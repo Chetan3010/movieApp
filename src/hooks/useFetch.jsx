@@ -1,6 +1,7 @@
-import axios from "../utils/axios";
+import axios from "axios";
 import { get } from "lodash";
 import { useState, useEffect, useCallback } from "react";
+import { apiEndpoints } from "../utils/constants";
 
 const useFetch = ({
     url,
@@ -19,8 +20,13 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.get("/proxy", {
-                params: { url },
+            const response = await axios.get(`${apiEndpoints.others.proxyServer}/`, {
+                params: {url},
+                ...options,
+            });
+
+            const post = await axios.post(`${apiEndpoints.others.proxyServer}/api`, {
+                url,
                 ...options,
             });
 

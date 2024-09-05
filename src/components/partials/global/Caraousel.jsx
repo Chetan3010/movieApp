@@ -49,7 +49,7 @@ const Caraousel = ({ trendingData, genres }) => {
     };
 
     const handleTouchMove = (e) => {
-        // *made command because getting console error because passive event call and after doing this does not find any errors
+        // *made fucntion because getting console error of passive event call.
         // e.preventDefault();
     };
 
@@ -91,7 +91,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                 onClick={handlePrevClick}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original/${trendingData[previousIndex]?.backdrop_path}`}
+                                    src={`https://image.tmdb.org/t/p/original${trendingData[previousIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="prev object-cover object-right w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border-[1px] border-zinc-500"
                                 />
@@ -102,7 +102,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                 className={`now w-full md:w-[80%] flex-none box-border relative cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original/${trendingData[currentIndex]?.backdrop_path}`}
+                                    src={`https://image.tmdb.org/t/p/original${trendingData[currentIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="current object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-70 border border-zinc-500"
                                 />
@@ -169,7 +169,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                 onClick={handleNextClick}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original/${trendingData[nextIndex]?.backdrop_path}`}
+                                    src={`https://image.tmdb.org/t/p/original${trendingData[nextIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="next object-cover object-left w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border border-zinc-500"
                                 />

@@ -1,5 +1,7 @@
 import React from "react";
 import SkeletonRcmd from "../skeleton/SkeletonRcmd";
+import { defaultConst } from "../../../utils/constants";
+import { Link } from "react-router-dom";
 
 const Recommendations = ({ data }) => {
     const {
@@ -9,6 +11,7 @@ const Recommendations = ({ data }) => {
         rcmdTotalPages,
         rcmdPage,
         setRcmdPage,
+        route,
     } = data;
 
     const loadMoreRcmd = () => {
@@ -24,21 +27,36 @@ const Recommendations = ({ data }) => {
             </h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-8">
                 {recommendations?.map((item, index) => (
-                    <div
+                    <Link
+                        to={`/${route}/${item.id}-${(
+                            item.title ||
+                            item.original_title ||
+                            item.name ||
+                            item.original_name
+                        )
+                            .split(" ")
+                            .join("_")}`}
                         key={index}
                         className="flex flex-col gap-3 justify-start"
                     >
                         <img
-                            src={`https://image.tmdb.org/t/p/w500${item?.backdrop_path}`}
+                            src={
+                                item.backdrop_path
+                                    ? `https://image.tmdb.org/t/p/w500${item?.backdrop_path}`
+                                    : defaultConst.wideImgPlaceholder
+                            }
                             alt=""
                             className="object-cover object-center rounded-xl bg-neutral-600"
                             width={500}
                             height={281}
                         />
-                        <h1 className="text-lg md:text-xl font-light text-center">
-                            {item.title || item.original_title || item.name || item.original_name}
+                        <h1 className="text-base md:text-xl font-light text-center">
+                            {item.title ||
+                                item.original_title ||
+                                item.name ||
+                                item.original_name}
                         </h1>
-                    </div>
+                    </Link>
                 ))}
                 {rcmdLoading && <SkeletonRcmd />}
             </div>

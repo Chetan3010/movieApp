@@ -38,7 +38,7 @@ const Card = forwardRef(
                             className="object-cover w-full h-full rounded-xl bg-zinc-600"
                             src={
                                 poster_path
-                                    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                                    ? `https://image.tmdb.org/t/p/w500${poster_path}`
                                     : defaultConst.imgPlaceholder
                             }
                             width={500}

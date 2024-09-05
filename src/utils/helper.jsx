@@ -1,22 +1,20 @@
 import axios from "axios";
-import { defaultConst } from "./constants";
+import { apiEndpoints, defaultConst } from "./constants";
 import Seprator from "../components/partials/global/Seprator";
 import { Fragment } from "react";
 
-export const getMyRegion = async (req) => {
-    const { data } = await axios.get(`https://api.ipify.org?format=json`);
-    const response = await axios.get(
-        `https://ipwho.is/${data.ip}?fields=country_code`
-    );
-    return (await response.data.country_code) || "IN";
-};
+export const getRegionAndTimezone = async () => {
+    try {
+        const { data: ipData } = await axios.get(apiEndpoints.user.ip);
+        const { data: locationData } = await axios.get(apiEndpoints.user.location({ ip:ipData.ip }));
 
-export const getMyTimezone = async (req) => {
-    const { data } = await axios.get(`https://api.ipify.org?format=json`);
-    const response = await axios.get(
-        `https://ipwho.is/${data.ip}?fields=timezone`
-    );
-    return (await response.data.timezone.abbr) || "IST";
+        const region = locationData.country_code || "IN";
+        const timezone = locationData.timezone.abbr || "IST";
+
+        return { region, timezone };
+    } catch (error) {
+        return { region: "IN", timezone: "IST" };
+    }
 };
 
 export const getEndOfScrollPhrase = () => {

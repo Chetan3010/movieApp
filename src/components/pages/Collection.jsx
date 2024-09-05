@@ -27,7 +27,6 @@ const Collection = () => {
     const { name, overview, poster_path, backdrop_path, parts } = info;
 
     const { backdrops, posters } = images;
-    console.log(backdrops);
     
     const allGenres = Array.from(
         new Set(parts?.map((part) => part.genre_ids).flat())
