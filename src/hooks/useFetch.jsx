@@ -28,7 +28,7 @@ const useFetch = ({
             const response = await axios({
                 method,
                 url: '/api/proxy',
-                params: {url: endpoint},
+                params: {url: `https://api.themoviedb.org/3/trending/day/week?language=en-US`},
                 ...options
             })
 
