@@ -5,10 +5,6 @@ module.exports = async (req, res) => {
   let url;
   let params = {};
 
-  console.log('Request method:', req.method);
-  console.log('Request body:', req.body);
-  console.log('Request query:', req.query);
-
   if (req.method === 'POST') {
     // For POST requests, get URL from body
     ({ url, ...params } = req.body);
