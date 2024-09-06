@@ -61,8 +61,8 @@ export const apiEndpoints = {
     },
     others: {
         // proxyServer: "http://localhost:3000",
-        // proxyServer: "https://proxy-server-three-chi.vercel.app",
-        proxyServer: "https://proxyserver-u5de.onrender.com"
+        proxyServer: "https://proxy-server-three-chi.vercel.app",
+        // proxyServer: "https://proxyserver-u5de.onrender.com"
     },
 };
 

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axios";
 import { get } from "lodash";
 import { useState, useEffect, useCallback } from "react";
 
@@ -19,8 +19,8 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.get("/api/proxy", {
-                params: { url },
+            const response = await axios.post("https://cors-anywhere.herokuapp.com/", {
+                url,
                 ...options,
             });
 
