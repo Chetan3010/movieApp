@@ -48,8 +48,9 @@ export const apiEndpoints = {
     trending: {
         trending: ({ type, time_window }) => ({ url: `${base_url}/trending/${type}/${time_window}?language=en-US`, }),
     },
-    people: {
-        pupular: ({ page = 1 }) => ({ url: `${base_url}/person/popular?language=en-US&page=${page}`, })
+    person: {
+        popular: ({ page = 1 }) => ({ url: `${base_url}/person/popular?language=en-US&page=${page}`, }),
+        details: ({ id }) => ({ url: `${base_url}/person/${id}?language=en-US&append_to_response=combined_credits,external_ids,images`, dataPath: 'data', returnRaw: true })
     },
     search: {
         multi: ({ query, page = 1 }) => ({ url: `${base_url}/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, returnRaw: true }),
@@ -61,7 +62,7 @@ export const apiEndpoints = {
     },
     others: {
         // proxyServer: "http://localhost:3000",
-        proxyServer: "https://proxy-server-three-chi.vercel.app",
+        proxyServer: "https://proxyserverapi.vercel.app",
         // proxyServer: "https://proxyserver-u5de.onrender.com"
     },
 };

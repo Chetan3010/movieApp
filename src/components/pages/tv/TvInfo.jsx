@@ -111,7 +111,7 @@ const TvInfo = () => {
                                 homepage={homepage}
                             />
 
-                            <div className="right">
+                            <div className="w-full right">
                                 {/* Title */}
                                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold md:font-bold">
                                     {name || original_name}{" "}
@@ -143,7 +143,7 @@ const TvInfo = () => {
                                                 <i className="w-2 h-2 bg-[#c147e9] rounded-full"></i>
                                                 {genres.map((item, index) => (
                                                     <Link
-                                                        to={""}
+                                                        to={`/genre/tv/${item.id}-${item?.name.split(" ").join("_")}`}
                                                         key={index}
                                                         className="md:border-2 border-neutral-400 underline underline-offset-2 whitespace-nowrap md:no-underline text-sm md:text-base lg:text-lg font-extralight md:font-medium rounded-full md:px-3 md:py-1 md:hover:bg-[#c147e9] md:hover:text-[#0f0617] md:hover:border-[#0f0617] transition-all ease-in duration-200 cursor-pointer"
                                                     >
@@ -207,13 +207,13 @@ const TvInfo = () => {
                                 {created_by?.length > 0 ? (
                                     <div className="crew py-5 grid grid-cols-2 sm:grid-3 md:grid-cols-4 lg:grid-cols-5 gap-5 text-lg md:text-xl">
                                         {created_by?.map((item, index) => (
-                                            <div key={index}>
+                                            <Link to={`/person/${item.id}-${item.name.split(" ").join("_")}`} key={index}>
                                                 <h3 className="">Creator</h3>
                                                 <h3 className="font-semibold tracking-wide md:font-bold underline hover:text-[#c147e9] cursor-pointer">
                                                     {item.name ||
                                                         item.original_name}
                                                 </h3>
-                                            </div>
+                                            </Link>
                                         ))}
                                     </div>
                                 ) : (

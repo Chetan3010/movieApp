@@ -6,7 +6,9 @@ import { Fragment } from "react";
 export const getRegionAndTimezone = async () => {
     try {
         const { data: ipData } = await axios.get(apiEndpoints.user.ip);
-        const { data: locationData } = await axios.get(apiEndpoints.user.location({ ip:ipData.ip }));
+        const { data: locationData } = await axios.get(
+            apiEndpoints.user.location({ ip: ipData.ip })
+        );
 
         const region = locationData.country_code || "IN";
         const timezone = locationData.timezone.abbr || "IST";
@@ -54,8 +56,10 @@ export const formatRuntime = (runtime) => {
         return `${hours}h ${minutes}m`;
     } else if (hours > 0) {
         return `${hours}h`;
-    } else {
+    } else if(minutes > 0) {
         return `${minutes}m`;
+    } else {
+        return 'NA'
     }
 };
 
@@ -88,4 +92,17 @@ export const getRating = (vote_average) => {
             : vote_average.toFixed(1)
         : "NR";
     return rating;
+};
+
+export const getGender = (g) => {
+    switch (g) {
+        case 0:
+            return "-";
+        case 1:
+            return "Female";
+        case 2:
+            return "Male";
+        case 3:
+            return "NB / Trans / Others";
+    }
 };

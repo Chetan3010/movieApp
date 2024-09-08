@@ -23,11 +23,11 @@ const EpisodeCard = ({ item, index }) => {
                     </h3>
                     <h3 className="font-medium md:font-semibold text-neutral-200 flex items-center gap-2">
                         <i className="w-2 h-2 bg-[#c147e9] rounded-full block"></i>
-                        {new Date(item.air_date).toLocaleDateString("en-DE", {
+                        {item.air_date ? new Date(item.air_date).toLocaleDateString("en-DE", {
                             day: "numeric",
                             month: "short",
                             year: "numeric",
-                        })}
+                        }) : 'TBA'}
                     </h3>
                     <h3 className="font-medium md:font-semibold text-neutral-200 flex items-center gap-2">
                         <i className="w-2 h-2 bg-[#c147e9] rounded-full block"></i>
@@ -45,11 +45,11 @@ const EpisodeCard = ({ item, index }) => {
                     </h3>
                     <h3 className="font-medium md:font-semibold text-neutral-200 flex items-center gap-2">
                         <i className="w-2 h-2 bg-[#c147e9] rounded-full block"></i>
-                        {new Date(item.air_date).toLocaleDateString("en-DE", {
+                        {item.air_date ? new Date(item.air_date).toLocaleDateString("en-DE", {
                             day: "numeric",
                             month: "short",
                             year: "numeric",
-                        })}
+                        }) : 'TBA'}
                     </h3>
                     <h3 className="font-medium md:font-semibold text-neutral-200 flex items-center gap-2">
                         <i className="w-2 h-2 bg-[#c147e9] rounded-full block"></i>

@@ -97,7 +97,8 @@ const Caraousel = ({ trendingData, genres }) => {
                                 />
                                 <GrPrevious className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10 font-bold text-xl sm:text-3xl" />
                             </div>
-                            <div
+                            <Link
+                                to={`/${trendingData[previousIndex].media_type}/${trendingData[currentIndex].id}-${(trendingData[currentIndex].title || trendingData[currentIndex].name).split(" ").join("_")}`}
                                 key={currentIndex}
                                 className={`now w-full md:w-[80%] flex-none box-border relative cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
                             >
@@ -121,10 +122,10 @@ const Caraousel = ({ trendingData, genres }) => {
                                                 currentIndex
                                             ]?.overview.slice(0, 150)}
                                             ...
-                                            <Link className="text-blue-400">
+                                            <span className="text-blue-400">
                                                 {" "}
                                                 read more
-                                            </Link>
+                                            </span>
                                         </p>
                                     )}
                                     <div className="mb-1 sm:mb-2">
@@ -162,7 +163,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                         Watch Trailer
                                     </button>
                                 </div>
-                            </div>
+                            </Link>
                             <div
                                 key={nextIndex}
                                 className={`relative w-[8%] flex-none box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}

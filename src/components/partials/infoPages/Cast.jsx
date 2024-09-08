@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { defaultConst } from "../../../utils/constants";
+import { Link } from "react-router-dom";
 
 const Cast = ({ cast }) => {
 
@@ -12,7 +13,7 @@ const Cast = ({ cast }) => {
     return (
         <>
             {cast?.slice(0, castPage).map((item, index) => (
-                <div key={index} className="flex flex-col items-center">
+                <Link to={`/person/${item.id}-${item?.name.split(" ").join("_")}`} key={index} className="flex flex-col items-center">
                     <img
                         className="object-top object-cover rounded-xl w-44 h-56 bg-zinc-600"
                         src={
@@ -33,7 +34,7 @@ const Cast = ({ cast }) => {
                             {item.roles[0].episode_count} Episodes
                         </h3>
                     )}
-                </div>
+                </Link>
             ))}
 
             {cast?.length > castPage && (

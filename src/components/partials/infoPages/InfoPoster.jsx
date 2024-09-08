@@ -37,7 +37,7 @@ const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
             <img
                 src={
                     poster_path
-                        ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                        ? `https://image.tmdb.org/t/p/w500${poster_path}`
                         : defaultConst.imgPlaceholder
                 }
                 width={500}

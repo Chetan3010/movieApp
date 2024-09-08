@@ -5,12 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiEndpoints } from "../../../utils/constants";
 import useFetch from "../../../hooks/useFetch";
 import Loader from "../global/Loader";
+import { formatDate } from "../../../utils/helper";
 
 const Searchbar = ({ isDisable = false }) => {
     const [query, setQuery] = useState("");
     const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const {
         data: searches,
@@ -50,7 +51,7 @@ const Searchbar = ({ isDisable = false }) => {
                     className="w-full"
                     onSubmit={(e) => {
                         e.preventDefault();
-                        navigate(`/search/${query}`)
+                        navigate(`/search/${query}`);
                     }}
                 >
                     <input
@@ -79,34 +80,37 @@ const Searchbar = ({ isDisable = false }) => {
                     }}
                 />
                 {(query || searches?.length > 0) && toggleSearch && (
-                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-200 bg-neutral-900 border border-zinc-700">
+                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-800 bg-neutral-200">
                         {isLoading ? (
-                            <div className="w-full flex justify-center items-center p-1">
-                                <Loader classname={'w-8 h-8'} />
+                            <div className="w-full h-20 flex justify-center items-center p-1">
+                                <Loader classname={"w-8 h-8"} />
                             </div>
                         ) : searches.length > 0 && query.length > 0 ? (
                             searches.map((item) => (
                                 <Link
+                                    onClick={() => setToggleSearch(false)}
                                     key={item.id}
-                                    className="flex items-center justify-between hover:bg-[#311747fd] hover:text-[#C147E9] p-2 border-b"
-                                    to={""}
+                                    className="flex items-center justify-between p-2 border-b border-neutral-800 group hover:bg-neutral-300 transition-all"
+                                    to={`/${item.media_type}/${item.id}-${(
+                                        item.name || item.title
+                                    )
+                                        .split(" ")
+                                        .join("_")}`}
                                 >
                                     <h4>
                                         {item.title || item.name}{" "}
                                         {item?.media_type === "person"
                                             ? ""
-                                            : `(${
-                                                  (item?.release_date &&
-                                                      item.release_date.split(
-                                                          "-"
-                                                      )[0]) ||
-                                                  (item?.first_air_date &&
-                                                      item.first_air_date.split(
-                                                          "-"
-                                                      )[0])
-                                              })`}
+                                            : (item?.release_date ||
+                                                  item?.first_air_date) &&
+                                              `(${formatDate({
+                                                  date:
+                                                      item.release_date ||
+                                                      item.first_air_date,
+                                                  year: true,
+                                              })})`}
                                     </h4>
-                                    <div className="border-zinc-200 00 border rounded py-1 px-2">
+                                    <div className="border-neutral-800 border rounded py-1 px-2  group-hover:bg-[#c147e9] group-hover:text-white transition-all">
                                         {item?.media_type === "tv"
                                             ? "TV"
                                             : item?.media_type
@@ -117,9 +121,11 @@ const Searchbar = ({ isDisable = false }) => {
                                 </Link>
                             ))
                         ) : (
-                            <p className="font-thin italic px-2">
-                                No results found.
-                            </p>
+                            <div className="w-full h-20 flex justify-center items-center">
+                                <p className="italic px-2">
+                                    No results found.
+                                </p>
+                            </div>
                         )}
                     </div>
                 )}

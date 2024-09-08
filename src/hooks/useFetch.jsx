@@ -19,7 +19,7 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.post("https://cors-anywhere.herokuapp.com/", {
+            const response = await axios.post("/", {
                 url,
                 ...options,
             });

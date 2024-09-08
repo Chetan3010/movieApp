@@ -2,6 +2,7 @@ import React from "react";
 import CardSkeleton from "../../skeleton/CardSkeleton";
 import { getEndOfScrollPhrase } from "../../../../utils/helper";
 import PeopleCard from "./PeopleCard";
+import SkeletonPeopleCard from "../../skeleton/SkeletonPeopleCard";
 
 const PeopleCards = ({
     items,
@@ -13,9 +14,6 @@ const PeopleCards = ({
     lastItemRef = null,
     isDone = false,
 }) => {
-    const skeletonCards = Array.from({ length: count }, (_, index) => (
-        <CardSkeleton key={index} />
-    ));
 
     const getOnlineStatus = () => !navigator.onLine && "No internet!";
 
@@ -47,7 +45,7 @@ const PeopleCards = ({
                         {isInfiniteScroll &&
                             isPending &&
                             !isDone &&
-                            skeletonCards}
+                            <SkeletonPeopleCard />}
                         {isInfiniteScroll && (error ?? getOnlineStatus()) && (
                             <h1 className="italic text-sm text-gray-300 text-center col-span-full my-5">
                                 {error || getOnlineStatus()}
@@ -60,7 +58,7 @@ const PeopleCards = ({
                         )}
                     </>
                 ) : (
-                    skeletonCards
+                    <SkeletonPeopleCard />
                 )}
             </div>
         </>

@@ -1,5 +1,6 @@
 import React from "react";
 import { FaShareAlt } from "react-icons/fa";
+import { IoMdShare } from "react-icons/io";
 
 const Share = () => {
     const shareData = {
@@ -27,7 +28,7 @@ const Share = () => {
             onClick={share}
             className="hover:text-[#c147e9] px-2 transition-all duration-100 ease-in text-2xl cursor-pointer"
         >
-            <FaShareAlt />
+            <IoMdShare />
         </button>
     );
 };

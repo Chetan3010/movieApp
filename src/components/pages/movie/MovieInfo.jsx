@@ -117,10 +117,10 @@ const MovieInfo = () => {
                                 external_ids={external_ids}
                                 homepage={homepage}
                             />
-                            <div className="right">
+                            <div className="w-full right">
                                 {/* Title */}
                                 <h1 className="text-3xl md:text-4xl font-semibold md:font-bold">
-                                    {title || original_title}{" "}
+                                    {title || original_title}
                                 </h1>
 
                                 {/* date, genres, runtime */}
@@ -143,7 +143,7 @@ const MovieInfo = () => {
                                                 <i className="w-2 h-2 bg-[#c147e9] rounded-full "></i>
                                                 {genres.map((item, index) => (
                                                     <Link
-                                                        to={""}
+                                                    to={`/genre/movies/${item.id}-${item?.name.split(" ").join("_")}`}
                                                         key={index}
                                                         className="md:border-2 border-neutral-400 underline underline-offset-2 whitespace-nowrap md:no-underline text-sm md:text-base lg:text-lg font-extralight md:font-medium rounded-full md:px-3 md:py-1 md:hover:bg-[#c147e9] md:hover:text-[#0f0617] md:hover:border-[#0f0617] transition-all ease-in duration-200 cursor-pointer"
                                                     >
@@ -195,13 +195,13 @@ const MovieInfo = () => {
                                 {/* crew data */}
                                 <div className="crew py-5 flex flex-wrap gap-5 text-lg md:text-xl">
                                     {crewData.map((item, index) => (
-                                        <div key={index}>
+                                        <Link to={`/person/${item.id}-${item.name.split(" ").join("_")}`} key={index}>
                                             <h3 className="">{item.job}</h3>
                                             <h3 className="font-semibold tracking-wide md:font-bold underline hover:text-[#c147e9] cursor-pointer">
                                                 {item.name ||
                                                     item.original_name}
                                             </h3>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
 
