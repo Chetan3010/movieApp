@@ -134,3 +134,16 @@ strong {
         transform: scaleX(100%);
     }
 }
+
+.overlay {
+    mask-image: linear-gradient(to top, transparent, black);
+
+    &::after {
+        content: '';
+        background: linear-gradient(200deg, #0d253f, #01b4e4, #90cea1);
+        position: absolute;
+        inset: 0;
+        opacity: 50%;
+        z-index: 1;
+    }
+}

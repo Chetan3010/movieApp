@@ -23,7 +23,8 @@ import ScrollRestorationCustom from "./components/partials/global/ScrollRestorat
 import Collection from "./components/pages/Collection.jsx";
 import SearchPage from "./components/pages/SearchPage.jsx";
 import PeopleInfo from "./components/pages/people/PeopleInfo.jsx";
-
+import Network from "./components/pages/Network.jsx";
+import Keyword from "./components/pages/Keyword.jsx";
 
 const Routes = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ const Routes = createBrowserRouter([
     },
     {
         path: "/search/:query",
-        element: <SearchPage />
+        element: <SearchPage />,
     },
     {
         path: "/now-playing",
@@ -44,23 +45,23 @@ const Routes = createBrowserRouter([
     },
     {
         path: "/watch-providers",
-        element: <WatchProviders />
+        element: <WatchProviders />,
     },
     {
         path: "/watch-providers/:pid/movie",
-        element: <MovieProvider />
+        element: <MovieProvider />,
     },
     {
         path: "/watch-providers/:pid/tv",
-        element: <TvProvider />
+        element: <TvProvider />,
     },
     {
         path: "/genre/movies/:gid",
-        element: <GenreMovies />
+        element: <GenreMovies />,
     },
     {
         path: "/genre/tv/:gid",
-        element: <GenreTv />
+        element: <GenreTv />,
     },
     {
         path: "/movie",
@@ -85,6 +86,14 @@ const Routes = createBrowserRouter([
     {
         path: "/tv/:id/season/:sid/episode/:eid",
         element: <TvEpisode />,
+    },
+    {
+        path: "/network/:id",
+        element: <Network />,
+    },
+    {
+        path: "/keyword/:id",
+        element: <Keyword />,
     },
     {
         path: "/person",

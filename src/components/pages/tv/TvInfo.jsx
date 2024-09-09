@@ -41,7 +41,7 @@ const TvInfo = () => {
         first_air_date,
         genres,
         homepage,
-        next_episode_to_air,
+        next_episode_to_air, // Add this
         name,
         networks,
         number_of_episodes,
@@ -86,7 +86,7 @@ const TvInfo = () => {
         {
             title: "Network",
             value: networks ? networks[0]?.name : "-",
-            link: networks ? `/network/${networks[0]?.id}` : null,
+            link: networks && networks[0] ? `/network/${networks[0]?.id}-${networks[0]?.name.split(" ").join("_")}` : null,
         },
         {
             title: "Type",
