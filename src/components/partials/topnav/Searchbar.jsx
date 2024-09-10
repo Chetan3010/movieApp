@@ -52,6 +52,7 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen=null }) => {
                     onSubmit={(e) => {
                         e.preventDefault();
                         navigate(`/search/${query}`);
+                        setToggleSearch(false)
                         if(setIsSidenavOpen !== null){
                             setIsSidenavOpen(false)
                         }

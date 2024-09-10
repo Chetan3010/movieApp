@@ -85,7 +85,7 @@ const TvInfo = () => {
         },
         {
             title: "Network",
-            value: networks ? networks[0]?.name : "-",
+            value: networks && networks[0]?.name || "-",
             link: networks && networks[0] ? `/network/${networks[0]?.id}-${networks[0]?.name.split(" ").join("_")}` : null,
         },
         {

@@ -50,8 +50,13 @@ const Network = () => {
         .filter(({ poster_path }) => poster_path !== null)
         .map(({ poster_path }) => poster_path);
     const isMasonry = posters?.length > 10 ? true : false;
-    const gridColCount =
+    const colCount =
         posters.length > 10 ? posters.length / 2 : posters.length;
+    
+    const defaultGridCol = colCount > 4 ? 4 : colCount
+    const smGridCol = colCount > 6 ? 6 : colCount
+    const mdGridCol = colCount > 8 ? 8 : colCount
+    const lgGridCol = colCount > 10 ? 10 : colCount
 
     const handleSort = (option) => {
         setData([]);
@@ -71,17 +76,7 @@ const Network = () => {
                     <div className="w-full">
                         <div className="w-full relative">
                             <div
-                                className={`w-full grid blur-sm 
-                                grid-cols-${
-                                    gridColCount > 4 ? "4" : gridColCount
-                                } 
-                                sm:grid-cols-${
-                                    gridColCount > 6 ? "6" : gridColCount
-                                } 
-                                md:grid-cols-${
-                                    gridColCount > 8 ? "8" : gridColCount
-                                } 
-                                lg:grid-cols-10
+                                className={`w-full grid blur-sm grid-cols-${defaultGridCol} sm:grid-cols-${smGridCol} md:grid-cols-${mdGridCol} lg:grid-cols-${lgGridCol}
                                 justify-items-stretch gap-3 md:gap-5 h-64 overflow-hidden overlay`}
                             >
                                 {posters.map((item, index) => (
@@ -103,7 +98,7 @@ const Network = () => {
                                     alt=""
                                     className="w-32 md:w-48 object-contain"
                                 />
-                                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-10 text-lg md:text-xl font-semibold">
+                                <div className="flex flex-col md:flex-row items-center gap-0 md:gap-10 text-lg md:text-xl font-semibold">
                                     <h1>{name}</h1>
                                     <h1 className="flex items-center gap-1">
                                         <FaLocationDot />

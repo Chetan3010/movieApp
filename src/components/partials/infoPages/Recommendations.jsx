@@ -37,7 +37,7 @@ const Recommendations = ({ data }) => {
                             .split(" ")
                             .join("_")}`}
                         key={index}
-                        className="flex flex-col gap-3 justify-start"
+                        className="flex flex-col gap-1 md:gap-3 justify-start"
                     >
                         <img
                             src={
@@ -46,11 +46,11 @@ const Recommendations = ({ data }) => {
                                     : defaultConst.wideImgPlaceholder
                             }
                             alt=""
-                            className="object-cover object-center rounded-xl bg-neutral-600"
+                            className="object-cover object-center rounded-md bg-neutral-600"
                             width={500}
                             height={281}
                         />
-                        <h1 className="text-base md:text-xl font-light text-center">
+                        <h1 className="text-base md:text-lg font-light text-center">
                             {item.title ||
                                 item.original_title ||
                                 item.name ||

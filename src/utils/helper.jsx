@@ -25,6 +25,12 @@ export const getEndOfScrollPhrase = () => {
     return scrollPhrases[index];
 };
 
+export const getBadQueryPhrase = () => {
+    const badQueryPhrases = defaultConst.badQueryPhrases;
+    const index = Math.floor(Math.random() * badQueryPhrases.length);
+    return badQueryPhrases[index]+' :-(';
+};
+
 export const getGenreNames = (genres, genreIds) => {
     const displayGenres = genreIds.map(
         (id) => genres.find((genre) => genre.id === id)?.name

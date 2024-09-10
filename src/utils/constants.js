@@ -154,5 +154,18 @@ export const defaultConst = {
         "Who knew there was an end? You just discovered it!",
         "You’ve scrolled through it all! Time to switch to a new hobby?",
         "Well, that’s it! You’ve reached the bottom. Achievement unlocked!",
-    ]
+    ],
+    badQueryPhrases: [
+        "Oops! Looks like we came up empty-handed.",
+        "Hmm... that search hit a dead end.",
+        "No luck this time, try something different!",
+        "We searched far and wide, but found nothing.",
+        "Looks like our compass is off—no results found.",
+        "The answer's out there, but not here.",
+        "We missed the mark on this one!",
+        "This search went on a wild goose chase!",
+        "Nada. Zip. Zero results. Let’s try again!",
+        "Lost in translation—no results to show."
+    ],
+
 }
