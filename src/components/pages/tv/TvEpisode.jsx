@@ -12,6 +12,8 @@ import Loader from "../../partials/global/Loader";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 
 const TvEpisode = () => {
+    const today = new Date();
+    
     const para = useParams();
     const id = para.id.split("-")[0];
 
@@ -94,6 +96,10 @@ const TvEpisode = () => {
                                         {/* air_date */}
                                         <h3 className="flex md:block items-center gap-2">
                                             <i className="w-2 h-2 bg-[#c147e9] rounded-full md:hidden"></i>
+                                            {today < new Date(air_date) &&
+                                            today !== new Date(air_date)
+                                                ? "Available on "
+                                                : ""}
                                             {air_date
                                                 ? formatDate({
                                                       date: air_date,

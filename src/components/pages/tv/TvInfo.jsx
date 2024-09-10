@@ -11,6 +11,7 @@ import TvInfoTab from "../../partials/infoPages/tv/TvInfoTab";
 import Recommendations from "../../partials/infoPages/Recommendations";
 import Loader from "../../partials/global/Loader";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
+import { FaPlay } from "react-icons/fa6";
 
 const TvInfo = () => {
     const para = useParams();
@@ -123,7 +124,7 @@ const TvInfo = () => {
                                 </h1>
 
                                 {/* date, genres, runtime */}
-                                <div className="my-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap gap-1 md:gap-3 text-lg md:text-xl md:font-medium">
+                                <div className="mt-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap gap-1 md:gap-3 text-lg md:text-xl md:font-medium">
                                     {/* Content rating */}
                                     {content_rating ? (
                                         <h3 className="flex items-center gap-2">
@@ -158,7 +159,7 @@ const TvInfo = () => {
 
                                     {/* Seasons */}
                                     {number_of_seasons ? (
-                                        <h3 className="flex items-center gap-2 text-base md:text-lg">
+                                        <h3 className="flex items-center gap-2 text-base font-light md:text-lg">
                                             <i className="w-2 h-2 bg-[#c147e9] rounded-full whitespace-nowrap"></i>
                                             {number_of_seasons} Seasons
                                         </h3>
@@ -168,7 +169,7 @@ const TvInfo = () => {
 
                                     {/* Episodes */}
                                     {number_of_episodes ? (
-                                        <h3 className="flex items-center gap-2 text-base md:text-lg">
+                                        <h3 className="flex items-center gap-2 text-base font-light md:text-lg">
                                             <i className="w-2 h-2 bg-[#c147e9] rounded-full whitespace-nowrap"></i>
                                             {number_of_episodes} Episodes
                                         </h3>
@@ -177,9 +178,20 @@ const TvInfo = () => {
                                     )}
                                 </div>
 
+                                {/* Next Episode */}
+                                { next_episode_to_air && (
+                                    <Link
+                                    to={`season/${next_episode_to_air.season_number}/episode/${next_episode_to_air.episode_number}`}
+                                    className="flex items-center gap-1 text-lg my-2"
+                                    >
+                                    <FaPlay className="text-[#c147e9]" />
+                                    Next episode coming on <span className="text-[#c147e9] underline decoration-dashed underline-offset-2 ">{formatDate({ date: next_episode_to_air.air_date, year: true, day: true, month:true})}</span>
+                                    </Link>
+                                )}
+
                                 {/* tagline */}
                                 {tagline && (
-                                    <h3 className="tagline italic text-xl text-neutral-300 font-light mt-1">
+                                    <h3 className="tagline italic text-xl text-neutral-300 font-light mt-2">
                                         {tagline}
                                     </h3>
                                 )}
