@@ -7,7 +7,7 @@ import useFetch from "../../../hooks/useFetch";
 import Loader from "../global/Loader";
 import { formatDate } from "../../../utils/helper";
 
-const Searchbar = ({ isDisable = false }) => {
+const Searchbar = ({ isHidden = false, setIsSidenavOpen=null }) => {
     const [query, setQuery] = useState("");
     const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
@@ -39,7 +39,7 @@ const Searchbar = ({ isDisable = false }) => {
     return (
         <div
             className={`h-fit w-full md:w-[70%] justify-center mt-2 ${
-                isDisable ? "flex md:hidden" : "hidden md:flex"
+                isHidden ? "flex md:hidden" : "hidden md:flex"
             }`}
         >
             <div
@@ -52,6 +52,9 @@ const Searchbar = ({ isDisable = false }) => {
                     onSubmit={(e) => {
                         e.preventDefault();
                         navigate(`/search/${query}`);
+                        if(setIsSidenavOpen !== null){
+                            setIsSidenavOpen(false)
+                        }
                     }}
                 >
                     <input
