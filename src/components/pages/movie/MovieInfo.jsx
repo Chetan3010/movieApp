@@ -61,6 +61,11 @@ const MovieInfo = () => {
         external_ids,
     } = info;
 
+    const trailer = videos?.results?.find(
+        (item) => item?.site === "YouTube" && item?.type === "Trailer"
+    );
+
+    
     const directors =
         credits?.crew
             ?.filter((credit) => credit?.job === "Director")
@@ -116,6 +121,7 @@ const MovieInfo = () => {
                                 poster_path={poster_path}
                                 external_ids={external_ids}
                                 homepage={homepage}
+                                trailer={trailer}
                             />
                             <div className="w-full right">
                                 {/* Title */}
@@ -143,7 +149,11 @@ const MovieInfo = () => {
                                                 <i className="w-2 h-2 bg-[#c147e9] rounded-full "></i>
                                                 {genres.map((item, index) => (
                                                     <Link
-                                                    to={`/genre/movies/${item.id}-${item?.name.split(" ").join("_")}`}
+                                                        to={`/genre/movies/${
+                                                            item.id
+                                                        }-${item?.name
+                                                            .split(" ")
+                                                            .join("_")}`}
                                                         key={index}
                                                         className="md:border-2 border-neutral-400 underline underline-offset-2 whitespace-nowrap md:no-underline text-sm md:text-base lg:text-lg font-extralight md:font-medium rounded-full md:px-3 md:py-1 md:hover:bg-[#c147e9] md:hover:text-[#0f0617] md:hover:border-[#0f0617] transition-all ease-in duration-200 cursor-pointer"
                                                     >
@@ -195,7 +205,12 @@ const MovieInfo = () => {
                                 {/* crew data */}
                                 <div className="crew py-5 flex flex-wrap gap-5 text-lg md:text-xl">
                                     {crewData.map((item, index) => (
-                                        <Link to={`/person/${item.id}-${item.name.split(" ").join("_")}`} key={index}>
+                                        <Link
+                                            to={`/person/${item.id}-${item.name
+                                                .split(" ")
+                                                .join("_")}`}
+                                            key={index}
+                                        >
                                             <h3 className="">{item.job}</h3>
                                             <h3 className="font-semibold tracking-wide md:font-bold underline hover:text-[#c147e9] cursor-pointer">
                                                 {item.name ||
@@ -240,7 +255,7 @@ const MovieInfo = () => {
                         {recommendations?.length > 0 && (
                             <Recommendations
                                 data={{
-                                    route: 'movie',
+                                    route: "movie",
                                     recommendations,
                                     rcmdLoading,
                                     rcmdError,

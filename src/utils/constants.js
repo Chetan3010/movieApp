@@ -54,6 +54,7 @@ export const apiEndpoints = {
     },
     trending: {
         trending: ({ type, time_window }) => ({ url: `${base_url_v3}/trending/${type}/${time_window}?language=en-US`, }),
+        trailer: ({ media_type, id }) => `${base_url_v3}/${media_type}/${id}/videos?language=en-US`,
     },
     person: {
         popular: ({ page = 1 }) => ({ url: `${base_url_v3}/person/popular?language=en-US&page=${page}`, }),

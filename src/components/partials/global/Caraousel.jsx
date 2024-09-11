@@ -5,6 +5,9 @@ import { FaCalendar } from "react-icons/fa";
 import { FaCircleDot } from "react-icons/fa6";
 import { MdTheaterComedy } from "react-icons/md";
 import { getGenreNames } from "../../../utils/helper";
+import { apiEndpoints } from "../../../utils/constants";
+import axios from "../../../utils/axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Caraousel = ({ trendingData, genres }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,10 +24,10 @@ const Caraousel = ({ trendingData, genres }) => {
     const nextIndex =
         currentIndex === trendingData.length - 1 ? 0 : currentIndex + 1;
 
-   /**
-    * The `handleManualChange` function sets a new index, clears any existing interval and delay, and
-    * then restarts the interval after a 5-second delay.
-    */
+    /**
+     * The `handleManualChange` function sets a new index, clears any existing interval and delay, and
+     * then restarts the interval after a 5-second delay.
+     */
     const handleManualChange = (newIndex) => {
         setCurrentIndex(newIndex);
         clearInterval(intervalRef.current);
@@ -74,6 +77,30 @@ const Caraousel = ({ trendingData, genres }) => {
         return () => clearInterval(intervalRef.current);
     }, [updateIndices, trendingData.length]);
 
+    const redirectToTrailer = async (media_type, id) => {
+        try {
+            const { data } = await axios.post("/", {
+                url: apiEndpoints.trending.trailer({ media_type, id }),
+            });
+
+            const trailer = data?.results?.find(
+                (item) => item?.site === "YouTube" && item?.type === "Trailer"
+            );
+
+            if (trailer) {
+                window.open(
+                    `https://www.youtube.com/watch?v=${trailer.key}`,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+            } else {
+                toast.error("Didn't find any trailer!");
+            }
+        } catch (error) {
+            toast.error("Error fetching trailer:", error);
+        }
+    };
+
     return (
         <div
             className="relative w-full pt-2 selection:bg-none mb-5 md:mb-10"
@@ -81,6 +108,7 @@ const Caraousel = ({ trendingData, genres }) => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
+            <Toaster position="bottom-center" />
             <div className="w-full flex items-center justify-center ">
                 <div className="flex w-full justify-center gap-3 px-1">
                     {trendingData?.length > 0 ? (
@@ -98,7 +126,14 @@ const Caraousel = ({ trendingData, genres }) => {
                                 <GrPrevious className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10 font-bold text-xl sm:text-3xl" />
                             </div>
                             <Link
-                                to={`/${trendingData[previousIndex].media_type}/${trendingData[currentIndex].id}-${(trendingData[currentIndex].title || trendingData[currentIndex].name).split(" ").join("_")}`}
+                                to={`/${
+                                    trendingData[previousIndex].media_type
+                                }/${trendingData[currentIndex].id}-${(
+                                    trendingData[currentIndex].title ||
+                                    trendingData[currentIndex].name
+                                )
+                                    .split(" ")
+                                    .join("_")}`}
                                 key={currentIndex}
                                 className={`now w-full md:w-[80%] flex-none box-border relative cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
                             >
@@ -159,7 +194,17 @@ const Caraousel = ({ trendingData, genres }) => {
                                             </p>
                                         )}
                                     </div>
-                                    <button className="px-2 py-1 bg-[#c147e9] w-b text-white text-lg font-semibold rounded-md">
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            redirectToTrailer(
+                                                trendingData[currentIndex]
+                                                    .media_type,
+                                                trendingData[currentIndex].id
+                                            );
+                                        }}
+                                        className="px-2 z-[2] py-1 white-black w-b text-lg font-semibold rounded-md"
+                                    >
                                         Watch Trailer
                                     </button>
                                 </div>

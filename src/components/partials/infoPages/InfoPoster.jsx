@@ -1,12 +1,24 @@
 import React from "react";
 import { FaShareAlt, FaStarHalfAlt } from "react-icons/fa";
-import { FaInstagram, FaLink, FaRegHeart, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import {
+    FaInstagram,
+    FaLink,
+    FaRegHeart,
+    FaXTwitter,
+    FaYoutube,
+} from "react-icons/fa6";
 import { IoIosMenu } from "react-icons/io";
 import { MdWatchLater } from "react-icons/md";
 import { defaultConst } from "../../../utils/constants";
 import Share from "../global/Share";
 
-const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
+const InfoPoster = ({
+    poster_path,
+    homepage,
+    external_ids = {},
+    title,
+    trailer,
+}) => {
     const { instagram_id, twitter_id } = external_ids;
 
     const shareData = {
@@ -45,9 +57,18 @@ const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
                 className="object-cover object-center bg-zinc-600 h-auto rounded-xl"
             />
             <div className="flex flex-col gap-3">
-                <button className="white-black w-b flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3">
-                    <FaYoutube className="text-2xl" /> Watch Trailer
-                </button>
+                {trailer ? (
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`https://www.youtube.com/watch?v=${trailer.key}`}
+                        className="white-black w-b flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3"
+                    >
+                        <FaYoutube className="text-2xl" /> Watch Trailer
+                    </a>
+                ) : (
+                    <></>
+                )}
                 <button className="white-black w-b flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3">
                     <IoIosMenu className="text-2xl" /> Add to list
                 </button>
@@ -87,16 +108,18 @@ const InfoPoster = ({ poster_path, homepage, external_ids = {}, title }) => {
                             </i>
                         </a>
                     )}
-                    { homepage && <a
-                        href={homepage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-[#c147e9] transition-all duration-100 ease-in"
-                    >
-                        <i className="text-2xl cursor-pointer">
-                            <FaLink />
-                        </i>
-                    </a>}
+                    {homepage && (
+                        <a
+                            href={homepage}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#c147e9] transition-all duration-100 ease-in"
+                        >
+                            <i className="text-2xl cursor-pointer">
+                                <FaLink />
+                            </i>
+                        </a>
+                    )}
                     <Share />
                 </div>
             </div>
