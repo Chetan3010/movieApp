@@ -12,8 +12,6 @@ const Modal = ({ children, isOpen, closeModal }) => {
         return null;
     }
 
-    if (!isOpen) return null;
-
     return (
         <Fragment>
             {createPortal(
