@@ -12,7 +12,7 @@ const Share = ({ info }) => {
         if (navigator.share) {
             navigator
                 .share({
-                    title: info.title || info.name,
+                    title: info?.title || info?.name,
                     text: info.overview,
                     url: window.location.href,
                 })
@@ -30,7 +30,7 @@ const Share = ({ info }) => {
                 <IoMdShare />
             </button>
             <ShareModal
-                title={info.title || info.name}
+                title={info?.title || info?.name}
                 isModalOpen={isModalVisible}
                 closeModal={closeModal}
             />
