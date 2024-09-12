@@ -128,4 +128,5 @@ export const copyToClipboard = async ({ text, nodeId }) => {
         console.log(e);
       throw new Error("error copying to clipboard");
     }
+    return;
   };
