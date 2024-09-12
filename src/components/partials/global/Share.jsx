@@ -14,7 +14,7 @@ const Share = ({ info }) => {
                 .share({
                     title: info.title || info.name,
                     text: info.overview,
-                    url: windowq.location.href,
+                    url: window.location.href,
                 })
                 .catch(() => openModal());
         } else {
