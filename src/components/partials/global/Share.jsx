@@ -22,13 +22,19 @@ const Share = ({ info }) => {
         }
     };
     return (
-        <button
-            onClick={shareHandler}
-            className="hover:text-[#c147e9] px-2 transition-all duration-100 ease-in text-2xl cursor-pointer"
-        >
-            <IoMdShare />
-            <ShareModal title={info.title || info.name} isModalOpen={isModalVisible} closeModal={closeModal} />
-        </button>
+        <>
+            <button
+                onClick={shareHandler}
+                className="hover:text-[#c147e9] px-2 transition-all duration-100 ease-in text-2xl cursor-pointer"
+            >
+                <IoMdShare />
+            </button>
+            <ShareModal
+                title={info.title || info.name}
+                isModalOpen={isModalVisible}
+                closeModal={closeModal}
+            />
+        </>
     );
 };
 

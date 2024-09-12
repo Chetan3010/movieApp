@@ -113,20 +113,19 @@ export const getGender = (g) => {
     }
 };
 
-export const copyToClipboard = async ({ text, nodeId }) => {
+export const copyToClipboard = async ({ nodeId, text }) => {
     try {
-      let textToCopy;
-  
-      if (nodeId) {
-        textToCopy = document.getElementById(nodeId).value;
-      } else {
-        textToCopy = text || window.location.href;
-      }
-  
-      await navigator.clipboard.writeText(textToCopy);
-    } catch(e) {
+        let textToCopy;
+
+        if (nodeId) {
+            textToCopy = document.getElementById(nodeId).value;
+        } else {
+            textToCopy = text || window.location.href;
+        }
+
+        await navigator.clipboard.writeText(textToCopy);
+    } catch (e) {
         console.log(e);
-      throw new Error("error copying to clipboard");
+        throw new Error("error copying to clipboard");
     }
-    return;
-  };
+};

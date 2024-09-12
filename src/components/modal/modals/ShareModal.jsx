@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Modal from "../Modal";
 
 const ShareModal = ({ title, url, isModalOpen, closeModal }) => {    
-    
+
     const copyButtonHandler = () => {
         copyToClipboard({ nodeId: "copyUrl", text: url })
             .then(() => {
