@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 const Modal = ({ children, isOpen, closeModal }) => {
     const closeOnClickedOutside = (e) => {
-        if (e.currentTarget === e.target) {
+        if (e.target.classList.contains("modal-outer")) {
             closeModal();
         }
     };
