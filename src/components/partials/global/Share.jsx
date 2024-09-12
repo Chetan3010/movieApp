@@ -16,11 +16,10 @@ const Share = ({ info }) => {
                     text: info.overview,
                     url: window.location.href,
                 })
-                // .catch(() => openModal());
-        } 
-        // else {
-        //     openModal();
-        // }
+                .catch(() => openModal());
+        } else {
+            openModal();
+        }
     };
     return (
         <button
