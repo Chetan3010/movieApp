@@ -9,7 +9,7 @@ const useFetch = ({
     returnRaw = false,
 }) => {
     const [data, setData] = useState([]);
-    const [isPending, setIsPending] = useState(false);
+    const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
     const [totalResults, setTotalResults] = useState(0);
     const [totalPages, setTotalPages] = useState(null);
@@ -19,8 +19,8 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.get("/proxy", {
-                params: { url },
+            const response = await axios.post("/", {
+                url,
                 ...options,
             });
 

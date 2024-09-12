@@ -11,7 +11,7 @@ const Peoples = () => {
     const [page, setPage] = useState(1);
 
     const { data, error, isPending, totalPages } = useFetch(
-        apiEndpoints.people.pupular({ page })
+        apiEndpoints.person.popular({ page })
     );
     const { lastItemRef, isDone } = useInfiniteScroll({
         isPending: isPending,

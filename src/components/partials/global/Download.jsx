@@ -3,23 +3,36 @@ import Loader from "../../svg/Loader";
 import { MdFileDownload } from "react-icons/md";
 import { saveAs } from "file-saver";
 import { getFileName } from "../../../utils/helper";
+import { apiEndpoints } from "../../../utils/constants";
+import toast from "react-hot-toast";
 
 const Download = ({ title, file_path }) => {
     const [isDownloading, setIsDownloading] = useState(false);
 
-    /**
-     * The `downloadFile` function downloads a file from a given file path and sets a downloading state
-     * in a React component.
-     */
     const downloadFile = (title, file_path) => {
         setIsDownloading(true);
-        saveAs(
-            `https:image.tmdb.org/t/p/original${file_path}`,
-            getFileName({
-                title,
-                file: file_path,
+        fetch(`https://image.tmdb.org/t/p/original${file_path}`, {
+            method: "GET",
+            headers: {},
+        })
+            .then((response) => {
+                response.arrayBuffer().then(function (buffer) {
+                    const url = window.URL.createObjectURL(new Blob([buffer]));
+                    const link = document.createElement("a");
+                    const filename = getFileName({ title, file: file_path });
+                    link.href = url;
+                    link.setAttribute("download", filename);
+                    document.body.appendChild(link);
+                    link.click();
+
+                    setTimeout(() => {
+                        window.URL.revokeObjectURL(url);
+                    }, 100);
+                });
             })
-        );
+            .catch((err) => {
+                toast.error("Image file is not available!");
+            });
         setTimeout(() => {
             setIsDownloading(false);
         }, 2000);

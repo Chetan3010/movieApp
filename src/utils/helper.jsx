@@ -1,28 +1,34 @@
 import axios from "axios";
-import { defaultConst } from "./constants";
+import { apiEndpoints, defaultConst } from "./constants";
 import Seprator from "../components/partials/global/Seprator";
 import { Fragment } from "react";
 
-export const getMyRegion = async (req) => {
-    const { data } = await axios.get(`https://api.ipify.org?format=json`);
-    const response = await axios.get(
-        `https://ipwho.is/${data.ip}?fields=country_code`
-    );
-    return (await response.data.country_code) || "IN";
-};
+export const getRegionAndTimezone = async () => {
+    try {
+        const { data: ipData } = await axios.get(apiEndpoints.user.ip);
+        const { data: locationData } = await axios.get(
+            apiEndpoints.user.location({ ip: ipData.ip })
+        );
 
-export const getMyTimezone = async (req) => {
-    const { data } = await axios.get(`https://api.ipify.org?format=json`);
-    const response = await axios.get(
-        `https://ipwho.is/${data.ip}?fields=timezone`
-    );
-    return (await response.data.timezone.abbr) || "IST";
+        const region = locationData.country_code || "IN";
+        const timezone = locationData.timezone.abbr || "IST";
+
+        return { region, timezone };
+    } catch (error) {
+        return { region: "IN", timezone: "IST" };
+    }
 };
 
 export const getEndOfScrollPhrase = () => {
     const scrollPhrases = defaultConst.endOfScrollPhrases;
     const index = Math.floor(Math.random() * scrollPhrases.length);
     return scrollPhrases[index];
+};
+
+export const getBadQueryPhrase = () => {
+    const badQueryPhrases = defaultConst.badQueryPhrases;
+    const index = Math.floor(Math.random() * badQueryPhrases.length);
+    return badQueryPhrases[index] + " :-(";
 };
 
 export const getGenreNames = (genres, genreIds) => {
@@ -56,8 +62,10 @@ export const formatRuntime = (runtime) => {
         return `${hours}h ${minutes}m`;
     } else if (hours > 0) {
         return `${hours}h`;
-    } else {
+    } else if (minutes > 0) {
         return `${minutes}m`;
+    } else {
+        return "NA";
     }
 };
 
@@ -90,4 +98,34 @@ export const getRating = (vote_average) => {
             : vote_average.toFixed(1)
         : "NR";
     return rating;
+};
+
+export const getGender = (g) => {
+    switch (g) {
+        case 0:
+            return "-";
+        case 1:
+            return "Female";
+        case 2:
+            return "Male";
+        case 3:
+            return "NB / Trans / Others";
+    }
+};
+
+export const copyToClipboard = async ({ nodeId, text }) => {
+    try {
+        let textToCopy;
+
+        if (nodeId) {
+            textToCopy = document.getElementById(nodeId).value;
+        } else {
+            textToCopy = text || window.location.href;
+        }
+
+        await navigator.clipboard.writeText(textToCopy);
+    } catch (e) {
+        console.log(e);
+        throw new Error("error copying to clipboard");
+    }
 };

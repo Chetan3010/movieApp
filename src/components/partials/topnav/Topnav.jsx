@@ -50,9 +50,8 @@ const Topnav = () => {
                     <div className="p-4">
                         <TopNavHeader
                             setIsSidenavOpen={setIsSidenavOpen}
-                            isSidenavOpen={isSidenavOpen}
                         />
-                        <Searchbar isDisable={true} />
+                        <Searchbar isHidden setIsSidenavOpen={setIsSidenavOpen} />
                         <NavLink
                             to="/"
                             className={`flex gap-3 items-center py-4 text-neutral-200 hover:bg-[#29143a96] hover:text-[#C147E9] pl-5 rounded-md`}

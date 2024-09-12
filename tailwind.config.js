@@ -12,7 +12,13 @@ export default {
     
             // Complex site-specific column configuration
             'footer': '200px minmax(900px, 1fr) 100px',
-        }
+        },
+        keyframes: {
+            pop: {
+              '0%': { transform: 'scaleX(0%)' },
+              '100%': { transform: 'scaleX(100%)' },
+            }
+          }
     },
     screens: {
       'sm': '576px',
@@ -24,6 +30,7 @@ export default {
       'lg': '1440px',
       // => @media (min-width: 1440px) { ... }
     },
+
   },
   plugins: [],
 }

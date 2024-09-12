@@ -16,10 +16,10 @@ const Collection = () => {
     const collectionId = id.split("-")[0];
 
     const { data: info, isPending: infoIsPending } = useFetch(
-        apiEndpoints.collection.collectionDetails({ id })
+        apiEndpoints.collection.collectionDetails({ id: collectionId })
     );
     const { data: images, isPending: imagesIsPending } = useFetch(
-        apiEndpoints.collection.collectionImages({ id })
+        apiEndpoints.collection.collectionImages({ id: collectionId })
     );
 
     const { data: movieGenres } = useContext(MovieGenreContext);
@@ -27,8 +27,7 @@ const Collection = () => {
     const { name, overview, poster_path, backdrop_path, parts } = info;
 
     const { backdrops, posters } = images;
-    console.log(backdrops);
-    
+
     const allGenres = Array.from(
         new Set(parts?.map((part) => part.genre_ids).flat())
     )
@@ -148,33 +147,33 @@ const Collection = () => {
                         )}
 
                         <div className="px-5 md:px-14">
-                        {backdrops?.length > 0 ? (
-                            <div className="mt-5">
-                                <h1 className="mt-5 md:mt-10 text-2xl md:text-3xl font-semibold">{`Pictures (${backdrops?.length})`}</h1>
-                                <div className="grid py-5 grid-cols-1 md:grid-cols-2 gap-5 justify-items-center">
-                                    <Backdrops
-                                        title={name}
-                                        backdrops={backdrops}
-                                    />
+                            {backdrops?.length > 0 ? (
+                                <div className="mt-5">
+                                    <h1 className="mt-5 md:mt-10 text-2xl md:text-3xl font-semibold">{`Pictures (${backdrops?.length})`}</h1>
+                                    <div className="grid py-5 grid-cols-1 md:grid-cols-2 gap-5 justify-items-center">
+                                        <Backdrops
+                                            title={name}
+                                            backdrops={backdrops}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
+                            ) : (
+                                <></>
+                            )}
 
-                        {posters?.length > 0 ? (
-                            <div className="">
-                                <h1 className="mt-5 md:mt-10 text-2xl md:text-3xl font-semibold">{`Posters (${images?.posters.length})`}</h1>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-5 justify-items-center">
-                                    <Posters
-                                        title={name}
-                                        posters={posters}
-                                    />
+                            {posters?.length > 0 ? (
+                                <div className="">
+                                    <h1 className="mt-5 md:mt-10 text-2xl md:text-3xl font-semibold">{`Posters (${images?.posters.length})`}</h1>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-5 justify-items-center">
+                                        <Posters
+                                            title={name}
+                                            posters={posters}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                 ) : (

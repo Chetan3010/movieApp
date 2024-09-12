@@ -11,6 +11,8 @@ import TvInfoTab from "../../partials/infoPages/tv/TvInfoTab";
 import Recommendations from "../../partials/infoPages/Recommendations";
 import Loader from "../../partials/global/Loader";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
+import { FaPlay } from "react-icons/fa6";
+import { Toaster } from "react-hot-toast";
 
 const TvInfo = () => {
     const para = useParams();
@@ -41,7 +43,7 @@ const TvInfo = () => {
         first_air_date,
         genres,
         homepage,
-        next_episode_to_air,
+        next_episode_to_air, // Add this
         name,
         networks,
         number_of_episodes,
@@ -57,11 +59,12 @@ const TvInfo = () => {
         type,
         vote_average,
         images,
+        videos,
         credits,
         external_ids,
         content_ratings,
     } = info;
-
+    
     const { region } = useRegion();
 
     const rating = getRating(vote_average);
@@ -70,6 +73,10 @@ const TvInfo = () => {
         content_ratings?.results?.filter(
             (item) => item.iso_3166_1 === region
         )[0]?.rating ?? "NR";
+
+    const trailer = videos?.results?.find(
+        (item) => item?.site === "YouTube" && item?.type === "Trailer"
+    );
 
     const facts = [
         {
@@ -85,8 +92,13 @@ const TvInfo = () => {
         },
         {
             title: "Network",
-            value: networks ? networks[0]?.name : "-",
-            link: networks ? `/network/${networks[0]?.id}` : null,
+            value: (networks && networks[0]?.name) || "-",
+            link:
+                networks && networks[0]
+                    ? `/network/${networks[0]?.id}-${networks[0]?.name
+                          .split(" ")
+                          .join("_")}`
+                    : null,
         },
         {
             title: "Type",
@@ -96,7 +108,8 @@ const TvInfo = () => {
     ];
 
     return (
-        <>
+        <>  
+            <Toaster position="bottom-center" />
             <ScrollRestorationCustom />
             <section className="main">
                 <Topnav />
@@ -105,13 +118,14 @@ const TvInfo = () => {
                         {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                         <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
                             <InfoPoster
-                                title={name || original_name}
+                                info={info}
                                 poster_path={poster_path}
                                 external_ids={external_ids}
                                 homepage={homepage}
+                                trailer={trailer}
                             />
 
-                            <div className="right">
+                            <div className="w-full right">
                                 {/* Title */}
                                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold md:font-bold">
                                     {name || original_name}{" "}
@@ -123,7 +137,7 @@ const TvInfo = () => {
                                 </h1>
 
                                 {/* date, genres, runtime */}
-                                <div className="my-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap gap-1 md:gap-3 text-lg md:text-xl md:font-medium">
+                                <div className="mt-4 info flex flex-col justify-start md:flex-row md:items-center flex-wrap gap-1 md:gap-3 text-lg md:text-xl md:font-medium">
                                     {/* Content rating */}
                                     {content_rating ? (
                                         <h3 className="flex items-center gap-2">
@@ -143,7 +157,11 @@ const TvInfo = () => {
                                                 <i className="w-2 h-2 bg-[#c147e9] rounded-full"></i>
                                                 {genres.map((item, index) => (
                                                     <Link
-                                                        to={""}
+                                                        to={`/genre/tv/${
+                                                            item.id
+                                                        }-${item?.name
+                                                            .split(" ")
+                                                            .join("_")}`}
                                                         key={index}
                                                         className="md:border-2 border-neutral-400 underline underline-offset-2 whitespace-nowrap md:no-underline text-sm md:text-base lg:text-lg font-extralight md:font-medium rounded-full md:px-3 md:py-1 md:hover:bg-[#c147e9] md:hover:text-[#0f0617] md:hover:border-[#0f0617] transition-all ease-in duration-200 cursor-pointer"
                                                     >
@@ -158,7 +176,7 @@ const TvInfo = () => {
 
                                     {/* Seasons */}
                                     {number_of_seasons ? (
-                                        <h3 className="flex items-center gap-2 text-base md:text-lg">
+                                        <h3 className="flex items-center gap-2 text-base font-light md:text-lg">
                                             <i className="w-2 h-2 bg-[#c147e9] rounded-full whitespace-nowrap"></i>
                                             {number_of_seasons} Seasons
                                         </h3>
@@ -168,7 +186,7 @@ const TvInfo = () => {
 
                                     {/* Episodes */}
                                     {number_of_episodes ? (
-                                        <h3 className="flex items-center gap-2 text-base md:text-lg">
+                                        <h3 className="flex items-center gap-2 text-base font-light md:text-lg">
                                             <i className="w-2 h-2 bg-[#c147e9] rounded-full whitespace-nowrap"></i>
                                             {number_of_episodes} Episodes
                                         </h3>
@@ -177,9 +195,28 @@ const TvInfo = () => {
                                     )}
                                 </div>
 
+                                {/* Next Episode */}
+                                {next_episode_to_air && (
+                                    <Link
+                                        to={`season/${next_episode_to_air.season_number}/episode/${next_episode_to_air.episode_number}`}
+                                        className="flex items-center gap-1 text-lg my-2"
+                                    >
+                                        <FaPlay className="text-[#c147e9]" />
+                                        Next episode coming on{" "}
+                                        <span className="text-[#c147e9] underline decoration-dashed underline-offset-2 ">
+                                            {formatDate({
+                                                date: next_episode_to_air.air_date,
+                                                year: true,
+                                                day: true,
+                                                month: true,
+                                            })}
+                                        </span>
+                                    </Link>
+                                )}
+
                                 {/* tagline */}
                                 {tagline && (
-                                    <h3 className="tagline italic text-xl text-neutral-300 font-light mt-1">
+                                    <h3 className="tagline italic text-xl text-neutral-300 font-light mt-2">
                                         {tagline}
                                     </h3>
                                 )}
@@ -207,13 +244,20 @@ const TvInfo = () => {
                                 {created_by?.length > 0 ? (
                                     <div className="crew py-5 grid grid-cols-2 sm:grid-3 md:grid-cols-4 lg:grid-cols-5 gap-5 text-lg md:text-xl">
                                         {created_by?.map((item, index) => (
-                                            <div key={index}>
+                                            <Link
+                                                to={`/person/${
+                                                    item.id
+                                                }-${item.name
+                                                    .split(" ")
+                                                    .join("_")}`}
+                                                key={index}
+                                            >
                                                 <h3 className="">Creator</h3>
                                                 <h3 className="font-semibold tracking-wide md:font-bold underline hover:text-[#c147e9] cursor-pointer">
                                                     {item.name ||
                                                         item.original_name}
                                                 </h3>
-                                            </div>
+                                            </Link>
                                         ))}
                                     </div>
                                 ) : (
@@ -251,6 +295,7 @@ const TvInfo = () => {
                         {recommendations?.length > 0 && (
                             <Recommendations
                                 data={{
+                                    route: "tv",
                                     recommendations,
                                     rcmdLoading,
                                     rcmdError,

@@ -5,7 +5,7 @@ const instance = axios.create({
     baseURL: apiEndpoints.others.proxyServer,
     headers: {
         Accept: "application/json",
-    }
-})
+    },
+});
 
-export default instance
+export default instance;

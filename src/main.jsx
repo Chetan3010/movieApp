@@ -21,12 +21,20 @@ import GenreMovies from "./components/pages/GenreMovies.jsx";
 import GenreTv from "./components/pages/GenreTv.jsx";
 import ScrollRestorationCustom from "./components/partials/global/ScrollRestorationCustom.jsx";
 import Collection from "./components/pages/Collection.jsx";
-
+import SearchPage from "./components/pages/SearchPage.jsx";
+import PeopleInfo from "./components/pages/people/PeopleInfo.jsx";
+import Network from "./components/pages/Network.jsx";
+import Keyword from "./components/pages/Keyword.jsx";
+import { Toaster } from "react-hot-toast";
 
 const Routes = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+    },
+    {
+        path: "/search/:query",
+        element: <SearchPage />,
     },
     {
         path: "/now-playing",
@@ -37,24 +45,24 @@ const Routes = createBrowserRouter([
         element: <Explore />,
     },
     {
-        path: '/watch-providers',
-        element: <WatchProviders />
+        path: "/watch-providers",
+        element: <WatchProviders />,
     },
     {
-        path: '/watch-providers/:pid/movie',
-        element: <MovieProvider />
+        path: "/watch-providers/:pid/movie",
+        element: <MovieProvider />,
     },
     {
-        path: '/watch-providers/:pid/tv',
-        element: <TvProvider />
+        path: "/watch-providers/:pid/tv",
+        element: <TvProvider />,
     },
     {
-        path: '/genre/movies/:gid',
-        element: <GenreMovies />
+        path: "/genre/movies/:gid",
+        element: <GenreMovies />,
     },
     {
-        path: '/genre/tv/:gid',
-        element: <GenreTv />
+        path: "/genre/tv/:gid",
+        element: <GenreTv />,
     },
     {
         path: "/movie",
@@ -81,8 +89,20 @@ const Routes = createBrowserRouter([
         element: <TvEpisode />,
     },
     {
+        path: "/network/:id",
+        element: <Network />,
+    },
+    {
+        path: "/keyword/:id",
+        element: <Keyword />,
+    },
+    {
         path: "/person",
         element: <Peoples />,
+    },
+    {
+        path: "/person/:id",
+        element: <PeopleInfo />,
     },
     {
         path: "/collection/:id",

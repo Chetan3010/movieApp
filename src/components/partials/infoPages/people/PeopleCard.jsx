@@ -1,13 +1,14 @@
 import React, { forwardRef } from "react";
 import { defaultConst } from "../../../../utils/constants";
+import { Link } from "react-router-dom";
 
 const PeopleCard = forwardRef(
     (
-        { name, original_name, known_for_department, profile_path, character },
+        { id, name, original_name, known_for_department, profile_path, character },
         ref
     ) => {
         return (
-            <div className="rounded-xl overflow-hidden relative" ref={ref}>
+            <Link to={`/person/${id}-${name.split(" ").join("_")}`} className="rounded-xl overflow-hidden relative" ref={ref}>
                 <div className="relative">
                     <img
                         className="object-cover w-full h-auto rounded-xl bg-zinc-600"
@@ -33,7 +34,7 @@ const PeopleCard = forwardRef(
                         </h4>
                     )}
                 </div>
-            </div>
+            </Link>
         );
     }
 );

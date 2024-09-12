@@ -111,3 +111,39 @@ strong {
 .w-b:hover {
     @apply bg-[#bf2ef0] transition-all duration-150 ease-in text-white
 }
+
+.activeTab {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 4px;
+    background-color: white;
+    border-radius: 5px 5px 0 0 ;
+}
+
+.animateTab {
+    animation: tab 0.6s cubic-bezier(0, 0.55, 0.45, 1) forwards;
+}
+
+@keyframes tab {
+    0% {
+        transform: scaleX(0%);
+    }
+
+    100% {
+        transform: scaleX(100%);
+    }
+}
+
+.overlay {
+    mask-image: linear-gradient(to top, transparent, black);
+
+    &::after {
+        content: '';
+        background: linear-gradient(200deg, #0d253f, #01b4e4, #90cea1);
+        position: absolute;
+        inset: 0;
+        opacity: 50%;
+        z-index: 1;
+    }
+}

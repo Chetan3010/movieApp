@@ -5,6 +5,9 @@ import { FaCalendar } from "react-icons/fa";
 import { FaCircleDot } from "react-icons/fa6";
 import { MdTheaterComedy } from "react-icons/md";
 import { getGenreNames } from "../../../utils/helper";
+import { apiEndpoints } from "../../../utils/constants";
+import axios from "../../../utils/axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Caraousel = ({ trendingData, genres }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,10 +24,10 @@ const Caraousel = ({ trendingData, genres }) => {
     const nextIndex =
         currentIndex === trendingData.length - 1 ? 0 : currentIndex + 1;
 
-   /**
-    * The `handleManualChange` function sets a new index, clears any existing interval and delay, and
-    * then restarts the interval after a 5-second delay.
-    */
+    /**
+     * The `handleManualChange` function sets a new index, clears any existing interval and delay, and
+     * then restarts the interval after a 5-second delay.
+     */
     const handleManualChange = (newIndex) => {
         setCurrentIndex(newIndex);
         clearInterval(intervalRef.current);
@@ -49,7 +52,7 @@ const Caraousel = ({ trendingData, genres }) => {
     };
 
     const handleTouchMove = (e) => {
-        // *made command because getting console error because passive event call and after doing this does not find any errors
+        // *made fucntion because getting console error of passive event call.
         // e.preventDefault();
     };
 
@@ -74,6 +77,30 @@ const Caraousel = ({ trendingData, genres }) => {
         return () => clearInterval(intervalRef.current);
     }, [updateIndices, trendingData.length]);
 
+    const redirectToTrailer = async (media_type, id) => {
+        try {
+            const { data } = await axios.post("/", {
+                url: apiEndpoints.trending.trailer({ media_type, id }),
+            });
+
+            const trailer = data?.results?.find(
+                (item) => item?.site === "YouTube" && item?.type === "Trailer"
+            );
+
+            if (trailer) {
+                window.open(
+                    `https://www.youtube.com/watch?v=${trailer.key}`,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+            } else {
+                toast.error("Didn't find any trailer!");
+            }
+        } catch (error) {
+            toast.error("Error fetching trailer:", error);
+        }
+    };
+
     return (
         <div
             className="relative w-full pt-2 selection:bg-none mb-5 md:mb-10"
@@ -91,18 +118,26 @@ const Caraousel = ({ trendingData, genres }) => {
                                 onClick={handlePrevClick}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original/${trendingData[previousIndex]?.backdrop_path}`}
+                                    src={`https://image.tmdb.org/t/p/original${trendingData[previousIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="prev object-cover object-right w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border-[1px] border-zinc-500"
                                 />
                                 <GrPrevious className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] z-10 font-bold text-xl sm:text-3xl" />
                             </div>
-                            <div
+                            <Link
+                                to={`/${
+                                    trendingData[previousIndex].media_type
+                                }/${trendingData[currentIndex].id}-${(
+                                    trendingData[currentIndex].title ||
+                                    trendingData[currentIndex].name
+                                )
+                                    .split(" ")
+                                    .join("_")}`}
                                 key={currentIndex}
                                 className={`now w-full md:w-[80%] flex-none box-border relative cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original/${trendingData[currentIndex]?.backdrop_path}`}
+                                    src={`https://image.tmdb.org/t/p/original${trendingData[currentIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="current object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-70 border border-zinc-500"
                                 />
@@ -121,10 +156,10 @@ const Caraousel = ({ trendingData, genres }) => {
                                                 currentIndex
                                             ]?.overview.slice(0, 150)}
                                             ...
-                                            <Link className="text-blue-400">
+                                            <span className="text-blue-400">
                                                 {" "}
                                                 read more
-                                            </Link>
+                                            </span>
                                         </p>
                                     )}
                                     <div className="mb-1 sm:mb-2">
@@ -158,18 +193,28 @@ const Caraousel = ({ trendingData, genres }) => {
                                             </p>
                                         )}
                                     </div>
-                                    <button className="px-2 py-1 bg-[#c147e9] w-b text-white text-lg font-semibold rounded-md">
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            redirectToTrailer(
+                                                trendingData[currentIndex]
+                                                    .media_type,
+                                                trendingData[currentIndex].id
+                                            );
+                                        }}
+                                        className="px-2 z-[2] py-1 white-black w-b text-lg font-semibold rounded-md"
+                                    >
                                         Watch Trailer
                                     </button>
                                 </div>
-                            </div>
+                            </Link>
                             <div
                                 key={nextIndex}
                                 className={`relative w-[8%] flex-none box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
                                 onClick={handleNextClick}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original/${trendingData[nextIndex]?.backdrop_path}`}
+                                    src={`https://image.tmdb.org/t/p/original${trendingData[nextIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="next object-cover object-left w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border border-zinc-500"
                                 />
