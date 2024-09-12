@@ -108,7 +108,6 @@ const Caraousel = ({ trendingData, genres }) => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
-            <Toaster position="bottom-center" />
             <div className="w-full flex items-center justify-center ">
                 <div className="flex w-full justify-center gap-3 px-1">
                     {trendingData?.length > 0 ? (

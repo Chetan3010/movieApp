@@ -5,6 +5,8 @@ import { apiEndpoints } from "./utils/constants";
 import { MovieGenreContext, TvGenreContext } from "./contexts/Contexts";
 import useFetch from "./hooks/useFetch";
 import CardsDrawer from "./components/partials/global/CardsDrawer";
+import { Toaster } from "react-hot-toast";
+import ScrollRestorationCustom from "./components/partials/global/ScrollRestorationCustom";
 
 const App = () => {
     const { data: trendingData, setData: setTredingData } = useFetch(
@@ -40,19 +42,23 @@ const App = () => {
     };
 
     return (
-        <div className={`main`}>
-            <Topnav />
-            <Caraousel
-                trendingData={trendingData}
-                setTredingData={setTredingData}
-                genres={[...movieGenres, ...tvGenres]}
-            />
-            <CardsDrawer
-                options={options}
-                cardData={cardData}
-                lsKey={"indexTab"}
-            />
-        </div>
+        <>
+            <Toaster position="bottom-center" />
+            <ScrollRestorationCustom />
+            <div className={`main`}>
+                <Topnav />
+                <Caraousel
+                    trendingData={trendingData}
+                    setTredingData={setTredingData}
+                    genres={[...movieGenres, ...tvGenres]}
+                />
+                <CardsDrawer
+                    options={options}
+                    cardData={cardData}
+                    lsKey={"indexTab"}
+                />
+            </div>
+        </>
     );
 };
 

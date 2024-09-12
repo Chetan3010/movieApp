@@ -1,34 +1,33 @@
 import React from "react";
-import { FaShareAlt } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
+import ShareModal from "../../modal/modals/ShareModal";
+import useModal from "../../../hooks/useModal";
 
-const Share = () => {
-    const shareData = {
-        title: document.title,
-        url: window.location.href, // This will use the current page's URL
-    };
+const Share = ({ info }) => {
+    const { openModal, isModalVisible, closeModal } = useModal();
 
-    const share = () => {
+    const shareHandler = (e) => {
+        e.preventDefault();
+
         if (navigator.share) {
-            navigator.share({
-                title: document.title,
-                url: window.location.href,
-            });
-            // .then(() => console.log("Successful share"))
-            // .catch((error) => console.log("Error sharing", error));
+            navigator
+                .share({
+                    title: info.title || info.name,
+                    text: info.overview,
+                    url: windowq.location.href,
+                })
+                .catch(() => openModal());
         } else {
-            console
-                .log
-                // "Share not supported on this browser, do it the old way."
-                ();
+            openModal();
         }
     };
     return (
         <button
-            onClick={share}
+            onClick={shareHandler}
             className="hover:text-[#c147e9] px-2 transition-all duration-100 ease-in text-2xl cursor-pointer"
         >
             <IoMdShare />
+            <ShareModal title={info.title || info.name} isModalOpen={isModalVisible} closeModal={closeModal} />
         </button>
     );
 };

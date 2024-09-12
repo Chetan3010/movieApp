@@ -12,6 +12,7 @@ import Recommendations from "../../partials/infoPages/Recommendations";
 import Loader from "../../partials/global/Loader";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 import { FaPlay } from "react-icons/fa6";
+import { Toaster } from "react-hot-toast";
 
 const TvInfo = () => {
     const para = useParams();
@@ -107,7 +108,8 @@ const TvInfo = () => {
     ];
 
     return (
-        <>
+        <>  
+            <Toaster position="bottom-center" />
             <ScrollRestorationCustom />
             <section className="main">
                 <Topnav />
@@ -116,7 +118,7 @@ const TvInfo = () => {
                         {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                         <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
                             <InfoPoster
-                                title={name || original_name}
+                                info={info}
                                 poster_path={poster_path}
                                 external_ids={external_ids}
                                 homepage={homepage}

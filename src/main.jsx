@@ -25,6 +25,7 @@ import SearchPage from "./components/pages/SearchPage.jsx";
 import PeopleInfo from "./components/pages/people/PeopleInfo.jsx";
 import Network from "./components/pages/Network.jsx";
 import Keyword from "./components/pages/Keyword.jsx";
+import { Toaster } from "react-hot-toast";
 
 const Routes = createBrowserRouter([
     {

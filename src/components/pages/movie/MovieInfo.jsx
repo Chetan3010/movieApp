@@ -11,6 +11,7 @@ import InfoPoster from "../../partials/infoPages/InfoPoster";
 import Facts from "../../partials/infoPages/Facts";
 import Loader from "../../partials/global/Loader";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
+import { Toaster } from "react-hot-toast";
 
 const MovieInfo = () => {
     const para = useParams();
@@ -109,6 +110,7 @@ const MovieInfo = () => {
 
     return (
         <>
+            <Toaster position="bottom-center" />
             <ScrollRestorationCustom />
             <section className="main">
                 <Topnav />
@@ -117,7 +119,7 @@ const MovieInfo = () => {
                         {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                         <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
                             <InfoPoster
-                                title={title || original_title}
+                                info={info}
                                 poster_path={poster_path}
                                 external_ids={external_ids}
                                 homepage={homepage}

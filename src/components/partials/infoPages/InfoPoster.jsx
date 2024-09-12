@@ -1,5 +1,5 @@
 import React from "react";
-import { FaShareAlt, FaStarHalfAlt } from "react-icons/fa";
+import { FaStarHalfAlt } from "react-icons/fa";
 import {
     FaInstagram,
     FaLink,
@@ -11,38 +11,16 @@ import { IoIosMenu } from "react-icons/io";
 import { MdWatchLater } from "react-icons/md";
 import { defaultConst } from "../../../utils/constants";
 import Share from "../global/Share";
+import { IoCopy } from "react-icons/io5";
 
 const InfoPoster = ({
     poster_path,
     homepage,
     external_ids = {},
-    title,
+    info,
     trailer,
 }) => {
     const { instagram_id, twitter_id } = external_ids;
-
-    const shareData = {
-        title,
-        text: title,
-        url: window.location.href, // This will use the current page's URL
-    };
-
-    const share = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: document.title,
-                text: title,
-                url: window.location.href,
-            });
-            // .then(() => console.log("Successful share"))
-            // .catch((error) => console.log("Error sharing", error));
-        } else {
-            console
-                .log
-                // "Share not supported on this browser, do it the old way."
-                ();
-        }
-    };
 
     return (
         <div className="flex flex-col gap-5 w-72">
@@ -120,7 +98,7 @@ const InfoPoster = ({
                             </i>
                         </a>
                     )}
-                    <Share />
+                    <Share info={info} />
                 </div>
             </div>
         </div>

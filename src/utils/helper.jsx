@@ -28,7 +28,7 @@ export const getEndOfScrollPhrase = () => {
 export const getBadQueryPhrase = () => {
     const badQueryPhrases = defaultConst.badQueryPhrases;
     const index = Math.floor(Math.random() * badQueryPhrases.length);
-    return badQueryPhrases[index]+' :-(';
+    return badQueryPhrases[index] + " :-(";
 };
 
 export const getGenreNames = (genres, genreIds) => {
@@ -62,10 +62,10 @@ export const formatRuntime = (runtime) => {
         return `${hours}h ${minutes}m`;
     } else if (hours > 0) {
         return `${hours}h`;
-    } else if(minutes > 0) {
+    } else if (minutes > 0) {
         return `${minutes}m`;
     } else {
-        return 'NA'
+        return "NA";
     }
 };
 
@@ -112,3 +112,20 @@ export const getGender = (g) => {
             return "NB / Trans / Others";
     }
 };
+
+export const copyToClipboard = async ({ text, nodeId }) => {
+    try {
+      let textToCopy;
+  
+      if (nodeId) {
+        textToCopy = document.getElementById(nodeId).value;
+      } else {
+        textToCopy = text || window.location.href;
+      }
+  
+      await navigator.clipboard.writeText(textToCopy);
+    } catch(e) {
+        console.log(e);
+      throw new Error("error copying to clipboard");
+    }
+  };
