@@ -48,10 +48,23 @@ const Topnav = () => {
                     }`}
                 >
                     <div className="p-4">
-                        <TopNavHeader
+                        <TopNavHeader setIsSidenavOpen={setIsSidenavOpen} />
+                        <Searchbar
+                            isHidden
                             setIsSidenavOpen={setIsSidenavOpen}
                         />
-                        <Searchbar isHidden setIsSidenavOpen={setIsSidenavOpen} />
+                        <div className="flex gap-3 justify-start mb-3 px-5">
+                            <a
+                                className={`w-1/2 flex gap-3 items-center justify-center py-2 border border-neutral-400 bg-neutral-300  text-black text-lg font-bold rounded-md`}
+                            >
+                                Login
+                            </a>
+                            <a
+                                className={`w-1/2 flex gap-3 items-center justify-center py-2 border border-neutral-400 bg-neutral-300  text-black text-lg font-bold rounded-md`}
+                            >
+                                Profile
+                            </a>
+                        </div>
                         <NavLink
                             to="/"
                             className={`flex gap-3 items-center py-4 text-neutral-200 hover:bg-[#29143a96] hover:text-[#C147E9] pl-5 rounded-md`}

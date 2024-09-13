@@ -126,7 +126,7 @@ const Caraousel = ({ trendingData, genres }) => {
                             </div>
                             <Link
                                 to={`/${
-                                    trendingData[previousIndex].media_type
+                                    trendingData[currentIndex].media_type
                                 }/${trendingData[currentIndex].id}-${(
                                     trendingData[currentIndex].title ||
                                     trendingData[currentIndex].name

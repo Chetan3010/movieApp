@@ -28,6 +28,9 @@ const App = () => {
         { name: "Tv Shows", value: "tv" },
     ];
 
+    console.log(trendingData);
+    
+
     const cardData = {
         movie: {
             ...movies,
