@@ -90,7 +90,7 @@ const TopNavLinks = () => {
     };
 
     return (
-        <>
+        <>  
             {links.map((item, index) => (
                 <Fragment key={index}>
                     <div className="border-t-[2px] border-zinc-700"></div>
