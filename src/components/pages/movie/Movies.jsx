@@ -59,7 +59,6 @@ const Movies = () => {
             <ScrollRestorationCustom />
             <section className="main">
                 <Topnav />
-                <div className="sort"></div>
                 <CardsDrawer
                     lsKey={"moviesTab"}
                     cardData={cardData}

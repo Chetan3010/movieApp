@@ -19,7 +19,7 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.post("/", {
+            const response = await axios.post("/api/", {
                 url,
                 ...options,
             });

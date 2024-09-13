@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Searchbar from "../../partials/topnav/Searchbar";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Header from "../../partials/topnav/Header";
 import TopNavHeader from "../../partials/topnav/TopNavHeader";
 import TopNavLinks from "../../partials/topnav/TopNavLinks";
@@ -54,16 +54,17 @@ const Topnav = () => {
                             setIsSidenavOpen={setIsSidenavOpen}
                         />
                         <div className="flex gap-3 justify-start mb-3 px-5">
-                            <a
+                            <Link
+                                to={'/account/login'}
                                 className={`w-1/2 flex gap-3 items-center justify-center py-2 border border-neutral-400 bg-neutral-300  text-black text-lg font-bold rounded-md`}
                             >
                                 Login
-                            </a>
-                            <a
+                            </Link>
+                            <Link
                                 className={`w-1/2 flex gap-3 items-center justify-center py-2 border border-neutral-400 bg-neutral-300  text-black text-lg font-bold rounded-md`}
                             >
                                 Profile
-                            </a>
+                            </Link>
                         </div>
                         <NavLink
                             to="/"

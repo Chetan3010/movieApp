@@ -69,7 +69,7 @@ export const apiEndpoints = {
         collectionSearch: ({ query, page = 1 }) => ({ url: `${base_url_v3}/search/collection?language=en-US&query=${query}&page=${page}&include_adult=false` })
     },
     others: {
-        // proxyServer: "http://localhost:3000",
+        // proxyServer: "http://localhost:3002",
         proxyServer: "https://proxyserverapi.vercel.app",
         // proxyServer: "https://proxyserver-u5de.onrender.com"
     },

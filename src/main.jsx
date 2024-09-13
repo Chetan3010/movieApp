@@ -26,11 +26,16 @@ import PeopleInfo from "./components/pages/people/PeopleInfo.jsx";
 import Network from "./components/pages/Network.jsx";
 import Keyword from "./components/pages/Keyword.jsx";
 import { Toaster } from "react-hot-toast";
+import Login from "./components/pages/account/Login.jsx";
 
 const Routes = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+    },
+    {
+        path: "/account/login",
+        element: <Login />
     },
     {
         path: "/search/:query",
