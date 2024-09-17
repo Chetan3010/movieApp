@@ -118,7 +118,7 @@ const TopNavLinks = () => {
                                     key={_index}
                                     to={_item.url}
                                     className={
-                                        "flex gap-3 items-center py-4 text-zinc-200 hover:bg-[#29143a96] hover:text-[#C147E9] pl-5 rounded-md mb-1"
+                                        "flex gap-3 items-center py-4 text-zinc-200 hover:bg-[#29143a96] hover:text-[#C147E9] transition-all duration-200 ease-in pl-5 rounded-md mb-1"
                                     }
                                 >
                                     {_item.icon}

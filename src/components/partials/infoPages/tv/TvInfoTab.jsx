@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import Backdrops from "../Backdrops";
 import Posters from "../Posters";
 import SeasonCard from "./SeasonCard";
+import { AnimatePresence, motion } from "framer-motion";
 
 const TvInfoTab = ({
     title,
@@ -114,109 +115,165 @@ const TvInfoTab = ({
                 </ul>
             </div>
             <div className="w-full px-5 md:px-14 py-5 md:py-12">
-                {/* Cast */}
-                {selectedType === "cast" &&
-                    (cast?.length > 0 ? (
-                        <>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-5 justify-items-center">
-                                <Cast cast={cast} />
-                            </div>
-                        </>
-                    ) : (
-                        <p className="text-3xl text-center text-neutral-300 italic">
-                            To be added later.
-                        </p>
-                    ))}
+                <AnimatePresence mode="wait">
+                    {/* Cast */}
+                    {selectedType === "cast" && (
+                        <motion.div
+                            key={"cast"}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            {cast?.length > 0 ? (
+                                <>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-5 justify-items-center">
+                                        <Cast cast={cast} />
+                                    </div>
+                                </>
+                            ) : (
+                                <p className="text-3xl text-center text-neutral-300 italic">
+                                    To be added later.
+                                </p>
+                            )}
+                        </motion.div>
+                    )}
 
-                {/* Seasons */}
-                {selectedType === "season" &&
-                    (seasons?.length > 0 ? (
-                        <div>
-                            <div className="mt-5 flex flex-col gap-5 items-center w-full">
-                                {seasons?.map((item, index) => (
-                                    <Link
-                                        to={`season/${item.season_number}`}
-                                        key={index}
-                                        className="flex border border-neutral-200 w-full md:w-[80%] h-40 md:h-44 rounded-xl overflow-hidden"
-                                    >
-                                        <SeasonCard item={item} />
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-                    ) : (
-                        <p className="text-3xl text-center text-neutral-300 italic">
-                            No info yet.
-                        </p>
-                    ))}
-
-                {/* Reviews */}
-                {selectedType === "review" &&
-                    (reviews?.length > 0 ? (
-                        <>
-                            <div>
-                                <div className="flex justify-center">
-                                    <div className="w-full md:w-[70%]">
-                                        {reviews?.map((item, index) => (
-                                            <Fragment key={index}>
-                                                <ReviewCard {...item} />
-                                                {index !==
-                                                    reviews.length - 1 && (
-                                                    <hr className="my-5 md:my-8 border-neutral-700" />
-                                                )}
-                                            </Fragment>
+                    {/* Seasons */}
+                    {selectedType === "season" && (
+                        <motion.div
+                            key={"season"}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            {seasons?.length > 0 ? (
+                                <div>
+                                    <div className="mt-5 flex flex-col gap-5 items-center w-full">
+                                        {seasons?.map((item, index) => (
+                                            <motion.div
+                                                whileHover={{ scaleX: 1.02 }}
+                                                className="w-full md:w-[80%]"
+                                                key={index}
+                                            >
+                                                <Link
+                                                    to={`season/${item.season_number}`}
+                                                    className="flex border border-neutral-200 w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                >
+                                                    <SeasonCard item={item} />
+                                                </Link>
+                                            </motion.div>
                                         ))}
-                                        {reviewsLoading && <SkeletonReview />}
                                     </div>
                                 </div>
-                            </div>
-                            {reviewsTotalPages > reviewPage && (
-                                <div className="flex justify-center mt-5">
-                                    <button
-                                        onClick={loadMoreReviews}
-                                        className="m-5 px-4 py-1 bg-[#c147e9] select-none rounded-md text-[#0f0617] text-xl hover:bg-[#d564fb]"
-                                    >
-                                        View more
-                                    </button>
-                                </div>
+                            ) : (
+                                <p className="text-3xl text-center text-neutral-300 italic">
+                                    No info yet.
+                                </p>
                             )}
-                        </>
-                    ) : (
-                        <p className="text-3xl text-center text-neutral-300 italic">
-                            No reviews yet.
-                        </p>
-                    ))}
+                        </motion.div>
+                    )}
 
-                {/* Backdrops */}
-                {selectedType === "backdrop" &&
-                    (backdrops?.length > 0 ? (
-                        <div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-items-center">
-                                <Backdrops
-                                    title={title}
-                                    backdrops={backdrops}
-                                />
-                            </div>
-                        </div>
-                    ) : (
-                        <p className="text-3xl text-center text-neutral-300 italic">
-                            No pictures yet.
-                        </p>
-                    ))}
+                    {/* Reviews */}
+                    {selectedType === "review" && (
+                        <motion.div
+                            key={"review"}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            {reviews?.length > 0 ? (
+                                <>
+                                    <div>
+                                        <div className="flex justify-center">
+                                            <div className="w-full md:w-[70%]">
+                                                {reviews?.map((item, index) => (
+                                                    <Fragment key={index}>
+                                                        <ReviewCard {...item} />
+                                                        {index !==
+                                                            reviews.length -
+                                                                1 && (
+                                                            <hr className="my-5 md:my-8 border-neutral-700" />
+                                                        )}
+                                                    </Fragment>
+                                                ))}
+                                                {reviewsLoading && (
+                                                    <SkeletonReview />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {reviewsTotalPages > reviewPage && (
+                                        <div className="flex justify-center mt-5">
+                                            <motion.button
+                                                whileHover={{
+                                                    backgroundColor: "#c147e9",
+                                                }}
+                                                onClick={loadMoreReviews}
+                                                className="m-5 px-4 py-1 bg-white select-none font-normal rounded-md text-[#0f0617] text-xl"
+                                            >
+                                                View more
+                                            </motion.button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <p className="text-3xl text-center text-neutral-300 italic">
+                                    No reviews yet.
+                                </p>
+                            )}
+                        </motion.div>
+                    )}
 
-                {/* Poster */}
-                {selectedType === "poster" &&
-                    (posters?.length > 0 ? (
-                        <div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
-                                <Posters title={title} posters={posters} />
-                            </div>
-                        </div>
-                    ) : (
-                        <p className="text-3xl text-center text-neutral-300 italic">
-                            No posters yet.
-                        </p>
-                    ))}
+                    {/* Backdrops */}
+                    {selectedType === "backdrop" && (
+                        <motion.div
+                            key={"backdrop"}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            {backdrops?.length > 0 ? (
+                                <div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-items-center">
+                                        <Backdrops
+                                            title={title}
+                                            backdrops={backdrops}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                <p className="text-3xl text-center text-neutral-300 italic">
+                                    No pictures yet.
+                                </p>
+                            )}
+                        </motion.div>
+                    )}
+
+                    {/* Poster */}
+                    {selectedType === "poster" && (
+                        <motion.div
+                            key={"poster"}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            {posters?.length > 0 ? (
+                                <div>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
+                                        <Posters
+                                            title={title}
+                                            posters={posters}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                <p className="text-3xl text-center text-neutral-300 italic">
+                                    No posters yet.
+                                </p>
+                            )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </>
     );

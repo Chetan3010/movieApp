@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SelectionTab from "../global/SelectionTab";
 import Cards from "../global/Cards";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CardsDrawer = ({
     options,
@@ -31,17 +32,19 @@ const CardsDrawer = ({
                     onSelect={(option) => setSelectedType(option)}
                 />
             </div>
-            <div className="cardDrawer">
-                <Cards
-                    items={items}
-                    isPending={isPending}
-                    isInfiniteScroll={isInfiniteScroll}
-                    lastItemRef={ref}
-                    error={error}
-                    isDone={isDone}
-                    route={route}
-                />
-            </div>
+            <AnimatePresence mode="wait">
+                <div className="cardDrawer">
+                    <Cards
+                        items={items}
+                        isPending={isPending}
+                        isInfiniteScroll={isInfiniteScroll}
+                        lastItemRef={ref}
+                        error={error}
+                        isDone={isDone}
+                        route={route}
+                    />
+                </div>
+            </AnimatePresence>
         </>
     );
 };

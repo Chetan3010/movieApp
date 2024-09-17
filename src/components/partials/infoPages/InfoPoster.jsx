@@ -12,6 +12,8 @@ import { MdWatchLater } from "react-icons/md";
 import { defaultConst } from "../../../utils/constants";
 import Share from "../global/Share";
 import { IoCopy } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const InfoPoster = ({
     poster_path,
@@ -21,6 +23,10 @@ const InfoPoster = ({
     trailer,
 }) => {
     const { instagram_id, twitter_id } = external_ids;
+
+    const handleUnavailableButtons = () => {
+        toast.error("This feature is not available yet!");
+    };
 
     return (
         <div className="flex flex-col gap-5 w-72">
@@ -36,30 +42,47 @@ const InfoPoster = ({
             />
             <div className="flex flex-col gap-3">
                 {trailer ? (
-                    <a
+                    <motion.a
+                    whileHover={{ backgroundColor: '#c147e9'}}
                         target="_blank"
                         rel="noopener noreferrer"
                         href={`https://www.youtube.com/watch?v=${trailer.key}`}
-                        className="white-black w-b flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3"
+                        className="white-black flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3"
                     >
                         <FaYoutube className="text-2xl" /> Watch Trailer
-                    </a>
+                    </motion.a>
                 ) : (
                     <></>
                 )}
-                <button className="white-black w-b flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3">
+                <motion.button
+                whileHover={{ backgroundColor: '#c147e9'}}
+                    onClick={handleUnavailableButtons}
+                    className="white-black flex w-full text-lg font-medium py-2 rounded-lg justify-center items-center gap-3"
+                >
                     <IoIosMenu className="text-2xl" /> Add to list
-                </button>
+                </motion.button>
                 <div className="flex gap-2 justify-between w-full">
-                    <button className="white-black w-b w-1/3 py-3 rounded-lg flex justify-center items-center">
+                    <motion.button
+                    whileHover={{ backgroundColor: '#c147e9'}}
+                        onClick={handleUnavailableButtons}
+                        className="white-black w-1/3 py-3 rounded-lg flex justify-center items-center"
+                    >
                         <MdWatchLater className="text-xl" />
-                    </button>
-                    <button className="white-black w-b w-1/3 py-3 rounded-lg flex justify-center items-center">
+                    </motion.button>
+                    <motion.button
+                    whileHover={{ backgroundColor: '#c147e9'}}
+                        onClick={handleUnavailableButtons}
+                        className="white-black w-1/3 py-3 rounded-lg flex justify-center items-center"
+                    >
                         <FaRegHeart className="text-xl" />
-                    </button>
-                    <button className="white-black w-b w-1/3 py-3 rounded-lg flex justify-center items-center">
+                    </motion.button>
+                    <motion.button
+                    whileHover={{ backgroundColor: '#c147e9'}}
+                        onClick={handleUnavailableButtons}
+                        className="white-black w-1/3 py-3 rounded-lg flex justify-center items-center"
+                    >
                         <FaStarHalfAlt className="text-xl" />
-                    </button>
+                    </motion.button>
                 </div>
                 <div className="flex justify-around items-center px-2 pt-4">
                     {instagram_id && (
@@ -67,7 +90,7 @@ const InfoPoster = ({
                             href={`https://www.instagram.com/${instagram_id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-[#c147e9] transition-all duration-100 ease-in"
+                            className="transition-all duration-100 ease-in hover:text-[#c147e9]"
                         >
                             <i className="text-2xl cursor-pointer">
                                 <FaInstagram />
@@ -79,7 +102,7 @@ const InfoPoster = ({
                             href={`https://twitter.com/${twitter_id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-[#c147e9] transition-all duration-100 ease-in"
+                            className="transition-all duration-100 ease-in hover:text-[#c147e9]"
                         >
                             <i className="text-2xl cursor-pointer">
                                 <FaXTwitter />
@@ -91,7 +114,7 @@ const InfoPoster = ({
                             href={homepage}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-[#c147e9] transition-all duration-100 ease-in"
+                            className="transition-all duration-100 ease-in hover:text-[#c147e9]"
                         >
                             <i className="text-2xl cursor-pointer">
                                 <FaLink />

@@ -1,9 +1,19 @@
+import { motion } from "framer-motion";
 import React from "react";
 
 const SearchDataSkeleton = () => {
     const dummyArray = Array.from({ length: 5 });
     return dummyArray.map((_, index) => (
-        <div key={index} className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden">
+        <motion.div
+            initial={{
+                opacity: 0,
+            }}
+            animate={{
+                opacity: 1,
+            }}
+            key={index}
+            className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+        >
             <div className="w-40 md:w-36 h-full">
                 <div className="pb-[150%] bg-gray-600 animate-pulse"></div>
             </div>
@@ -14,7 +24,7 @@ const SearchDataSkeleton = () => {
                 <div className="animate-pulse w-full bg-zinc-400 h-4 rounded"></div>
                 <div className="animate-pulse w-full bg-zinc-400 h-4 rounded"></div>
             </div>
-        </div>
+        </motion.div>
     ));
 };
 

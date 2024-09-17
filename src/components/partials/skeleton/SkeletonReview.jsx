@@ -1,8 +1,9 @@
+import { motion } from "framer-motion";
 import React from "react";
 
 const SkeletonReview = () => {
     return Array.from({ length: 5 }).map((_, index) => (
-        <>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <hr className="my-5 md:my-10 border-neutral-700" />
             <div className="my-5">
                 <div className="flex gap-3 items-center w-full">
@@ -20,8 +21,8 @@ const SkeletonReview = () => {
                     <div className="w-full bg-zinc-600 h-5 my-1 rounded-md animate-pulse"></div>
                 </div>
             </div>
-            {index === 5-1 && <hr className="my-10 border-neutral-700" />}
-        </>
+            {index === 5 - 1 && <hr className="my-10 border-neutral-700" />}
+        </motion.div>
     ));
 };
 

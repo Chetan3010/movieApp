@@ -1,64 +1,128 @@
-import React, { useContext } from "react";
-import Topnav from "./components/partials/topnav/Topnav";
-import Caraousel from "./components/partials/global/Caraousel";
-import { apiEndpoints } from "./utils/constants";
-import { MovieGenreContext, TvGenreContext } from "./contexts/Contexts";
-import useFetch from "./hooks/useFetch";
-import CardsDrawer from "./components/partials/global/CardsDrawer";
-import { Toaster } from "react-hot-toast";
-import ScrollRestorationCustom from "./components/partials/global/ScrollRestorationCustom";
+import React, { useEffect, useRef } from "react";
+import Index from "./components/pages/Index";
+import Login from "./components/pages/account/Login";
+import SearchPage from "./components/pages/SearchPage";
+import NowPlaying from "./components/pages/NowPlaying";
+import Explore from "./components/pages/Explore";
+import WatchProviders from "./components/pages/watch-provider/WatchProviders";
+import MovieProvider from "./components/pages/watch-provider/MovieProvider";
+import TvProvider from "./components/pages/watch-provider/TvProvider";
+import GenreMovies from "./components/pages/GenreMovies";
+import GenreTv from "./components/pages/GenreTv";
+import Movies from "./components/pages/movie/Movies";
+import MovieInfo from "./components/pages/movie/MovieInfo";
+import TvShows from "./components/pages/tv/TvShows";
+import TvInfo from "./components/pages/tv/TvInfo";
+import TvSeason from "./components/pages/tv/TvSeason";
+import TvEpisode from "./components/pages/tv/TvEpisode";
+import Network from "./components/pages/Network";
+import Keyword from "./components/pages/Keyword";
+import Peoples from "./components/pages/people/Peoples";
+import PeopleInfo from "./components/pages/people/PeopleInfo";
+import Collection from "./components/pages/Collection";
+import About from "./components/pages/About";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SmoothScroll from "./components/partials/global/SmoothScroll";
+import Error from "./components/pages/Error";
+import { GlobalDebug } from "./utils/helper";
 
 const App = () => {
-    const { data: trendingData, setData: setTredingData } = useFetch(
-        apiEndpoints.trending.trending({ type: "all", time_window: "day" })
-    );
-
-    const movies = useFetch(
-        apiEndpoints.trending.trending({ type: "movie", time_window: "week" })
-    );
-    const tv = useFetch(
-        apiEndpoints.trending.trending({ type: "tv", time_window: "week" })
-    );
-
-    const { data: movieGenres } = useContext(MovieGenreContext);
-    const { data: tvGenres } = useContext(TvGenreContext);
-
-    const options = [
-        { name: "Movies", value: "movie" },
-        { name: "Tv Shows", value: "tv" },
-    ];    
-
-    const cardData = {
-        movie: {
-            ...movies,
-            title: "Trending now",
-            route: "movie",
+    const Routes = createBrowserRouter([
+        {
+            path: "/",
+            element: <Index />,
+            errorElement: <Error />
         },
-        tv: {
-            ...tv,
-            title: "Trending now",
-            route: "tv",
+        {
+            path: "/account/login",
+            element: <Login />,
         },
-    };
+        {
+            path: "/search/:query",
+            element: <SearchPage />,
+        },
+        {
+            path: "/now-playing",
+            element: <NowPlaying />,
+        },
+        {
+            path: "/explore",
+            element: <Explore />,
+        },
+        {
+            path: "/watch-providers",
+            element: <WatchProviders />,
+        },
+        {
+            path: "/watch-providers/:pid/movie",
+            element: <MovieProvider />,
+        },
+        {
+            path: "/watch-providers/:pid/tv",
+            element: <TvProvider />,
+        },
+        {
+            path: "/genre/movies/:gid",
+            element: <GenreMovies />,
+        },
+        {
+            path: "/genre/tv/:gid",
+            element: <GenreTv />,
+        },
+        {
+            path: "/movie",
+            element: <Movies />,
+        },
+        {
+            path: "/movie/:id",
+            element: <MovieInfo />,
+        },
+        {
+            path: "/tv",
+            element: <TvShows />,
+        },
+        {
+            path: "/tv/:id",
+            element: <TvInfo />,
+        },
+        {
+            path: "/tv/:id/season/:sid",
+            element: <TvSeason />,
+        },
+        {
+            path: "/tv/:id/season/:sid/episode/:eid",
+            element: <TvEpisode />,
+        },
+        {
+            path: "/network/:id",
+            element: <Network />,
+        },
+        {
+            path: "/keyword/:id",
+            element: <Keyword />,
+        },
+        {
+            path: "/person",
+            element: <Peoples />,
+        },
+        {
+            path: "/person/:id",
+            element: <PeopleInfo />,
+        },
+        {
+            path: "/collection/:id",
+            element: <Collection />,
+        },
+        {
+            path: "/about",
+            element: <About />,
+        },
+    ]);
 
     return (
-        <>
-            <Toaster position="bottom-center" />
-            <ScrollRestorationCustom />
-            <div className={`main`}>
-                <Topnav />
-                <Caraousel
-                    trendingData={trendingData}
-                    setTredingData={setTredingData}
-                    genres={[...movieGenres, ...tvGenres]}
-                />
-                <CardsDrawer
-                    options={options}
-                    cardData={cardData}
-                    lsKey={"indexTab"}
-                />
-            </div>
-        </>
+        <SmoothScroll>
+            <RouterProvider router={Routes}></RouterProvider>
+        </SmoothScroll>
     );
 };
 

@@ -8,7 +8,7 @@ import useSession from "../../../hooks/useSession";
 const Login = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate()
-    const { getSession, isAuthenticated, setSession, clearSession } = useSession    ();
+    const { getSession, isAuthenticated, setSession, clearSession } = useSession();
 
     const tmdbAuth = async () => {
         try {
@@ -20,7 +20,7 @@ const Login = () => {
                 },
             });
 
-            if (response.status === 200) {
+            if (response.status === 200 && response?.data?.success) {
                 const { request_token } = response.data;
                 sessionStorage.setItem("request_token", request_token);
                 window.open(

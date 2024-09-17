@@ -8,6 +8,7 @@ import { getGenreNames } from "../../../utils/helper";
 import { apiEndpoints } from "../../../utils/constants";
 import axios from "../../../utils/axios";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Caraousel = ({ trendingData, genres }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,7 +80,7 @@ const Caraousel = ({ trendingData, genres }) => {
 
     const redirectToTrailer = async (media_type, id) => {
         try {
-            const { data } = await axios.post("/", {
+            const { data } = await axios.post("/api/", {
                 url: apiEndpoints.trending.trailer({ media_type, id }),
             });
 
@@ -103,7 +104,7 @@ const Caraousel = ({ trendingData, genres }) => {
 
     return (
         <div
-            className="relative w-full pt-2 selection:bg-none mb-5 md:mb-10"
+            className="relative w-full pt-5 selection:bg-none mb-5 md:mb-10"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -117,7 +118,9 @@ const Caraousel = ({ trendingData, genres }) => {
                                 className={`relative w-[8%] flex-none box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
                                 onClick={handlePrevClick}
                             >
-                                <img
+                                <motion.img
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
                                     src={`https://image.tmdb.org/t/p/original${trendingData[previousIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="prev object-cover object-right w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border-[1px] border-zinc-500"
@@ -134,12 +137,15 @@ const Caraousel = ({ trendingData, genres }) => {
                                     .split(" ")
                                     .join("_")}`}
                                 key={currentIndex}
-                                className={`now w-full md:w-[80%] flex-none box-border relative cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
+                                className={`now w-full md:w-[80%] flex-none overflow-hidden box-border relative rounded-md border border-zinc-500 cursor-pointer bg-gradient-to-tr from-zinc-950 to-transparent`}
                             >
-                                <img
+                                <motion.img
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    key={trendingData[currentIndex].id}
                                     src={`https://image.tmdb.org/t/p/original${trendingData[currentIndex]?.backdrop_path}`}
                                     alt={`Slide`}
-                                    className="current object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-70 border border-zinc-500"
+                                    className="current caraousel-mask object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem]"
                                 />
                                 <div className="absolute left-4 bottom-2 ">
                                     <h1 className="text-[1.5rem] sm:text-[2rem] font-bold">
@@ -193,7 +199,8 @@ const Caraousel = ({ trendingData, genres }) => {
                                             </p>
                                         )}
                                     </div>
-                                    <button
+                                    <motion.button
+                                    whileHover={{ backgroundColor: "#c147e9" }}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             redirectToTrailer(
@@ -202,10 +209,10 @@ const Caraousel = ({ trendingData, genres }) => {
                                                 trendingData[currentIndex].id
                                             );
                                         }}
-                                        className="px-2 z-[2] py-1 white-black w-b text-lg font-semibold rounded-md"
+                                        className="px-2 z-[2] py-1 white-black text-lg font-semibold rounded-md"
                                     >
                                         Watch Trailer
-                                    </button>
+                                    </motion.button>
                                 </div>
                             </Link>
                             <div
@@ -213,7 +220,9 @@ const Caraousel = ({ trendingData, genres }) => {
                                 className={`relative w-[8%] flex-none box-border hover:text-[#C147E9] cursor-pointer hidden md:block`}
                                 onClick={handleNextClick}
                             >
-                                <img
+                                <motion.img
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
                                     src={`https://image.tmdb.org/t/p/original${trendingData[nextIndex]?.backdrop_path}`}
                                     alt={`Slide`}
                                     className="next object-cover object-left w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border border-zinc-500"

@@ -8,6 +8,8 @@ import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import SearchDataCard from "../partials/global/SearchDataCard";
 import SearchDataSkeleton from "../partials/skeleton/SearchDataSkeleton";
 import { getEndOfScrollPhrase } from "../../utils/helper";
+import { AnimatePresence, motion } from "framer-motion";
+import Error from "./Error";
 
 const Keyword = () => {
     const para = useParams();
@@ -25,69 +27,120 @@ const Keyword = () => {
         totalPages,
     });
 
+    if(error){
+        return <Error status={error.status} />
+    }
+
     return (
         <>
             <ScrollRestorationCustom />
             <section className="main">
                 <Topnav />
                 <div className="w-full px-5 md:px-14 mt-4 md:mt-8">
-                    <h1 className="text-lg md:text-2xl text-neutral-300">
-                        Results Matching : {keywordName}
-                    </h1>
-                    <div className="w-full">
-                        <div className="w-full flex flex-col gap-5 items-center py-5">
-                            {data?.length > 0 ? (
-                                <>
-                                    {data.map((item, index) => {
-                                        if (data.length - 1 === index) {
-                                            return (
-                                                <Link
-                                                    ref={lastItemRef}
-                                                    to={`/movie/${
-                                                        item.id
-                                                    }-${item.title
-                                                        .split(" ")
-                                                        .join("_")}`}
-                                                    key={index}
-                                                    className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden border border-neutral-600"
-                                                >
-                                                    <SearchDataCard
-                                                        item={item}
-                                                    />
-                                                </Link>
-                                            );
-                                        }
-                                        return (
-                                            <Link
-                                                to={`/movie/${
-                                                    item.id
-                                                }-${item.title
-                                                    .split(" ")
-                                                    .join("_")}`}
-                                                key={index}
-                                                className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden border border-neutral-600"
-                                            >
-                                                <SearchDataCard item={item} />
-                                            </Link>
-                                        );
-                                    })}
+                    <AnimatePresence mode="wait">
+                        {data?.length > 0 ? (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                key={"keyowrd"}
+                            >
+                                <h1 className="text-lg md:text-2xl text-neutral-300">
+                                    Results Matching : {keywordName}
+                                </h1>
+                                <div className="w-full">
+                                    <div className="w-full flex flex-col gap-5 items-center py-5">
+                                        <>
+                                            {data.map((item, index) => {
+                                                if (data.length - 1 === index) {
+                                                    return (
+                                                        <motion.div
+                                                            initial={{
+                                                                opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                            }}
+                                                            whileHover={{
+                                                                scale: 1.02,
+                                                            }}
+                                                            className="w-full"
+                                                            key={index}
+                                                        >
+                                                            <Link
+                                                                ref={
+                                                                    lastItemRef
+                                                                }
+                                                                to={`/movie/${
+                                                                    item.id
+                                                                }-${item.title
+                                                                    .split(" ")
+                                                                    .join(
+                                                                        "_"
+                                                                    )}`}
+                                                                className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden border border-neutral-600"
+                                                            >
+                                                                <SearchDataCard
+                                                                    item={item}
+                                                                />
+                                                            </Link>
+                                                        </motion.div>
+                                                    );
+                                                }
+                                                return (
+                                                    <motion.div
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        whileHover={{
+                                                            scale: 1.02,
+                                                        }}
+                                                        className="w-full"
+                                                        key={index}
+                                                    >
+                                                        <Link
+                                                            to={`/movie/${
+                                                                item.id
+                                                            }-${item.title
+                                                                .split(" ")
+                                                                .join("_")}`}
+                                                            className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden border border-neutral-600"
+                                                        >
+                                                            <SearchDataCard
+                                                                item={item}
+                                                            />
+                                                        </Link>
+                                                    </motion.div>
+                                                );
+                                            })}
 
-                                    {/* Skeleton Cars */}
-                                    {isPending && !isDone && (
-                                        <SearchDataSkeleton />
-                                    )}
+                                            {/* Skeleton Cars */}
+                                            {isPending && !isDone && (
+                                                <SearchDataSkeleton />
+                                            )}
 
-                                    {isDone && (
-                                        <h1 className="italic text-sm text-gray-300 text-center col-span-full my-5">
-                                            {getEndOfScrollPhrase()}
-                                        </h1>
-                                    )}
-                                </>
-                            ) : (
-                                isPending && <SearchDataSkeleton />
-                            )}
-                        </div>
-                    </div>
+                                            {isDone && (
+                                                <h1 className="italic text-sm text-gray-300 text-center col-span-full my-5">
+                                                    {getEndOfScrollPhrase()}
+                                                </h1>
+                                            )}
+                                        </>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                key={"loader"}
+                                className="w-full h-[70vh] flex justify-center items-center"
+                            >
+                                <p className="text-xl italic md:text-5xl text-neutral-500">
+                                    No result for this keyword.
+                                </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </section>
         </>

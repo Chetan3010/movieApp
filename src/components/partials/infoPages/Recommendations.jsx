@@ -2,6 +2,7 @@ import React from "react";
 import SkeletonRcmd from "../skeleton/SkeletonRcmd";
 import { defaultConst } from "../../../utils/constants";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Recommendations = ({ data }) => {
     const {
@@ -27,36 +28,42 @@ const Recommendations = ({ data }) => {
             </h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-8">
                 {recommendations?.map((item, index) => (
-                    <Link
-                        to={`/${route}/${item.id}-${(
-                            item.title ||
-                            item.original_title ||
-                            item.name ||
-                            item.original_name
-                        )
-                            .split(" ")
-                            .join("_")}`}
+                    <motion.div
                         key={index}
-                        className="flex flex-col gap-1 md:gap-3 justify-start"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        whileHover={{ scale: 1.05 }}
                     >
-                        <img
-                            src={
-                                item.backdrop_path
-                                    ? `https://image.tmdb.org/t/p/w500${item?.backdrop_path}`
-                                    : defaultConst.wideImgPlaceholder
-                            }
-                            alt=""
-                            className="object-cover object-center rounded-md bg-neutral-600"
-                            width={500}
-                            height={281}
-                        />
-                        <h1 className="text-base md:text-lg font-light text-center">
-                            {item.title ||
+                        <Link
+                            to={`/${route}/${item.id}-${(
+                                item.title ||
                                 item.original_title ||
                                 item.name ||
-                                item.original_name}
-                        </h1>
-                    </Link>
+                                item.original_name
+                            )
+                                .split(" ")
+                                .join("_")}`}
+                            className="flex flex-col gap-1 md:gap-3 justify-start"
+                        >
+                            <img
+                                src={
+                                    item.backdrop_path
+                                        ? `https://image.tmdb.org/t/p/w500${item?.backdrop_path}`
+                                        : defaultConst.wideImgPlaceholder
+                                }
+                                alt=""
+                                className="object-cover object-center rounded-md bg-neutral-600"
+                                width={500}
+                                height={281}
+                            />
+                            <h1 className="text-base md:text-lg font-light text-center">
+                                {item.title ||
+                                    item.original_title ||
+                                    item.name ||
+                                    item.original_name}
+                            </h1>
+                        </Link>
+                    </motion.div>
                 ))}
                 {rcmdLoading && <SkeletonRcmd />}
             </div>
@@ -67,10 +74,11 @@ const Recommendations = ({ data }) => {
             )}
             {rcmdPage < rcmdTotalPages && rcmdError === null && (
                 <div className="flex justify-center mt-5">
-                    <button
-                        className={`w-36 py-2 my-5 bg-[#c147e9] hover:bg-[#d66bfa] ${
+                    <motion.button
+                        whileHover={{ backgroundColor: "#c147e9", scale: 1.05 }}
+                        className={`w-36 py-2 my-5 ${
                             rcmdLoading && "cursor-not-allowed"
-                        } text-xl font-medium rounded-lg text-[#0f0617] flex items-center justify-center`}
+                        } text-xl font-medium rounded-lg white-black flex items-center justify-center`}
                         disabled={rcmdLoading ? true : false}
                         onClick={loadMoreRcmd}
                     >
@@ -98,7 +106,7 @@ const Recommendations = ({ data }) => {
                         ) : (
                             "View more"
                         )}
-                    </button>
+                    </motion.button>
                 </div>
             )}
         </div>

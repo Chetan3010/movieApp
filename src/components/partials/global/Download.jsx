@@ -5,6 +5,7 @@ import { saveAs } from "file-saver";
 import { getFileName } from "../../../utils/helper";
 import { apiEndpoints } from "../../../utils/constants";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Download = ({ title, file_path }) => {
     const [isDownloading, setIsDownloading] = useState(false);
@@ -39,12 +40,13 @@ const Download = ({ title, file_path }) => {
     };
 
     return (
-        <button
+        <motion.button
+            whileHover={{ backgroundColor: '#c147e9'}}
             onClick={() => downloadFile(title, file_path)}
             className="w-8 h-8 bg-neutral-300 rounded-md text-black text-lg flex justify-center items-center absolute right-5 bottom-5"
         >
             {isDownloading ? <Loader /> : <MdFileDownload />}
-        </button>
+        </motion.button>
     );
 };
 
