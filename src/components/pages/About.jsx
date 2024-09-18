@@ -77,11 +77,12 @@ const About = () => {
                                 🎬 What's this project about?
                             </h2>
                             <p className="text-gray-300">
-                                ShowMeShows is a platform built to help users
-                                browse and discover trending movies, TV shows,
-                                and much more. We leverage The Movie Database
-                                (TMDb) API to provide the latest and most
-                                accurate information about your favorite titles.
+                                ShowMeShows - A progressive web app ( PWA ) to
+                                help users browse and discover trending movies,
+                                TV shows, and much more. We leverage The Movie
+                                Database (TMDb) API to provide the latest and
+                                most accurate information about your favorite
+                                titles.
                             </p>
                         </div>
 
@@ -96,7 +97,10 @@ const About = () => {
                             </p>
                             <ul className="list-disc pl-5 space-y-2">
                                 {reactPkgList.map((item, index) => (
-                                    <li key={index} className="text-neutral-300">
+                                    <li
+                                        key={index}
+                                        className="text-neutral-300"
+                                    >
                                         <span className="font-semibold text-neutral-200">
                                             {item.title}
                                         </span>{" "}
@@ -112,7 +116,10 @@ const About = () => {
                             </h2>
                             <ul className="list-disc pl-5 space-y-2">
                                 {extPkgList.map((item, index) => (
-                                    <li key={index} className="text-neutral-300">
+                                    <li
+                                        key={index}
+                                        className="text-neutral-300"
+                                    >
                                         <span className="font-semibold text-neutral-200">
                                             {item.title}
                                         </span>{" "}
@@ -129,9 +136,9 @@ const About = () => {
                             <p className="text-gray-300">
                                 The development of ShowMeShows focuses on
                                 delivering a responsive, user-friendly
-                                experience with a focus on smooth user interactions. The project follows
-                                best practices for state management and API
-                                integrations.
+                                experience with a focus on smooth user
+                                interactions. The project follows best practices
+                                for state management and API integrations.
                             </p>
                         </div>
 
@@ -142,9 +149,9 @@ const About = () => {
                             <p className="text-gray-300">
                                 The design and user interface of ShowMeShows
                                 draw inspiration from Google's clean and
-                                intuitive design. We aimed to create
-                                a familiar and user-friendly experience by
-                                incorporating elements such as:
+                                intuitive design. We aimed to create a familiar
+                                and user-friendly experience by incorporating
+                                elements such as:
                             </p>
                             <ul className="list-disc list-inside text-gray-300 mt-2">
                                 <li>

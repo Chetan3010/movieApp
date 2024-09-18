@@ -53,8 +53,7 @@ const useFetch = ({
 
             setIsPending(false);
         } catch (error) {
-            setError({ status: error.response.status, message: error.message});
-            
+            setError({ status: error.response?.status ?? 500, message: error?.message});
             setIsPending(false);
         }
     }, [url]);

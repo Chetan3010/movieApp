@@ -128,7 +128,6 @@ const MovieInfo = () => {
                             exit={{ opacity: 0 }}
                             className="w-full relative bg-[#0F0617] py-5"
                         >
-                            {/* <MovieBg imageUrl={`https://image.tmdb.org/t/p/original/${backdrop_path}`} /> */}
                             <div className="grid md:grid-flow-col gap-6 md:gap-14 place-items-center md:place-items-start md:justify-start px-4 md:px-14">
                                 <InfoPoster
                                     info={info}
