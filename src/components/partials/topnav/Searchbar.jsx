@@ -6,8 +6,9 @@ import { apiEndpoints } from "../../../utils/constants";
 import useFetch from "../../../hooks/useFetch";
 import Loader from "../global/Loader";
 import { formatDate } from "../../../utils/helper";
+import { motion } from "framer-motion";
 
-const Searchbar = ({ isHidden = false, setIsSidenavOpen=null }) => {
+const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
     const [query, setQuery] = useState("");
     const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
@@ -52,9 +53,9 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen=null }) => {
                     onSubmit={(e) => {
                         e.preventDefault();
                         navigate(`/search/${query}`);
-                        setToggleSearch(false)
-                        if(setIsSidenavOpen !== null){
-                            setIsSidenavOpen(false)
+                        setToggleSearch(false);
+                        if (setIsSidenavOpen !== null) {
+                            setIsSidenavOpen(false);
                         }
                     }}
                 >
@@ -84,54 +85,73 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen=null }) => {
                     }}
                 />
                 {(query || searches?.length > 0) && toggleSearch && (
-                    <div className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-800 bg-neutral-200">
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="absolute z-50 top-[100%] left-0 mt-2 w-full max-h-72 overflow-y-auto rounded-md text-neutral-800 bg-neutral-200"
+                    >
                         {isLoading ? (
                             <div className="w-full h-20 flex justify-center items-center p-1">
                                 <Loader classname={"w-8 h-8"} />
                             </div>
                         ) : searches.length > 0 && query.length > 0 ? (
                             searches.map((item) => (
-                                <Link
-                                    onClick={() => setToggleSearch(false)}
+                                <motion.div
                                     key={item.id}
-                                    className="flex items-center justify-between p-2 border-b border-neutral-800 group hover:bg-neutral-300 transition-all"
-                                    to={`/${item.media_type}/${item.id}-${(
-                                        item.name || item.title
-                                    )
-                                        .split(" ")
-                                        .join("_")}`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
                                 >
-                                    <h4>
-                                        {item.title || item.name}{" "}
-                                        {item?.media_type === "person"
-                                            ? ""
-                                            : (item?.release_date ||
-                                                  item?.first_air_date) &&
-                                              `(${formatDate({
-                                                  date:
-                                                      item.release_date ||
-                                                      item.first_air_date,
-                                                  year: true,
-                                              })})`}
-                                    </h4>
-                                    <div className="border-neutral-800 border rounded py-1 px-2  group-hover:bg-[#c147e9] group-hover:text-white transition-all">
-                                        {item?.media_type === "tv"
-                                            ? "TV"
-                                            : item?.media_type
-                                                  .charAt(0)
-                                                  .toUpperCase() +
-                                              item.media_type.slice(1)}
-                                    </div>
-                                </Link>
+                                    <Link
+                                        onClick={() => {
+                                            setToggleSearch(false);
+                                            if (setIsSidenavOpen !== null) {
+                                                setIsSidenavOpen(false);
+                                            }
+                                        }}
+                                        key={item.id}
+                                        className="flex items-center justify-between p-2 border-b border-neutral-800 group hover:bg-neutral-300 transition-all"
+                                        to={`/${item.media_type}/${item.id}-${(
+                                            item.name || item.title
+                                        )
+                                            .split(" ")
+                                            .join("_")}`}
+                                    >
+                                        <h4>
+                                            {item.title || item.name}{" "}
+                                            {item?.media_type === "person"
+                                                ? ""
+                                                : (item?.release_date ||
+                                                      item?.first_air_date) &&
+                                                  `(${formatDate({
+                                                      date:
+                                                          item.release_date ||
+                                                          item.first_air_date,
+                                                      year: true,
+                                                  })})`}
+                                        </h4>
+                                        <div className="border-neutral-800 border rounded py-1 px-2  group-hover:bg-[#c147e9] group-hover:text-white transition-all">
+                                            {item?.media_type === "tv"
+                                                ? "TV"
+                                                : item?.media_type
+                                                      .charAt(0)
+                                                      .toUpperCase() +
+                                                  item.media_type.slice(1)}
+                                        </div>
+                                    </Link>
+                                </motion.div>
                             ))
                         ) : (
                             <div className="w-full h-20 flex justify-center items-center">
-                                <p className="italic px-2">
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="italic px-2"
+                                >
                                     No results found.
-                                </p>
+                                </motion.p>
                             </div>
                         )}
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </div>

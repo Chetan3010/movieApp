@@ -11,7 +11,8 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import SearchDataSkeleton from "../partials/skeleton/SearchDataSkeleton";
 import SkeletonPeopleCard from "../partials/skeleton/SkeletonPeopleCard";
 import CollectionSkeleton from "../partials/skeleton/CollectionSkeleton";
-import { getBadQueryPhrase } from "../../utils/helper";
+import { getBadQueryPhrase, getEndOfScrollPhrase } from "../../utils/helper";
+import { AnimatePresence, motion } from "framer-motion";
 
 const SearchPage = () => {
     const { query } = useParams();
@@ -137,15 +138,18 @@ const SearchPage = () => {
 
     return (
         <>
-            <ScrollRestorationCustom />
             <section className={`main`}>
                 <Topnav />
                 {!isLoading && isEmpty ? (
-                    <div className="w-full h-[70vh] flex px-5 justify-center items-center">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="w-full h-[70vh] flex px-5 justify-center items-center"
+                    >
                         <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
                             {getBadQueryPhrase()}
                         </h1>
-                    </div>
+                    </motion.div>
                 ) : (
                     <div className="px-5 md:px-14 py-5">
                         <div className="w-full flex justify-center">
@@ -180,322 +184,529 @@ const SearchPage = () => {
                             </div>
                         </div>
 
-                        {/* Movies */}
-                        {activeTab === "movie" && (
-                            <div className="w-full">
-                                {movie?.data?.length > 0 ? (
-                                    <div className="w-full flex flex-col gap-5 items-center py-5 md:py-10">
-                                        {movie.data.map((item, index) => {
-                                            if (
-                                                movie.data.length - 1 ===
-                                                index
-                                            ) {
+                        <AnimatePresence mode="wait">
+                            {/* Movies */}
+                            {activeTab === "movie" && (
+                                <motion.div
+                                    key={"movie"}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="w-full"
+                                >
+                                    {movie?.data?.length > 0 ? (
+                                        <div className="w-full flex flex-col gap-5 items-center py-5 md:py-10">
+                                            {movie.data.map((item, index) => {
+                                                if (
+                                                    movie.data.length - 1 ===
+                                                    index
+                                                ) {
+                                                    return (
+                                                        <motion.div
+                                                            className="w-full"
+                                                            key={item.id}
+                                                            initial={{
+                                                                opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                            }}
+                                                            whileHover={{
+                                                                scale: 1.01,
+                                                            }}
+                                                        >
+                                                            <Link
+                                                                ref={
+                                                                    movieRef.lastItemRef
+                                                                }
+                                                                to={`/movie/${
+                                                                    item.id
+                                                                }-${item.title
+                                                                    .split(" ")
+                                                                    .join(
+                                                                        "_"
+                                                                    )}`}
+                                                                key={index}
+                                                                className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                            >
+                                                                <SearchDataCard
+                                                                    item={item}
+                                                                />
+                                                            </Link>
+                                                        </motion.div>
+                                                    );
+                                                }
                                                 return (
-                                                    <Link
-                                                        ref={
-                                                            movieRef.lastItemRef
-                                                        }
-                                                        to={`/movie/${
-                                                            item.id
-                                                        }-${item.title
-                                                            .split(" ")
-                                                            .join("_")}`}
-                                                        key={index}
-                                                        className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                    <motion.div
+                                                        className="w-full"
+                                                        key={item.id}
+                                                        initial={{
+                                                            opacity: 0,
+                                                        }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                        }}
+                                                        whileHover={{
+                                                            scale: 1.01,
+                                                        }}
                                                     >
-                                                        <SearchDataCard
-                                                            item={item}
-                                                        />
-                                                    </Link>
+                                                        <Link
+                                                            to={`/movie/${
+                                                                item.id
+                                                            }-${item.title
+                                                                .split(" ")
+                                                                .join("_")}`}
+                                                            key={index}
+                                                            className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                        >
+                                                            <SearchDataCard
+                                                                item={item}
+                                                            />
+                                                        </Link>
+                                                    </motion.div>
                                                 );
-                                            }
-                                            return (
-                                                <Link
-                                                    to={`/movie/${
-                                                        item.id
-                                                    }-${item.title
-                                                        .split(" ")
-                                                        .join("_")}`}
-                                                    key={index}
-                                                    className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
-                                                >
-                                                    <SearchDataCard
-                                                        item={item}
-                                                    />
-                                                </Link>
-                                            );
-                                        })}
+                                            })}
 
-                                        {/* Skeleton Cars */}
-                                        {movie.isPending &&
-                                            !movieRef.isDone && (
-                                                <SearchDataSkeleton />
-                                            )}
-                                    </div>
-                                ) : (
-                                    <div className="w-full h-[70vh] flex px-5 justify-center items-center">
-                                        <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
-                                            No matching movie found: {query}
-                                        </h1>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                                            {/* Skeleton Cars */}
+                                            {movie.isPending &&
+                                                !movieRef.isDone && (
+                                                    <SearchDataSkeleton />
+                                                )}
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="w-full h-[70vh] flex px-5 justify-center items-center"
+                                        >
+                                            <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
+                                                No matching movie found: {query}
+                                            </h1>
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            )}
 
-                        {/* Tv Shows */}
-                        {activeTab === "tv" && (
-                            <div className="w-full">
-                                {tvshow?.data?.length > 0 ? (
-                                    <div className="w-full flex flex-col gap-5 items-center py-5 md:py-10">
-                                        {tvshow.data.map((item, index) => {
-                                            if (
-                                                tvshow.data.length - 1 ===
-                                                index
-                                            ) {
+                            {/* Tv Shows */}
+                            {activeTab === "tv" && (
+                                <motion.div
+                                    key={"tv"}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="w-full"
+                                >
+                                    {tvshow?.data?.length > 0 ? (
+                                        <div className="w-full flex flex-col gap-5 items-center py-5 md:py-10">
+                                            {tvshow.data.map((item, index) => {
+                                                if (
+                                                    tvshow.data.length - 1 ===
+                                                    index
+                                                ) {
+                                                    return (
+                                                        <motion.div
+                                                            className="w-full"
+                                                            key={item.id}
+                                                            initial={{
+                                                                opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                            }}
+                                                            whileHover={{
+                                                                scale: 1.01,
+                                                            }}
+                                                        >
+                                                            <Link
+                                                                ref={
+                                                                    tvRef.lastItemRef
+                                                                }
+                                                                to={`/tv/${
+                                                                    item.id
+                                                                }-${item.name
+                                                                    .split(" ")
+                                                                    .join(
+                                                                        "_"
+                                                                    )}`}
+                                                                key={index}
+                                                                className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                            >
+                                                                <SearchDataCard
+                                                                    item={item}
+                                                                />
+                                                            </Link>
+                                                        </motion.div>
+                                                    );
+                                                }
                                                 return (
-                                                    <Link
-                                                        ref={tvRef.lastItemRef}
-                                                        to={`/tv/${
-                                                            item.id
-                                                        }-${item.name
-                                                            .split(" ")
-                                                            .join("_")}`}
-                                                        key={index}
-                                                        className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                    <motion.div
+                                                        className="w-full"
+                                                        key={item.id}
+                                                        initial={{
+                                                            opacity: 0,
+                                                        }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                        }}
+                                                        whileHover={{
+                                                            scale: 1.01,
+                                                        }}
                                                     >
-                                                        <SearchDataCard
-                                                            item={item}
-                                                        />
-                                                    </Link>
+                                                        <Link
+                                                            to={`/tv/${
+                                                                item.id
+                                                            }-${item.name
+                                                                .split(" ")
+                                                                .join("_")}`}
+                                                            key={index}
+                                                            className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
+                                                        >
+                                                            <SearchDataCard
+                                                                item={item}
+                                                            />
+                                                        </Link>
+                                                    </motion.div>
                                                 );
-                                            }
-                                            return (
-                                                <Link
-                                                    to={`/tv/${
-                                                        item.id
-                                                    }-${item.name
-                                                        .split(" ")
-                                                        .join("_")}`}
-                                                    key={index}
-                                                    className="flex w-full h-40 md:h-44 rounded-xl overflow-hidden"
-                                                >
-                                                    <SearchDataCard
-                                                        item={item}
-                                                    />
-                                                </Link>
-                                            );
-                                        })}
+                                            })}
 
-                                        {/* Skeleton Cars */}
-                                        {tvshow.isPending && !tvRef.isDone && (
-                                            <SearchDataSkeleton />
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div className="w-full h-[70vh] flex px-5 justify-center items-center">
-                                        <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
-                                            No matching tv shows found: {query}
-                                        </h1>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                                            {/* Skeleton Cars */}
+                                            {tvshow.isPending &&
+                                                !tvRef.isDone && (
+                                                    <SearchDataSkeleton />
+                                                )}
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="w-full h-[70vh] flex px-5 justify-center items-center"
+                                        >
+                                            <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
+                                                No matching tv shows found:{" "}
+                                                {query}
+                                            </h1>
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            )}
 
-                        {/* Persons */}
-                        {activeTab === "person" && (
-                            <div className="w-full">
-                                {person?.data?.length > 0 ? (
-                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-12 mt-4 md:mt-8 px-4 md:px-12">
-                                        {person.data.map((item, index) => {
-                                            if (
-                                                person.data.length - 1 ===
-                                                index
-                                            ) {
+                            {/* Persons */}
+                            {activeTab === "person" && (
+                                <motion.div
+                                    key={"person"}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="w-full"
+                                >
+                                    {person?.data?.length > 0 ? (
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-12 mt-4 md:mt-8 px-4 md:px-12">
+                                            {person.data.map((item, index) => {
+                                                if (
+                                                    person.data.length - 1 ===
+                                                    index
+                                                ) {
+                                                    return (
+                                                        <PeopleCard
+                                                            ref={
+                                                                personRef.lastItemRef
+                                                            }
+                                                            {...item}
+                                                            key={index}
+                                                        />
+                                                    );
+                                                }
                                                 return (
                                                     <PeopleCard
-                                                        ref={
-                                                            personRef.lastItemRef
-                                                        }
                                                         {...item}
                                                         key={index}
                                                     />
                                                 );
-                                            }
-                                            return (
-                                                <PeopleCard
-                                                    {...item}
-                                                    key={index}
-                                                />
-                                            );
-                                        })}
+                                            })}
 
-                                        {/* Skeleton People Cards */}
-                                        {person.isPending && !tvRef.isDone && (
-                                            <SkeletonPeopleCard />
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div className="w-full h-[70vh] flex px-5 justify-center items-center">
-                                        <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
-                                            No matching people found: {query}
-                                        </h1>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                                            {/* Skeleton People Cards */}
+                                            {person.isPending &&
+                                                !tvRef.isDone && (
+                                                    <SkeletonPeopleCard />
+                                                )}
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="w-full h-[70vh] flex px-5 justify-center items-center"
+                                        >
+                                            <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
+                                                No matching people found:{" "}
+                                                {query}
+                                            </h1>
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            )}
 
-                        {/* Collections */}
-                        {activeTab === "collection" && (
-                            <div className="w-full">
-                                {collection.data.length > 0 ? (
-                                    <div className="w-full py-5 md:py-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-8">
-                                        {collection.data.map((item, index) => {
-                                            if (
-                                                collection.data.length - 1 ===
-                                                index
-                                            ) {
-                                                return (
-                                                    <Link
-                                                        ref={
-                                                            colllectionRef.lastItemRef
-                                                        }
-                                                        to={`/collection/${
-                                                            item.id
-                                                        }-${item.name
-                                                            .split(" ")
-                                                            .join("_")}`}
-                                                        key={index}
-                                                        className="flex flex-col items-center gap-2 md:gap-5"
-                                                    >
-                                                        <img
-                                                            width={500}
-                                                            height={281}
-                                                            className="object-cover object-center w-full rounded-lg bg-zinc-600"
-                                                            src={
-                                                                item.backdrop_path
-                                                                    ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
-                                                                    : defaultConst.wideImgPlaceholder
-                                                            }
-                                                            alt=""
-                                                        />
-                                                        <h1 className="text-base md:text-lg text-neutral-200 text-center">
-                                                            {item.name}
-                                                        </h1>
-                                                    </Link>
-                                                );
-                                            }
-                                            return (
-                                                <Link
-                                                    to={`/collection/${
-                                                        item.id
-                                                    }-${item.name
-                                                        .split(" ")
-                                                        .join("_")}`}
-                                                    key={index}
-                                                    className="flex flex-col items-center gap-2 md:gap-5"
-                                                >
-                                                    <img
-                                                        width={500}
-                                                        height={281}
-                                                        className="object-cover object-center w-full rounded-lg bg-zinc-600"
-                                                        src={
-                                                            item.backdrop_path
-                                                                ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
-                                                                : defaultConst.wideImgPlaceholder
-                                                        }
-                                                        alt=""
-                                                    />
-                                                    <h1 className="text-base md:text-lg px-5 text-neutral-200 text-center">
-                                                        {item.name}
-                                                    </h1>
-                                                </Link>
-                                            );
-                                        })}
-
-                                        {/* COllection Skeleton */}
-                                        {collection.isPending &&
-                                            !colllectionRef.isDone && (
-                                                <CollectionSkeleton />
+                            {/* Collections */}
+                            {activeTab === "collection" && (
+                                <motion.div
+                                    key={"collection"}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="w-full"
+                                >
+                                    {collection.data.length > 0 ? (
+                                        <div className="w-full py-5 md:py-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-8">
+                                            {collection.data.map(
+                                                (item, index) => {
+                                                    if (
+                                                        collection.data.length -
+                                                            1 ===
+                                                        index
+                                                    ) {
+                                                        return (
+                                                            <motion.div
+                                                                key={item.id}
+                                                                initial={{
+                                                                    scale: 0.9,
+                                                                    opacity: 0,
+                                                                }}
+                                                                animate={{
+                                                                    scale: 1,
+                                                                    opacity: 1,
+                                                                }}
+                                                                whileHover={{
+                                                                    scale: 1.05,
+                                                                }}
+                                                            >
+                                                                <Link
+                                                                    ref={
+                                                                        colllectionRef.lastItemRef
+                                                                    }
+                                                                    to={`/collection/${
+                                                                        item.id
+                                                                    }-${item.name
+                                                                        .split(
+                                                                            " "
+                                                                        )
+                                                                        .join(
+                                                                            "_"
+                                                                        )}`}
+                                                                    className="flex flex-col items-center gap-2 md:gap-5"
+                                                                >
+                                                                    <img
+                                                                        width={
+                                                                            500
+                                                                        }
+                                                                        height={
+                                                                            281
+                                                                        }
+                                                                        className="object-cover object-center w-full rounded-lg bg-zinc-600"
+                                                                        src={
+                                                                            item.backdrop_path
+                                                                                ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+                                                                                : defaultConst.wideImgPlaceholder
+                                                                        }
+                                                                        alt=""
+                                                                    />
+                                                                    <h1 className="text-base md:text-lg text-neutral-200 text-center">
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </h1>
+                                                                </Link>
+                                                            </motion.div>
+                                                        );
+                                                    }
+                                                    return (
+                                                        <motion.div
+                                                            key={item.id}
+                                                            initial={{
+                                                                scale: 0.9,
+                                                                opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                                scale: 1,
+                                                                opacity: 1,
+                                                            }}
+                                                            whileHover={{
+                                                                scale: 1.05,
+                                                            }}
+                                                        >
+                                                            <Link
+                                                                to={`/collection/${
+                                                                    item.id
+                                                                }-${item.name
+                                                                    .split(" ")
+                                                                    .join(
+                                                                        "_"
+                                                                    )}`}
+                                                                className="flex flex-col items-center gap-2 md:gap-5"
+                                                            >
+                                                                <img
+                                                                    width={500}
+                                                                    height={281}
+                                                                    className="object-cover object-center w-full rounded-lg bg-zinc-600"
+                                                                    src={
+                                                                        item.backdrop_path
+                                                                            ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+                                                                            : defaultConst.wideImgPlaceholder
+                                                                    }
+                                                                    alt=""
+                                                                />
+                                                                <h1 className="text-base md:text-lg px-5 text-neutral-200 text-center">
+                                                                    {item.name}
+                                                                </h1>
+                                                            </Link>
+                                                        </motion.div>
+                                                    );
+                                                }
                                             )}
-                                    </div>
-                                ) : (
-                                    <div className="w-full h-[70vh] flex justify-center items-center">
-                                        <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
-                                            No matching collection found:{" "}
-                                            {query}
-                                        </h1>
-                                    </div>
-                                )}
-                            </div>
-                        )}
 
-                        {/* Keywords */}
-                        {activeTab === "keyword" && (
-                            <div className="w-full">
-                                {keyword.data.length > 0 ? (
-                                    <div className="w-full flex flex-col gap-2 md:gap-5 py-5 md:py-10">
-                                        {keyword?.data?.map((item, index) => {
-                                            if (
-                                                keyword.data.length - 1 ===
-                                                index
-                                            ) {
-                                                return (
-                                                    <Link
-                                                        ref={
-                                                            keywordRef.lastItemRef
-                                                        }
-                                                        to={`/keyword/${
-                                                            item.id
-                                                        }-${item.name
-                                                            .split(" ")
-                                                            .join("_")}`}
-                                                        key={index}
-                                                        className=""
-                                                    >
-                                                        <h1 className="text-3xl md:text-6xl font-semibold capitalize text-neutral-300 hover:tracking-wide transition-all">
-                                                            {item.name}
-                                                        </h1>
-                                                    </Link>
-                                                );
-                                            }
-                                            return (
-                                                <Link
-                                                    to={`/keyword/${
-                                                        item.id
-                                                    }-${item.name
-                                                        .split(" ")
-                                                        .join("_")}`}
-                                                    key={index}
-                                                    className=""
-                                                >
-                                                    <h1 className="text-3xl md:text-6xl font-semibold capitalize text-neutral-300 hover:tracking-wide transition-all">
-                                                        {item.name}
-                                                    </h1>
-                                                </Link>
-                                            );
-                                        })}
+                                            {/* COllection Skeleton */}
+                                            {collection.isPending &&
+                                                !colllectionRef.isDone && (
+                                                    <CollectionSkeleton />
+                                                )}
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="w-full h-[70vh] flex justify-center items-center"
+                                        >
+                                            <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
+                                                No matching collection found:{" "}
+                                                {query}
+                                            </h1>
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            )}
 
-                                        {/* Skeleton Keywords */}
-                                        {keyword.isPending &&
-                                            !keywordRef.isDone &&
-                                            Array.from({ length: 8 }).map(
-                                                (_, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className="w-full md:w-1/2 h-8 md:h-14 rounded bg-zinc-600 animate-pulse"
-                                                    ></div>
-                                                )
+                            {/* Keywords */}
+                            {activeTab === "keyword" && (
+                                <motion.div
+                                    key={"keyword"}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="w-full"
+                                >
+                                    {keyword.data.length > 0 ? (
+                                        <div className="w-full flex flex-col gap-2 md:gap-5 py-5 md:py-10">
+                                            {keyword?.data?.map(
+                                                (item, index) => {
+                                                    if (
+                                                        keyword.data.length -
+                                                            1 ===
+                                                        index
+                                                    ) {
+                                                        return (
+                                                            <motion.div
+                                                                key={item.id}
+                                                                initial={{
+                                                                    opacity: 0,
+                                                                }}
+                                                                animate={{
+                                                                    opacity: 1,
+                                                                }}
+                                                                whileHover={{
+                                                                    letterSpacing:
+                                                                        "2px",
+                                                                }}
+                                                            >
+                                                                <Link
+                                                                    ref={
+                                                                        keywordRef.lastItemRef
+                                                                    }
+                                                                    to={`/keyword/${
+                                                                        item.id
+                                                                    }-${item.name
+                                                                        .split(
+                                                                            " "
+                                                                        )
+                                                                        .join(
+                                                                            "_"
+                                                                        )}`}
+                                                                    key={index}
+                                                                    className=""
+                                                                >
+                                                                    <h1 className="text-3xl md:text-6xl font-semibold capitalize text-neutral-300">
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </h1>
+                                                                </Link>
+                                                            </motion.div>
+                                                        );
+                                                    }
+                                                    return (
+                                                        <motion.div
+                                                            key={item.id}
+                                                            initial={{
+                                                                opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                            }}
+                                                            whileHover={{
+                                                                letterSpacing:
+                                                                    "2px",
+                                                            }}
+                                                        >
+                                                            <Link
+                                                                to={`/keyword/${
+                                                                    item.id
+                                                                }-${item.name
+                                                                    .split(" ")
+                                                                    .join(
+                                                                        "_"
+                                                                    )}`}
+                                                                key={index}
+                                                                className=""
+                                                            >
+                                                                <h1 className="text-3xl md:text-6xl font-semibold capitalize text-neutral-300">
+                                                                    {item.name}
+                                                                </h1>
+                                                            </Link>
+                                                        </motion.div>
+                                                    );
+                                                }
                                             )}
-                                    </div>
-                                ) : (
-                                    <div className="w-full h-[70vh] flex px-5 justify-center items-center">
-                                        <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
-                                            No matching keyword found: {query}
-                                        </h1>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+
+                                            {/* Skeleton Keywords */}
+                                            {/* {keyword.isPending &&
+                                                !keywordRef.isDone &&
+                                                Array.from({ length: 8 }).map(
+                                                    (_, index) => (
+                                                        <motion.div
+                                                            initial={{
+                                                                opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                            }}
+                                                            key={index}
+                                                            className="w-full md:w-1/2 h-8 md:h-14 rounded bg-zinc-600 animate-pulse"
+                                                        ></motion.div>
+                                                    )
+                                                )} */}
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="w-full h-[70vh] flex px-5 justify-center items-center"
+                                        >
+                                            <h1 className="text-lg sm:text-2xl md:text-5xl text-neutral-400">
+                                                No matching keyword found:{" "}
+                                                {query}
+                                            </h1>
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 )}
             </section>

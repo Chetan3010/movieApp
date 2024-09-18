@@ -1,9 +1,11 @@
 import axios from "../utils/axios";
 import { get } from "lodash";
 import { useState, useEffect, useCallback } from "react";
+import Error from "../components/pages/Error";
 
 const useFetch = ({
     url,
+    apiName,
     options = {},
     dataPath = "data.results",
     returnRaw = false,
@@ -19,7 +21,7 @@ const useFetch = ({
         setError(null);
 
         try {
-            const response = await axios.post("/", {
+            const response = await axios.post(`/api/${apiName}`, {
                 url,
                 ...options,
             });
@@ -51,12 +53,13 @@ const useFetch = ({
             }
 
             setIsPending(false);
-        } catch (err) {
-            setError(err.message);
+        } catch (error) {
+            setError({ status: error.response.status, message: error.message});
+            
             setIsPending(false);
         }
     }, [url]);
-
+    
     useEffect(() => {
         fetchData();
     }, [fetchData]);

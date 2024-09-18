@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import rehypeRaw from "rehype-raw";
 import ReactMarkdown from "react-markdown";
+import { motion } from "framer-motion";
 
 const ReviewCard = ({
     author,
@@ -11,13 +12,15 @@ const ReviewCard = ({
 }) => {
     const { name, username, avatar_path } = author_details;
     return (
-        <div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className="flex gap-3 items-center w-full">
                 <img
                     src={
                         avatar_path
                             ? `https://image.tmdb.org/t/p/original${avatar_path}`
-                            : `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${Math.random().toString(36).substring(2, 15)}`
+                            : `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${Math.random()
+                                  .toString(36)
+                                  .substring(2, 15)}`
                     }
                     className="w-10 h-10 rounded-full object-center"
                     alt="userAvatar"
@@ -41,7 +44,7 @@ const ReviewCard = ({
                     {content}
                 </ReactMarkdown>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./Card";
 import CardSkeleton from "../skeleton/CardSkeleton";
 import { getEndOfScrollPhrase } from "../../../utils/helper";
+import { motion } from "framer-motion";
 
 const Cards = ({
     items,
@@ -14,11 +15,18 @@ const Cards = ({
     isDone = false,
 }) => {
     const skeletonCards = Array.from({ length: count }, (_, index) => (
-        <CardSkeleton key={index} />
+        <motion.div
+            key={index}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+        >
+            <CardSkeleton key={index} />
+        </motion.div>
     ));
 
-    const getOnlineStatus = () => !navigator.onLine && "No internet!"
-    
+    const getOnlineStatus = () => !navigator.onLine && "No internet!";
+
     return (
         <>
             {items?.length > 0 ? (
@@ -26,7 +34,12 @@ const Cards = ({
                     {items.map((item, index) => {
                         if (isInfiniteScroll && index === items.length - 1) {
                             return (
-                                <Card ref={lastItemRef} {...item} route={route} key={index} />
+                                <Card
+                                    ref={lastItemRef}
+                                    {...item}
+                                    route={route}
+                                    key={index}
+                                />
                             );
                         }
                         return <Card {...item} route={route} key={index} />;
@@ -43,7 +56,9 @@ const Cards = ({
                         </h1>
                     )}
                 </>
-            ) : skeletonCards}
+            ) : (
+                skeletonCards
+            )}
         </>
     );
 };

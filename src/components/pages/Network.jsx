@@ -9,6 +9,8 @@ import { FaLink, FaLocationDot } from "react-icons/fa6";
 import DropdownMenu from "../partials/global/DropdownMenu";
 import Cards from "../partials/global/Cards";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+import { motion } from "framer-motion";
+import Error from "./Error";
 
 const Network = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +21,7 @@ const Network = () => {
     const sortByOptions = defaultConst.tvSortOptions;
     const sortBy = searchParams.get("sortBy") || sortByOptions[0].value;
 
-    const { data: networkInfo, isPending: isLoading } = useFetch(
+    const { data: networkInfo, isPending: isLoading, error: networkError } = useFetch(
         apiEndpoints.network.networkInfo({ id })
     );
     const { headquarters, homepage, name, logo_path, origin_country } =
@@ -51,12 +53,7 @@ const Network = () => {
         .map(({ poster_path }) => poster_path);
     const isMasonry = posters?.length > 10 ? true : false;
     const colCount =
-        posters.length > 10 ? posters.length / 2 : posters.length;
-    
-    const defaultGridCol = colCount > 4 ? 4 : colCount
-    const smGridCol = colCount > 6 ? 6 : colCount
-    const mdGridCol = colCount > 8 ? 8 : colCount
-    const lgGridCol = colCount > 10 ? 10 : colCount
+        posters.length > 10 ? Math.floor(posters.length / 2) : posters.length;
 
     const handleSort = (option) => {
         setData([]);
@@ -67,6 +64,10 @@ const Network = () => {
         });
     };
 
+    if(error){
+        return <Error status={networkError.status} />
+    }
+
     return (
         <>
             <ScrollRestorationCustom />
@@ -75,9 +76,22 @@ const Network = () => {
                 {!isLoading ? (
                     <div className="w-full">
                         <div className="w-full relative">
-                            <div
-                                className={`w-full grid blur-sm grid-cols-${defaultGridCol} sm:grid-cols-${smGridCol} md:grid-cols-${mdGridCol} lg:grid-cols-${lgGridCol}
-                                justify-items-stretch gap-3 md:gap-5 h-64 overflow-hidden overlay`}
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                className={`w-full grid blur-sm ${
+                                    colCount > 4
+                                        ? "grid-cols-4"
+                                        : `grid-cols-${colCount}`
+                                } sm:${
+                                    colCount > 6
+                                        ? "grid-cols-6"
+                                        : `grid-cols-${colCount}`
+                                } md:${
+                                    colCount > 8
+                                        ? "grid-cols-8"
+                                        : `grid-cols-${colCount}`
+                                } lg:${`grid-cols-${colCount}`} gap-3 md:gap-5 h-64 overflow-hidden overlay`}
                             >
                                 {posters.map((item, index) => (
                                     <img
@@ -91,7 +105,7 @@ const Network = () => {
                                         alt=""
                                     />
                                 ))}
-                            </div>
+                            </motion.div>
                             <div className="absolute w-full h-full left-0 top-0 flex flex-col items-center justify-center gap-5">
                                 <img
                                     src={`https://image.tmdb.org/t/p/w300${logo_path}`}

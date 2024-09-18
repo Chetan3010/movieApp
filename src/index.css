@@ -5,7 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .lobster {
     font-family: "Lobster", sans-serif;
 }
@@ -60,7 +59,7 @@ strong {
 }
 
 .main {
-    @apply w-full min-h-screen bg-[#0F0617] text-white san-public relative pb-5
+    @apply w-full min-h-screen bg-[#0F0617] text-white san-public relative pb-5 pt-16 md:pt-20
 }
 
 .active {
@@ -118,7 +117,7 @@ strong {
     bottom: 0;
     height: 4px;
     background-color: white;
-    border-radius: 5px 5px 0 0 ;
+    border-radius: 5px 5px 0 0;
 }
 
 .animateTab {
@@ -146,4 +145,33 @@ strong {
         opacity: 50%;
         z-index: 1;
     }
+}
+
+.navbarBorder {
+    &::after {
+        content: '';
+        width: 100%;
+        height: 1.4px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, #4c3055, #cf94e2, #c147e9, #cf94e2, #4c3055);
+    }
+}
+
+.caraousel-mask {
+    mask-image: linear-gradient(to right, transparent, black);
+}
+
+.textGlow {
+    text-shadow:
+        0 0 7px #c147e9,
+        0 0 10px #000,
+        0 0 21px #000,
+        0 0 42px #c147e9,
+        0 0 82px #c147e9,
+        0 0 92px #c147e9,
+        0 0 102px #c147e9,
+        0 0 151px #c147e9;
 }
