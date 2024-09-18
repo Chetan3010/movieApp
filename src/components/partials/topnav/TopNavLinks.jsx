@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { BsFillTvFill } from "react-icons/bs";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosPeople } from "react-icons/io";
-import { MdEmail, MdTravelExplore } from "react-icons/md";
+import { MdTravelExplore } from "react-icons/md";
 import { PiMonitorPlayFill } from "react-icons/pi";
 import { RiMovie2Fill } from "react-icons/ri";
 import { NavLink, useMatches } from "react-router-dom";
@@ -54,11 +54,11 @@ const TopNavLinks = () => {
                     icon: <FaCircleInfo />,
                     url: "/about",
                 },
-                {
-                    title: "Contact",
-                    icon: <MdEmail />,
-                    url: "/contact",
-                },
+                // {
+                //     title: "Contact",
+                //     icon: <MdEmail />,
+                //     url: "/contact",
+                // },
             ],
         },
     ]);

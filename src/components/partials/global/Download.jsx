@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Loader from "../../svg/Loader";
+import Loader from "../../svg/LoaderSvg";
 import { MdFileDownload } from "react-icons/md";
-import { saveAs } from "file-saver";
 import { getFileName } from "../../../utils/helper";
-import { apiEndpoints } from "../../../utils/constants";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 

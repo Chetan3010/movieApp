@@ -11,7 +11,6 @@ import { IoIosMenu } from "react-icons/io";
 import { MdWatchLater } from "react-icons/md";
 import { defaultConst } from "../../../utils/constants";
 import Share from "../global/Share";
-import { IoCopy } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 

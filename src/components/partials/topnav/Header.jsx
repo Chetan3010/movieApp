@@ -11,7 +11,7 @@ const Header = ({ toggleSidebar }) => {
     const [prevScroll, setPrevScroll] = useState(0);
 
     const variants = {
-        visible: { y: '0' },
+        visible: { top: "0" },
         hidden: { top: "-100%" },
     };
 
@@ -20,6 +20,8 @@ const Header = ({ toggleSidebar }) => {
             setHidden(false);
         } else if (latest > 100 && latest > prev) {
             setHidden(true);
+        } else {
+            setHidden(false);
         }
     };
 
@@ -31,6 +33,7 @@ const Header = ({ toggleSidebar }) => {
     return (
         <motion.div
             variants={variants}
+            initial={{ top: 0 }}
             animate={hidden ? "hidden" : "visible"}
             transition={{
                 ease: [0.1, 0.25, 0.3, 1],

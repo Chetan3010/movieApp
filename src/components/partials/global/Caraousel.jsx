@@ -7,7 +7,7 @@ import { MdTheaterComedy } from "react-icons/md";
 import { getGenreNames } from "../../../utils/helper";
 import { apiEndpoints } from "../../../utils/constants";
 import axios from "../../../utils/axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 
 const Caraousel = ({ trendingData, genres }) => {
@@ -34,7 +34,7 @@ const Caraousel = ({ trendingData, genres }) => {
         clearInterval(intervalRef.current);
         clearTimeout(delayRef.current);
         delayRef.current = setTimeout(() => {
-            intervalRef.current = setInterval(updateIndices, 2000);
+            intervalRef.current = setInterval(updateIndices, 7000);
         }, 5000); // 5 seconds delay before restarting the interval
     };
 
@@ -71,7 +71,7 @@ const Caraousel = ({ trendingData, genres }) => {
     useEffect(() => {
         const startInterval = () => {
             clearInterval(intervalRef.current);
-            intervalRef.current = setInterval(updateIndices, 5000);
+            intervalRef.current = setInterval(updateIndices, 7000);
         };
 
         startInterval();

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const DropdownMenu = ({ title, defaultOp, options, onSelect }) => {
-    
     const [isOpen, setIsOpen] = useState(false);
 
     const [selectedOption, setSelectedOption] = useState(title);
@@ -43,7 +42,13 @@ const DropdownMenu = ({ title, defaultOp, options, onSelect }) => {
                 onClick={handleToggle}
                 className="bg-zinc-600 text-nowrap rounded-md w-full gap-5 px-3 py-2 flex items-center justify-between"
             >
-                <span>{selectedOption ? selectedOption.value === defaultOp.value ? `Default` : selectedOption.key : 'Default'}</span>
+                <span>
+                    {selectedOption
+                        ? selectedOption.value === defaultOp.value
+                            ? `Default`
+                            : selectedOption.key
+                        : "Default"}
+                </span>
                 <svg
                     className={`w-2 md:w-4 h-2 md:h-4 text-neutral-300 transform transition-transform duration-200 ${
                         isOpen ? "rotate-180" : "rotate-0"
@@ -67,7 +72,11 @@ const DropdownMenu = ({ title, defaultOp, options, onSelect }) => {
                     <ul className="max-h-52 overflow-y-scroll font-light">
                         <li
                             onClick={() => handleOptionClick(defaultOp)}
-                            className={`${selectedOption.value === defaultOp.value ? 'bg-neutral-800' : 'bg-zinc-700'} cursor-pointer text-nowrap px-3 py-1 border-neutral-400 border-b bg-zinc-700 hover:text-[#C147E9]`}
+                            className={`${
+                                selectedOption.value === defaultOp.value
+                                    ? "bg-neutral-800"
+                                    : "bg-zinc-700"
+                            } cursor-pointer text-nowrap px-3 py-1 border-neutral-400 border-b bg-zinc-700 hover:text-[#C147E9]`}
                         >
                             {`Default (${defaultOp.key})`}
                         </li>
@@ -79,7 +88,12 @@ const DropdownMenu = ({ title, defaultOp, options, onSelect }) => {
                                         onClick={() =>
                                             handleOptionClick(option)
                                         }
-                                        className={`${selectedOption.value === option.value ? 'bg-neutral-800' : 'bg-zinc-700'} cursor-pointer text-nowrap px-3 py-1 border-neutral-400  border-b hover:text-[#C147E9]`}
+                                        className={`${
+                                            selectedOption.value ===
+                                            option.value
+                                                ? "bg-neutral-800"
+                                                : "bg-zinc-700"
+                                        } cursor-pointer text-nowrap px-3 py-1 border-neutral-400  border-b hover:text-[#C147E9]`}
                                     >
                                         {option.key}
                                     </li>

@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { FaInstagram, FaLink } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Share from "../../partials/global/Share";
-import { formatDate, getGender } from "../../../utils/helper";
+import { getGender } from "../../../utils/helper";
 import Download from "../../partials/global/Download";
 import PeopleTab from "../../partials/infoPages/people/PeopleTab";
 import { AnimatePresence, motion } from "framer-motion";

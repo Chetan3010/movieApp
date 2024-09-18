@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 import Topnav from "../../partials/topnav/Topnav";
 import axios from "../../../utils/axios";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useSession from "../../../hooks/useSession";
 
 const Login = () => {

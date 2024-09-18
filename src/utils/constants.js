@@ -67,12 +67,10 @@ export const apiEndpoints = {
     others: {
         // proxyServer: "http://localhost:3002",
         proxyServer: "https://proxyserverapi.vercel.app",
-        // proxyServer: "https://proxyserver-u5de.onrender.com"
     },
 };
 
 export const defaultConst = {
-    // imgPlaceholder: `https://placehold.co/500x750/6b7280/374151?text=no+poster&font=source-sans-pro`
     imgPlaceholder: `/DefaultImage.png`,
     wideImgPlaceholder: '/DefaultImageWide.png',
     movieSortOptions: [

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Searchbar from "../../partials/topnav/Searchbar";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Header from "../../partials/topnav/Header";
 import TopNavHeader from "../../partials/topnav/TopNavHeader";
 import TopNavLinks from "../../partials/topnav/TopNavLinks";

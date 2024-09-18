@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ScrollRestorationCustom from "../partials/global/ScrollRestorationCustom";
 import Topnav from "../partials/topnav/Topnav";
 import useFetch from "../../hooks/useFetch";
 import { apiEndpoints, defaultConst } from "../../utils/constants";
@@ -11,7 +10,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import SearchDataSkeleton from "../partials/skeleton/SearchDataSkeleton";
 import SkeletonPeopleCard from "../partials/skeleton/SkeletonPeopleCard";
 import CollectionSkeleton from "../partials/skeleton/CollectionSkeleton";
-import { getBadQueryPhrase, getEndOfScrollPhrase } from "../../utils/helper";
+import { getBadQueryPhrase } from "../../utils/helper";
 import { AnimatePresence, motion } from "framer-motion";
 
 const SearchPage = () => {

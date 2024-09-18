@@ -4,7 +4,6 @@ import { apiEndpoints } from "../../../utils/constants";
 import Topnav from "../../partials/topnav/Topnav";
 import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import PeopleCards from "../../partials/infoPages/people/PeopleCards";
-import { ScrollRestoration } from "react-router-dom";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 
 const Peoples = () => {
