@@ -5,7 +5,7 @@ import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
 import { formatDate, formatRuntime, getRating } from "../../../utils/helper";
 import MovieInfoTab from "../../partials/infoPages/movie/MovieInfoTab";
-import Collection from "../../partials/infoPages/Collection";
+import Collection from "../../partials/infoPages/CollectionInfo";
 import Recommendations from "../../partials/infoPages/Recommendations";
 import InfoPoster from "../../partials/infoPages/InfoPoster";
 import Facts from "../../partials/infoPages/Facts";

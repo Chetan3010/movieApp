@@ -4,7 +4,6 @@ import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
 import CardsDrawer from "../../partials/global/CardsDrawer";
 import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
-import { ScrollRestoration } from "react-router-dom";
 import ScrollRestorationCustom from "../../partials/global/ScrollRestorationCustom";
 
 const TvShows = () => {

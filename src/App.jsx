@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Index from "./components/pages/Index";
 import Login from "./components/pages/account/Login";
 import SearchPage from "./components/pages/SearchPage";
@@ -33,10 +33,10 @@ const App = () => {
             element: <Index />,
             errorElement: <Error />
         },
-        {
-            path: "/account/login",
-            element: <Login />,
-        },
+        // {
+        //     path: "/account/login",
+        //     element: <Login />,
+        // },
         {
             path: "/search/:query",
             element: <SearchPage />,

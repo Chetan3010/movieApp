@@ -1,5 +1,4 @@
 import React from "react";
-import CardSkeleton from "../../skeleton/CardSkeleton";
 import { getEndOfScrollPhrase } from "../../../../utils/helper";
 import PeopleCard from "./PeopleCard";
 import SkeletonPeopleCard from "../../skeleton/SkeletonPeopleCard";

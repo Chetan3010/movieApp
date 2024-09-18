@@ -1,7 +1,6 @@
 import axios from "../utils/axios";
 import { get } from "lodash";
 import { useState, useEffect, useCallback } from "react";
-import Error from "../components/pages/Error";
 
 const useFetch = ({
     url,

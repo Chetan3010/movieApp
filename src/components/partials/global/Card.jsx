@@ -58,6 +58,7 @@ const Card = forwardRef(
                                 width={500}
                                 height={750}
                                 alt={original_title || original_name}
+                                loading="lazy"
                             />
                             <div className="absolute top-full right-5 -translate-y-[50%] bg-zinc-950 rounded-full p-1">
                                 <Gauge

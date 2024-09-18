@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Topnav from "../partials/topnav/Topnav";
-import { Link, ScrollRestoration } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../partials/global/Button";
 import Genres from "../partials/global/Genres";
 import { MovieGenreContext, TvGenreContext } from "../../contexts/Contexts";

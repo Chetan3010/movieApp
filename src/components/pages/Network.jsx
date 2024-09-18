@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Loader from "../partials/global/Loader";
 import Topnav from "../partials/topnav/Topnav";
 import ScrollRestorationCustom from "../partials/global/ScrollRestorationCustom";
 import useFetch from "../../hooks/useFetch";
 import { apiEndpoints, defaultConst } from "../../utils/constants";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { FaLink, FaLocationDot } from "react-icons/fa6";
 import DropdownMenu from "../partials/global/DropdownMenu";
 import Cards from "../partials/global/Cards";

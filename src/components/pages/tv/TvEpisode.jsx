@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollRestoration, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Topnav from "../../partials/topnav/Topnav";
 import BreadcrumpLinks from "../../partials/global/BreadcrumpLinks";
 import { formatDate, formatRuntime, getRating } from "../../../utils/helper";

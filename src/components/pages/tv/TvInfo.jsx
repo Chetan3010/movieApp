@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, ScrollRestoration, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints } from "../../../utils/constants";
 import Topnav from "../../partials/topnav/Topnav";

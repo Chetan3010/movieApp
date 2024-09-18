@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { Link, ScrollRestoration, useParams } from "react-router-dom";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 import Topnav from "../../partials/topnav/Topnav";
 import useFetch from "../../../hooks/useFetch";
 import { apiEndpoints, defaultConst } from "../../../utils/constants";
 import BreadcrumpLinks from "../../partials/global/BreadcrumpLinks";
 import { formatDate, formatRuntime, getRating } from "../../../utils/helper";
 import Share from "../../partials/global/Share";
-import Download from "../../partials/global/Download";
 import Posters from "../../partials/infoPages/Posters";
 import Cast from "../../partials/infoPages/Cast";
 import Loader from "../../partials/global/Loader";
