@@ -6,7 +6,7 @@ const Loader = ({ classname }) => (
             version="1.0"
             viewBox="0 0 128 128"
             xmlSpace="preserve"
-            className={`${classname } transition-all duration-150 ease-in`}
+            className={`${classname } transition-all duration-150 ease-in animate-spin`}
         >
             <defs>
                 <linearGradient id="linear-gradient">
@@ -20,14 +20,14 @@ const Loader = ({ classname }) => (
                     fill="url(#linear-gradient)"
                     fillRule="evenodd"
                 />
-                <animateTransform
+                {/* <animateTransform
                     attributeName="transform"
                     type="rotate"
                     from="0 64 64"
                     to="360 64 64"
                     dur="1080ms"
                     repeatCount="indefinite"
-                />
+                /> */}
             </g>
         </svg>
 );

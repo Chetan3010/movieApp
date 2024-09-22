@@ -48,7 +48,7 @@ const WatchProviders = () => {
                     animate={{ opacity: 1 }}
                     className="px-5 md:px-12 flex flex-col justify-center items-center py-4 md:py-8"
                 >
-                    <h1 className="text-3xl mb-8 sm:text-3xl md:text-4xl text-center text-neutral-400 font-semibold">
+                    <h1 className="text-3xl mb-8 md:text-4xl text-center text-neutral-400 font-semibold">
                         Watch Providers available in{" "}
                         <span className="text-neutral-200 capitalize">
                             {currentRegion.english_name ??

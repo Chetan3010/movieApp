@@ -53,8 +53,8 @@ const TvProvider = () => {
                 <Topnav />
                 <div className="w-full">
                     <div className="px-5 md:px-12 flex flex-col justify-center items-center mt-4 md:mt-8">
-                        <h1 className="text-2xl mb-5 text-neutral-400 sm:text-3xl md:text-4xl font-semibold">
-                            TV Shows available on{" "}
+                        <h1 className="text-3xl mb-5 text-neutral-400 md:text-4xl font-semibold text-center">
+                            TV Shows available on<br></br>
                             <span className="text-neutral-200">
                                 {pName} ({region})
                             </span>
