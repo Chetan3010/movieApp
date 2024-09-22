@@ -53,8 +53,8 @@ const MovieProvider = () => {
                 <Topnav />
                 <div className="w-full">
                     <div className="px-5 md:px-12 flex flex-col justify-center items-center mt-4 md:mt-8">
-                        <h1 className="text-2xl mb-5 text-neutral-400 sm:text-3xl md:text-4xl font-semibold">
-                            Movies available on{" "}
+                        <h1 className="mb-5 text-neutral-400 text-3xl md:text-4xl font-semibold text-center">
+                            Movies available on<br></br>
                             <span className="text-neutral-200">
                                 {pName} ({region})
                             </span>
