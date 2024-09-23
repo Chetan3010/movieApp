@@ -70,6 +70,8 @@ const TvInfo = () => {
 
     const { region } = useRegion();
 
+    const today = new Date();
+
     const rating = getRating(vote_average);
 
     const content_rating =
@@ -214,7 +216,8 @@ const TvInfo = () => {
                                     </div>
 
                                     {/* Next Episode */}
-                                    {next_episode_to_air && (
+                                    {next_episode_to_air && today < new Date(next_episode_to_air.air_date) &&
+                                                today !== new Date(next_episode_to_air.air_date) && (
                                         <Link
                                             to={`season/${next_episode_to_air.season_number}/episode/${next_episode_to_air.episode_number}`}
                                             className="flex items-center gap-1 text-lg my-2"

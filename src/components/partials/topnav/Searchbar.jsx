@@ -14,7 +14,6 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
     const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
     const navigate = useNavigate();
-    const [isMobile, setIsMobile] = useState(false); // Track mobile device
 
     const {
         data: searches,
@@ -32,18 +31,6 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
             clearTimeout(handler);
         };
     }, [query]);
-
-    // Detect mobile screen size
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768); // Set true for mobile devices (screen width <= 768px)
-        };
-
-        checkMobile(); // Initial check
-        window.addEventListener("resize", checkMobile); // Update on resize
-
-        return () => window.removeEventListener("resize", checkMobile);
-    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -96,8 +83,6 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
                         value={query}
                         name="query"
                         autoComplete="off"
-                        // Only autofocus if it's not a mobile device
-                        autoFocus={!isMobile}
                     />
                 </form>
                 <RxCross1

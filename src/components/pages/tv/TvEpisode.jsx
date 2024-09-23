@@ -111,7 +111,7 @@ const TvEpisode = () => {
                                                 <i className="w-2 h-2 bg-[#c147e9] rounded-full md:hidden"></i>
                                                 {today < new Date(air_date) &&
                                                 today !== new Date(air_date)
-                                                    ? "Available on "
+                                                    ? "Will be available on "
                                                     : ""}
                                                 {air_date
                                                     ? formatDate({
