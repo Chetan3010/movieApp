@@ -40,16 +40,7 @@ Our web interface offers a rich, interactive experience for exploration:
 
 ## 📱 Android App
 
-<p align="center">
-  <img src="./assets/images/sms-pwa-2.jpg" width="30%" style="margin:5px; border: 1px solid #505050; border-radius: 5px" /> 
-  <img src="./assets/images/sms-pwa-3.jpg" width="30%" style="margin:5px; border: 1px solid #505050; border-radius: 5px" />
-  <img src="./assets/images/sms-pwa-1.jpg" width="30%" style="margin:5px; border: 1px solid #505050; border-radius: 5px" />
-</p>
-<p align="center">
-  <img src="./assets/images/sms-pwa-4.jpg" width="30%" style="margin:5px; border: 1px solid #505050; border-radius: 5px" /> 
-  <img src="./assets/images/sms-pwa-5.jpg" width="30%" style="margin:5px; border: 1px solid #505050; border-radius: 5px" />
-  <img src="./assets/images/sms-pwa-6.jpg" width="30%" style="margin:5px; border: 1px solid #505050; border-radius: 5px" />
-</p>
+![Android Interface](./assets/images/sms-pwa-ss.png)
 
 Experience the full power of TMDB Movie Explorer on your Android device:
 
