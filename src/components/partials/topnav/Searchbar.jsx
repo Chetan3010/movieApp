@@ -13,6 +13,7 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
     const [debouncedQuery, setDebouncedQuery] = useState(query); // Debounced query state
     const [toggleSearch, setToggleSearch] = useState(false);
     const searchRef = useRef(null); // Create a ref for the search container
+    const inputRef = useRef(null)
     const navigate = useNavigate();
 
     const {
@@ -64,11 +65,12 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
                     className="w-full"
                     onSubmit={(e) => {
                         e.preventDefault();
-                        navigate(`/search/${query}`);
+                        inputRef.current.blur()
                         setToggleSearch(false);
                         if (setIsSidenavOpen !== null) {
                             setIsSidenavOpen(false);
                         }
+                        navigate(`/search/${query}`);
                     }}
                 >
                     <input
@@ -83,6 +85,7 @@ const Searchbar = ({ isHidden = false, setIsSidenavOpen = null }) => {
                         value={query}
                         name="query"
                         autoComplete="off"
+                        ref={inputRef}
                     />
                 </form>
                 <RxCross1

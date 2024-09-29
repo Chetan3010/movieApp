@@ -77,8 +77,9 @@ const Network = () => {
                     <div className="w-full">
                         <div className="w-full relative">
                             <motion.div
-                                initial={{ scale: 0.9, opacity: 0 }}
+                                initial={{ scale: 1.1, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
+                                transition={{ delay: 0.30, duration:0.35}}
                                 className={`w-full grid blur-sm ${
                                     colCount > 4
                                         ? "grid-cols-4"
@@ -106,6 +107,9 @@ const Network = () => {
                                     />
                                 ))}
                             </motion.div>
+
+
+                            
                             <div className="absolute w-full h-full left-0 top-0 flex flex-col items-center justify-center gap-5">
                                 <img
                                     src={`https://image.tmdb.org/t/p/w300${logo_path}`}

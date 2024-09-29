@@ -52,7 +52,7 @@ const Recommendations = ({ data }) => {
                                         : defaultConst.wideImgPlaceholder
                                 }
                                 alt=""
-                                className="object-cover object-center rounded-md bg-neutral-600"
+                                className="object-cover object-center rounded-md bg-neutral-600 border border-neutral-800 shadow-xl shadow-neutral-950"
                                 width={500}
                                 height={281}
                             />

@@ -56,7 +56,7 @@ const About = () => {
             <ScrollRestorationCustom />
             <section className={`main`}>
                 <Topnav />
-                <motion.div
+                <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="g-[#0F0617] text-white p-5"
