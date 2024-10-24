@@ -7,9 +7,10 @@ import CardsDrawer from "../partials/global/CardsDrawer";
 import { MovieGenreContext, TvGenreContext } from "../../contexts/Contexts";
 import { apiEndpoints } from "../../utils/constants";
 import useFetch from "../../hooks/useFetch";
+import { Link } from "react-router-dom";
 
 const Index = () => {
-    const { data: trendingData, setData: setTredingData } = useFetch(
+    const { data: trendingData } = useFetch(
         apiEndpoints.trending.trending({ type: "all", time_window: "day" })
     );
 
@@ -26,7 +27,7 @@ const Index = () => {
     const options = [
         { name: "Movies", value: "movie" },
         { name: "Tv Shows", value: "tv" },
-    ];    
+    ];
 
     const cardData = {
         movie: {
@@ -47,7 +48,7 @@ const Index = () => {
             <div className={`main`}>
                 <Topnav />
                 <Caraousel
-                    trendingData={[...trendingData.filter(item => item.media_type === 'movie' || item.media_type === 'tv')]}
+                    trendingData={trendingData.filter(item => item.media_type !== "person")}
                     genres={[...movieGenres, ...tvGenres]}
                 />
                 <CardsDrawer
@@ -55,6 +56,7 @@ const Index = () => {
                     cardData={cardData}
                     lsKey={"indexTab"}
                 />
+                <p className="text-neutral-200 text-sm md:text-lg italic text-center mt-3">Want to discover more? Check out what's <Link className="text-[#C147E9]" to="/now-playing">currently playing</Link> or explore our collection <Link className="text-[#C147E9]" to='/explore'>here</Link>.</p>
             </div>
         </>
     );

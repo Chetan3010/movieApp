@@ -5,7 +5,7 @@ import { FaCalendar } from "react-icons/fa";
 import { FaCircleDot } from "react-icons/fa6";
 import { MdTheaterComedy } from "react-icons/md";
 import { getGenreNames } from "../../../utils/helper";
-import { apiEndpoints } from "../../../utils/constants";
+import { apiEndpoints, defaultConst } from "../../../utils/constants";
 import axios from "../../../utils/axios";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
@@ -15,7 +15,7 @@ const Caraousel = ({ trendingData, genres }) => {
     const intervalRef = useRef(null);
     const delayRef = useRef(null);
     const touchStartXRef = useRef(0);
-
+    
     const updateIndices = useCallback(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % trendingData.length);
     }, [trendingData.length]);
@@ -25,17 +25,13 @@ const Caraousel = ({ trendingData, genres }) => {
     const nextIndex =
         currentIndex === trendingData.length - 1 ? 0 : currentIndex + 1;
 
-    /**
-     * The `handleManualChange` function sets a new index, clears any existing interval and delay, and
-     * then restarts the interval after a 5-second delay.
-     */
     const handleManualChange = (newIndex) => {
         setCurrentIndex(newIndex);
         clearInterval(intervalRef.current);
         clearTimeout(delayRef.current);
         delayRef.current = setTimeout(() => {
             intervalRef.current = setInterval(updateIndices, 7000);
-        }, 5000); // 5 seconds delay before restarting the interval
+        }, 10000);
     };
 
     const handlePrevClick = () => {
@@ -121,7 +117,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                 <motion.img
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    src={`https://image.tmdb.org/t/p/original${trendingData[previousIndex]?.backdrop_path}`}
+                                    src={trendingData[previousIndex]?.backdrop_path ? `https://image.tmdb.org/t/p/original${trendingData[previousIndex]?.backdrop_path}` : defaultConst.wideImgPlaceholder}
                                     alt={`Slide`}
                                     className="prev object-cover object-right w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border-[1px] border-zinc-500"
                                 />
@@ -143,7 +139,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     key={trendingData[currentIndex].id}
-                                    src={`https://image.tmdb.org/t/p/original${trendingData[currentIndex]?.backdrop_path}`}
+                                    src={trendingData[currentIndex]?.backdrop_path ? `https://image.tmdb.org/t/p/original${trendingData[currentIndex]?.backdrop_path}` : defaultConst.wideImgPlaceholder}
                                     alt={`Slide`}
                                     className="current caraousel-mask object-cover w-full h-[18rem] sm:h-[28rem] md:h-[30rem]"
                                 />
@@ -223,7 +219,7 @@ const Caraousel = ({ trendingData, genres }) => {
                                 <motion.img
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    src={`https://image.tmdb.org/t/p/original${trendingData[nextIndex]?.backdrop_path}`}
+                                    src={trendingData[nextIndex]?.backdrop_path ? `https://image.tmdb.org/t/p/original${trendingData[nextIndex]?.backdrop_path}` : defaultConst.wideImgPlaceholder}
                                     alt={`Slide`}
                                     className="next object-cover object-left w-full h-[15rem] sm:h-[28rem] md:h-[30rem] rounded-md opacity-50 border border-zinc-500"
                                 />

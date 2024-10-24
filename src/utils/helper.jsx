@@ -37,7 +37,7 @@ export const getGenreNames = (genres, genreIds) => {
     );
 
     return (
-        <span className="flex justify-center items-center gap-1">
+        <span className="flex justify-center items-center gap-1 text-nowrap">
             {displayGenres.map((item, index) => {
                 const element =
                     index === displayGenres.length - 1 ? (
